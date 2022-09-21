@@ -21,7 +21,7 @@ function ActivityTopTile(props) {
               return (
                 <Grid item
                   lg={3}
-                  sm={4}
+                  sm={3}
                   xl={3}
                   xs={12} >
                   <Card sx={{
@@ -55,7 +55,7 @@ function ActivityTopTile(props) {
               return (
                 <Grid item
                 lg={3}
-                sm={4}
+                sm={3}
                 xl={3}
                 xs={12} >
                   <Card sx={{
@@ -90,7 +90,7 @@ function ActivityTopTile(props) {
               return (
                 <Grid item
                 lg={3}
-                sm={4}
+                sm={3}
                 xl={3}
                 xs={12} >
                   <Card sx={{
@@ -126,7 +126,7 @@ label={activityType} />
               return (
                 <Grid item
                 lg={3}
-                sm={4}
+                sm={3}
                 xl={3}
                 xs={12} >
                   <Card sx={{
@@ -158,7 +158,7 @@ label={activityType} />
                 return (
                   <Grid item
                   lg={3}
-                  sm={4}
+                  sm={3}
                   xl={3}
                   xs={12} >
                   <Card sx={{
@@ -193,7 +193,7 @@ label={activityType} />
                 return (
                   <Grid item
                   lg={3}
-                  sm={4}
+                  sm={3}
                   xl={3}
                   xs={12} >
                   <Card sx={{
