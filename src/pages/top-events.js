@@ -15,7 +15,7 @@ import LoadingSVG from '../components/loading/loadingSVG'
 
 const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
 
-=63const Events = (props) => {
+const Events = (props) => {
 
   const [topEvents, setTopEvents] = useState(false)
   const [loading, setLoading] = useState(false)
