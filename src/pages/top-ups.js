@@ -24,7 +24,6 @@ import { truncate } from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Divider from '@mui/material/Divider';
 
-
 const style = {
   width: '100%',
   maxWidth: 560,
@@ -33,7 +32,7 @@ const style = {
 
 const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
 
-const Events = (props) => {
+const TopUps = (props) => {
 
   const [topUps, setTopUps] = useState(false)
   const [integrators, setIntegrators] = useState(false)
@@ -88,7 +87,9 @@ const Events = (props) => {
           width: "100%"
         }}
       >
-        <Grid container spacing={2}>
+          <Grid container
+            spacing={2}
+          >
           <Grid item
             lg={8}
             md={12}
@@ -132,9 +133,10 @@ const Events = (props) => {
                       topUps.map(topUp => (
                         <TopUpDataLine
                           key={topUp.id}
-                          blockTimestamp={moment.unix(topUp.blockTimestamp).format("HH:mm : MM/DD/YY")}
+                          blockTimestamp={moment.unix(topUp.blockTimestamp).format("HH:mm : DD/MM/YY")}
                           blockNumber={topUp.blockNumber}    
                           intagrator={topUp.integrator.name}
+                          intagratorLink={`/integrator/${topUp.integrator.id}`}
                           getPrice={Number(topUp.price).toFixed(2)}
                           total={topUp.total}
                           totalUsd={Number(topUp.totalUsd).toFixed(2)}
@@ -159,7 +161,10 @@ const Events = (props) => {
                 title="Integrators"
                 />
 
-                <List sx={style} component="nav" aria-label="mailbox folders">
+                <List sx={style}
+                  component="nav"
+                  aria-label="mailbox folders"
+                >
                 <Divider />
                 {
                   integrators.map(integrator => (
@@ -197,7 +202,7 @@ const Events = (props) => {
   )
 }
 
-Events.getLayout = (page) => (
+TopUps.getLayout = (page) => (
   <>
   <Head>
     <title>
@@ -210,4 +215,4 @@ Events.getLayout = (page) => (
   </>
 );
 
-export default Events
+export default TopUps

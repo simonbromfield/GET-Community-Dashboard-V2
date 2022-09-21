@@ -5,7 +5,15 @@ import {
 } from '@mui/material'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Button from '@mui/material/Button';
-import moment from 'moment'
+
+const integratorBtnStyle = {
+  margin: 1,
+  backgroundColor: "none",
+  color: "#170742",
+  '&:hover': {
+    background: "none",
+  }
+};
 
 function TopUpDataLine(props) {
   const { key,
@@ -15,7 +23,8 @@ function TopUpDataLine(props) {
     getPrice,
     total,
     totalUsd,
-    txlink
+    txlink,
+    intagratorLink
   } = props;
   return (
     <>
@@ -28,7 +37,13 @@ function TopUpDataLine(props) {
         {blockNumber}
       </TableCell>
       <TableCell>
+      <Button
+        size="large"
+        href={intagratorLink}
+        sx={{integratorBtnStyle}}
+      >
         {intagrator}
+      </Button> 
       </TableCell>
       <TableCell>
         ${getPrice}
