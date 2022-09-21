@@ -34,9 +34,6 @@ function TopUpDataLine(props) {
         {blockTimestamp}
       </TableCell>
       <TableCell>
-        {blockNumber}
-      </TableCell>
-      <TableCell>
       <Button
         size="large"
         href={intagratorLink}

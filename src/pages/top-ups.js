@@ -109,9 +109,6 @@ const TopUps = (props) => {
                           Time / Date
                         </TableCell>
                         <TableCell>
-                          Block Number
-                        </TableCell>
-                        <TableCell>
                           Integrator
                         </TableCell>
                         <TableCell>
@@ -134,11 +131,10 @@ const TopUps = (props) => {
                         <TopUpDataLine
                           key={topUp.id}
                           blockTimestamp={moment.unix(topUp.blockTimestamp).format("HH:mm : DD/MM/YY")}
-                          blockNumber={topUp.blockNumber}    
                           intagrator={topUp.integrator.name}
                           intagratorLink={`/integrator/${topUp.integrator.id}`}
                           getPrice={Number(topUp.price).toFixed(2)}
-                          total={topUp.total}
+                          total={Number(topUp.total).toFixed(4)}
                           totalUsd={Number(topUp.totalUsd).toFixed(2)}
                           txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                         />
@@ -169,9 +165,7 @@ const TopUps = (props) => {
                 {
                   integrators.map(integrator => (
                     <>
-                      <ListItem
-                        button
-                      >
+                      <ListItem>
                         <ListItemButton component="a"
                           href={`/integrator/${integrator.id}`}>
                           <ListItemText
