@@ -9,7 +9,6 @@ import {
 import axios from 'axios'
 import Head from 'next/head'
 import TopEventCards from '../components/event/topEventCards'
-import moment from 'moment';
 
 import LoadingSVG from '../components/loading/loadingSVG'
 
