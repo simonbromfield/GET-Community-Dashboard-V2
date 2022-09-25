@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import ActivityDataLine from '../components/activity/activityDataLine'
 import ActivityTopTile from '../components/activity/activitytopTile'
+import ActivityTypeNav from '../components/activity/activityTypeNav'
 import LoadingSVG from '../components/loading/loadingSVG'
 import { truncate } from '../utils/helpers'
 import TableContainer from '@mui/material/TableContainer'
@@ -77,6 +78,7 @@ const RecentMints = (props) => {
 
   function displayRecentActivity() {
     return (<>
+      <ActivityTypeNav />
       < CardHeader
         title={latestUpdate}
       />
