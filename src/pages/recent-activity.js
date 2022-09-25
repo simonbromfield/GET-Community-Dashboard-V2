@@ -27,10 +27,9 @@ import { DashboardLayout } from '../components/dashboard-layout'
 const RecentMints = (props) => {
   const [recentUsage, setRecentUsageList] = useState(null)
   const [latestUpdate, setlatestUpdate] = useState(null)
-  const [activityType, setActivityType] = useState("SOLD")
+  const activityType = "SOLD"
 
   const [loading, setLoading] = useState(false)
-
 
   const recentUsageFunction = async (activityType) => {    
     try {
@@ -76,6 +75,7 @@ const RecentMints = (props) => {
     return (<>
       <ActivityTypeNav
         recentUsageFunction={recentUsageFunction}
+        setLoading={setLoading}
       />
       < CardHeader
         title={latestUpdate}

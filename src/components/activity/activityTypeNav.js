@@ -5,7 +5,8 @@ import Container from '@mui/material/Container';
 
 function ActivityTypeNav(props) {
   const {
-    recentUsageFunction
+    recentUsageFunction,
+    setLoading
   } = props;
 
   const soldStyle = {
@@ -34,6 +35,7 @@ function ActivityTypeNav(props) {
   };
 
   const handleClick = (activityType) => {
+    setLoading(false)
     recentUsageFunction(activityType)
   };
   
