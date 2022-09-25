@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import ActivityDataLine from '../components/activity/activityDataLine'
 import ActivityTopTile from '../components/activity/activitytopTile'
+import ActivityTypeNav from '../components/activity/activityTypeNav'
 import LoadingSVG from '../components/loading/loadingSVG'
 import { truncate } from '../utils/helpers'
 import TableContainer from '@mui/material/TableContainer'
@@ -26,16 +27,16 @@ import { DashboardLayout } from '../components/dashboard-layout'
 const RecentMints = (props) => {
   const [recentUsage, setRecentUsageList] = useState(null)
   const [latestUpdate, setlatestUpdate] = useState(null)
-  const [newestItem, setNewestItem] = useState(null)
+  const activityType = "SOLD"
+
   const [loading, setLoading] = useState(false)
 
-
-  const recentUsageFunction = async () => {
+  const recentUsageFunction = async (activityType) => {    
     try {
       await axios.post(getSubGraphURL, {
         query: `
         {
-          usageEvents(orderBy: blockTimestamp, orderDirection: desc, first: 100, where: { type_not: EVENT_CREATED  }) {
+          usageEvents(orderBy: blockTimestamp, orderDirection: desc, first: 100, where: { type: ${activityType} }) {
             blockTimestamp
             type
             nftId
@@ -58,7 +59,6 @@ const RecentMints = (props) => {
       ).then(res => {
         let currentDate = new Date()
         setRecentUsageList(res.data.data.usageEvents)
-        setNewestItem(res.data.data.usageEvents[[res.data.data.usageEvents.length - 1]].blockTimestamp)
         setlatestUpdate(`Recent Activity: updated ${Moment(currentDate).format("hh:mm:ss a")}.`)
       })
       setLoading(true)
@@ -68,15 +68,15 @@ const RecentMints = (props) => {
   }
 
   useEffect(() => {
-    recentUsageFunction()
-    const interval = setInterval(() => {
-      recentUsageFunction()
-    }, 50000);
-    return () => clearInterval(interval);
-  }, [])
+    recentUsageFunction(activityType)
+  }, [] )
 
   function displayRecentActivity() {
     return (<>
+      <ActivityTypeNav
+        recentUsageFunction={recentUsageFunction}
+        setLoading={setLoading}
+      />
       < CardHeader
         title={latestUpdate}
       />
@@ -127,7 +127,7 @@ const RecentMints = (props) => {
             </TableHead>
             <TableBody>
               {
-                recentUsage.slice(4).map(usage => (
+                recentUsage.map(usage => (
                   <ActivityDataLine
                     key={usage.nftId}
                     blockTimestamp={usage.blockTimestamp}
