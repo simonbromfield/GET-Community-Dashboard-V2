@@ -1,7 +1,6 @@
 import React from 'react'
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 
 function ActivityTypeNav(props) {
@@ -31,9 +30,14 @@ function ActivityTypeNav(props) {
     color: 'white'
   };
 
+  const handleClick = () => {
+    console.log('You clicked the Chip.');
+  };
+
+
   return (
     <>
-<Container maxWidth="">
+    <Container>
         <Grid container
           spacing={1}
           margin={1}
@@ -45,7 +49,9 @@ function ActivityTypeNav(props) {
             xs={4}
           >
             <Chip sx={soldStyle}
-              label="SOLD" />
+                label="SOLD"
+                onClick={handleClick}
+            />
           </Grid>
           <Grid item
             lg={2}
@@ -54,7 +60,9 @@ function ActivityTypeNav(props) {
             xs={4}
           >
             <Chip sx={resoldStyle}
-              label="RESOLD" />
+              label="RESOLD"
+              onClick={handleClick}
+              />
           </Grid>
           <Grid item
             lg={2}
@@ -63,7 +71,9 @@ function ActivityTypeNav(props) {
             xs={4}
           >
             <Chip sx={scannedStyle}
-              label="SCANNED" />
+              label="SCANNED"
+              onClick={handleClick}
+              />
           </Grid>
           <Grid item
             lg={2}
@@ -72,7 +82,9 @@ function ActivityTypeNav(props) {
             xs={4}
           >
             <Chip sx={invalidatedStyle}
-              label="INVALIDATED" />
+              label="INVALIDATED"
+              onClick={handleClick}
+              />
           </Grid>
           <Grid item
             lg={2}
@@ -81,7 +93,9 @@ function ActivityTypeNav(props) {
             xs={4}
           >
             <Chip sx={checkedInStyle}
-              label="CHECKED IN" />
+              label="CHECKED IN"
+              onClick={handleClick}
+              />
           </Grid>
           <Grid item
             lg={2}
@@ -90,7 +104,9 @@ function ActivityTypeNav(props) {
             xs={4}
           >
             <Chip sx={claimedStyle}
-              label="CLAIMED" />
+              label="CLAIMED"
+              onClick={handleClick}
+              />
           </Grid>
         </Grid>
     </Container>
