@@ -55,7 +55,7 @@ const TopUps = (props) => {
             blockTimestamp
             txHash
           }
-          integrators(where:{ isBillingEnabled: true }, orderBy: name) {
+          integrators(where:{ isBillingEnabled: true }, orderBy: availableFuel, orderDirection: desc) {
             id
             name
             availableFuel
