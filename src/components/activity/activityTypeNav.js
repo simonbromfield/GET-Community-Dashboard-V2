@@ -4,6 +4,9 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
 function ActivityTypeNav(props) {
+  const {
+    recentUsageFunction
+  } = props;
 
   const soldStyle = {
     backgroundColor: '#59C399',
@@ -30,11 +33,10 @@ function ActivityTypeNav(props) {
     color: 'white'
   };
 
-  const handleClick = () => {
-    console.log('You clicked the Chip.');
+  const handleClick = (activityType) => {
+    recentUsageFunction(activityType)
   };
-
-
+  
   return (
     <>
     <Container>
@@ -50,7 +52,7 @@ function ActivityTypeNav(props) {
           >
             <Chip sx={soldStyle}
                 label="SOLD"
-                onClick={handleClick}
+                onClick={() => handleClick("SOLD")}
             />
           </Grid>
           <Grid item
@@ -61,7 +63,7 @@ function ActivityTypeNav(props) {
           >
             <Chip sx={resoldStyle}
               label="RESOLD"
-              onClick={handleClick}
+              onClick={() => handleClick("RESOLD")}
               />
           </Grid>
           <Grid item
@@ -72,7 +74,7 @@ function ActivityTypeNav(props) {
           >
             <Chip sx={scannedStyle}
               label="SCANNED"
-              onClick={handleClick}
+              onClick={() => handleClick("SCANNED")}
               />
           </Grid>
           <Grid item
@@ -83,7 +85,7 @@ function ActivityTypeNav(props) {
           >
             <Chip sx={invalidatedStyle}
               label="INVALIDATED"
-              onClick={handleClick}
+              onClick={() => handleClick("INVALIDATED")}
               />
           </Grid>
           <Grid item
@@ -94,7 +96,7 @@ function ActivityTypeNav(props) {
           >
             <Chip sx={checkedInStyle}
               label="CHECKED IN"
-              onClick={handleClick}
+              onClick={() => handleClick("CHECKED_IN")}
               />
           </Grid>
           <Grid item
@@ -105,7 +107,7 @@ function ActivityTypeNav(props) {
           >
             <Chip sx={claimedStyle}
               label="CLAIMED"
-              onClick={handleClick}
+              onClick={() => handleClick("CLAIMED")}
               />
           </Grid>
         </Grid>
