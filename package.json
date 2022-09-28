@@ -65,6 +65,7 @@
     "urql": "^2.2.3",
     "uuid": "^8.3.0",
     "webpack": "^5.74.0",
+    "websocket": "^1.0.34",
     "yup": "^0.32.9"
   },
   "devDependencies": {

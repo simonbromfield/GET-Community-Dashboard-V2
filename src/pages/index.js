@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import LoadingSVG from '../components/loading/loadingSVG'
 import Head from 'next/head'
 import { Box, Container, Grid } from '@mui/material'
 import TotalTicketsSold from '../components/dashboard/totalTicketsSold'
@@ -6,18 +7,26 @@ import TokenTopUpsApp from '../components/dashboard/recentTopUps'
 import TokenPrice from '../components/dashboard/tokenPrice'
 import MarketCapApp from '../components/dashboard/marketCap'
 import { DashboardLayout } from '../components/dashboard-layout'
+let W3CWebSocket = require('websocket').w3cwebsocket;
 
-class Dashboard extends React.Component {
+const Index = (props) => {
+  const [indexData, setIndexData] = useState(false)
 
-  render() {
-    return (
-      <DashboardLayout>
-      <>
-      <Head>
-        <title>
-          Dashboard | GET Protocol Community
-        </title>
-      </Head>
+  useEffect(() => {
+    const client = new W3CWebSocket('ws://localhost:3001/index');
+    client.onopen = () => {
+      client.send("Index Page connected")
+    };
+    client.onmessage = (msg) => {
+      setIndexData(JSON.parse(msg.data))
+    };
+    client.onerror = function() {
+      console.log('Connection Error');
+    };
+  }, [])
+  
+  return (
+    <>
       <Box
         component="main"
         sx={{
@@ -36,7 +45,10 @@ class Dashboard extends React.Component {
             xl={3}
             xs={12} >
             
-            <TotalTicketsSold sx={{ height: '100%' }}  />
+              <TotalTicketsSold
+                sx={{ height: '100%' }}
+                indexData={indexData}
+              />
             
             </Grid>
             <Grid item
@@ -68,10 +80,21 @@ class Dashboard extends React.Component {
           </Grid>
         </Container>
       </Box>
-      </>
-      </DashboardLayout>
-    );
-  }
+    </>
+  )
 }
 
-export default Dashboard
+Index.getLayout = (page) => (
+  <>
+  <Head>
+    <title>
+      Dashboard | GET Protocol Community
+    </title>
+  </Head>
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+  </>
+);
+
+export default Index

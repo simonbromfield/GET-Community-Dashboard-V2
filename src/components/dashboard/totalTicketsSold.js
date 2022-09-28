@@ -12,36 +12,8 @@ import axios from 'axios'
 
 const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
 
-const TicketsSoldApp = () => {
-  const [ticketsSold, setTicketsSold] = useState(null)
-  const [events, setEvents] = useState(null)
-  const [loading, setLoading] = useState(false)
-
-  const ticketsSoldFunction = async () => {
-    try {
-      const data = await axios.post(getSubGraphURL, {
-        query: `
-                  {
-                    protocol(id: "1") {
-                      soldCount
-                      eventCount
-                    }
-                  }
-                `
-      }
-      ).then(res => {
-        setTicketsSold((Number(res.data.data.protocol.soldCount) + 640630).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))
-        setEvents((Number(res.data.data.protocol.eventCount) + 4470).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))
-      })
-      setLoading(true)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  useEffect(() => {
-    ticketsSoldFunction()
-  }, [])
+const TicketsSoldApp = (props) => {
+  let { indexData } = props;
 
   const displayTicketsSold = () => {
     return (<>
@@ -56,7 +28,7 @@ const TicketsSoldApp = () => {
         color="textPrimary"
         variant="h4"
       >
-        { ticketsSold }
+        { indexData.ticketsSold }
       </Typography>
                             
       <Divider sx={{
@@ -75,7 +47,7 @@ const TicketsSoldApp = () => {
         color="textPrimary"
         variant="h4"
       >
-        { events }
+        { indexData.eventCount }
       </Typography>
       </>
             
@@ -93,7 +65,7 @@ const TicketsSoldApp = () => {
             sx={{ justifyContent: 'space-between' }}
           >
             <Grid item>
-    { loading ? displayTicketsSold() :
+    { indexData ? displayTicketsSold() :
       <Box sx={{ display: 'flex' }}>
         <CircularProgress color="inherit" />
       </Box>
