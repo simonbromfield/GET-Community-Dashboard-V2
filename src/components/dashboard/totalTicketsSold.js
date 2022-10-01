@@ -13,7 +13,7 @@ import axios from 'axios'
 const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
 
 const TicketsSoldApp = (props) => {
-  let { indexData } = props;
+  let { protocolData } = props;
 
   const displayTicketsSold = () => {
     return (<>
@@ -28,7 +28,7 @@ const TicketsSoldApp = (props) => {
         color="textPrimary"
         variant="h4"
       >
-        { indexData.ticketsSold }
+        { protocolData.soldCount }
       </Typography>
                             
       <Divider sx={{
@@ -47,7 +47,7 @@ const TicketsSoldApp = (props) => {
         color="textPrimary"
         variant="h4"
       >
-        { indexData.eventCount }
+        { protocolData.eventCount }
       </Typography>
       </>
             
@@ -65,7 +65,7 @@ const TicketsSoldApp = (props) => {
             sx={{ justifyContent: 'space-between' }}
           >
             <Grid item>
-    { indexData ? displayTicketsSold() :
+    { protocolData ? displayTicketsSold() :
       <Box sx={{ display: 'flex' }}>
         <CircularProgress color="inherit" />
       </Box>

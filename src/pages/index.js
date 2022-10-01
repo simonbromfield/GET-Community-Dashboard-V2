@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Head from 'next/head'
-import { Box, Container, Grid } from '@mui/material'
+import {
+  Box,
+  Container,
+  Grid
+} from '@mui/material'
 import TotalTicketsSold from '../components/dashboard/totalTicketsSold'
 import TokenTopUpsApp from '../components/dashboard/recentTopUps'
 import TokenPrice from '../components/dashboard/tokenPrice'
@@ -10,15 +14,18 @@ import { DashboardLayout } from '../components/dashboard-layout'
 let W3CWebSocket = require('websocket').w3cwebsocket;
 
 const Index = (props) => {
-  const [indexData, setIndexData] = useState(false)
+  const [protocolData, setProtocolData] = useState(false)
+  const [protocolDays, setProtocolDays] = useState(false)
 
   useEffect(() => {
-    const client = new W3CWebSocket('ws://localhost:3001/index');
+    const client = new W3CWebSocket('ws://localhost:3001/');
     client.onopen = () => {
       client.send("Index Page connected")
     };
     client.onmessage = (msg) => {
-      setIndexData(JSON.parse(msg.data))
+      let pageData = JSON.parse(msg.data)
+      setProtocolData(pageData.protocol)
+      console.log(msg.data)
     };
     client.onerror = function() {
       console.log('Connection Error');
@@ -47,7 +54,7 @@ const Index = (props) => {
             
               <TotalTicketsSold
                 sx={{ height: '100%' }}
-                indexData={indexData}
+                protocolData={protocolData}
               />
             
             </Grid>
@@ -83,6 +90,7 @@ const Index = (props) => {
     </>
   )
 }
+
 
 Index.getLayout = (page) => (
   <>
