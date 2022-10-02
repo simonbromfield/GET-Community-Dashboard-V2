@@ -24,6 +24,7 @@ const DailyData = () => {
     };
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data)
+      console.log(pageData)
       setSoldCount(numberWithCommas(pageData.protocolDays[0].soldCount))
       setReservedFuel(Number(pageData.protocolDays[0].reservedFuel).toFixed(4))
       setSalesVolume(Number(pageData.protocolDays[0].totalSalesVolume).toFixed(2))

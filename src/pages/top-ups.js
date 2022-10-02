@@ -23,6 +23,7 @@ import TableContainer from '@mui/material/TableContainer'
 import { truncate } from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Divider from '@mui/material/Divider';
+let W3CWebSocket = require('websocket').w3cwebsocket;
 
 const style = {
   width: '100%',
@@ -30,51 +31,26 @@ const style = {
   bgcolor: 'background.paper',
 };
 
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
-
 const TopUps = (props) => {
 
   const [topUps, setTopUps] = useState(false)
   const [integrators, setIntegrators] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const getTopUps = async (name) => {
-    try {
-      await axios.post(getSubGraphURL, {
-        query: `{
-          topUpEvents(orderBy: blockTimestamp, orderDirection: desc, first: 15) {
-            id
-            integrator{
-              name
-              id
-            }
-            total
-            totalUsd
-            price
-            blockNumber
-            blockTimestamp
-            txHash
-          }
-          integrators(where:{ isBillingEnabled: true }, orderBy: availableFuel, orderDirection: desc) {
-            id
-            name
-            availableFuel
-          }
-        }`
-      }).then(res => {
-
-        setIntegrators(res.data.data.integrators)
-        setTopUps(res.data.data.topUpEvents)
-
-      })
-      setLoading(true)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
   useEffect(() => {
-    getTopUps()
+    const client = new W3CWebSocket('ws://localhost:3001/');
+    client.onopen = () => {
+      client.send("Index Page connected")
+    };
+    client.onmessage = (msg) => {
+      let pageData = JSON.parse(msg.data)
+      setIntegrators(pageData.integrators)
+      setTopUps(pageData.topUpEvents)
+      setLoading(true)
+    };
+    client.onerror = function() {
+      console.log('Connection Error');
+    };
   }, [])
 
   const displayTopUps = () => {
