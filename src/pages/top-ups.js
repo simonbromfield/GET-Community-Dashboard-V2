@@ -31,7 +31,6 @@ const style = {
 };
 
 const TopUps = (props) => {
-
   const [topUps, setTopUps] = useState(false)
   const [integrators, setIntegrators] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -46,6 +45,7 @@ const TopUps = (props) => {
       setIntegrators(pageData.integrators)
       setTopUps(pageData.topUpEvents)
       setLoading(true)
+
     };
     client.onerror = function() {
       console.log('Connection Error');

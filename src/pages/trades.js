@@ -19,7 +19,8 @@ const TradesTopUps = (props) => {
           width: "100%"
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container
+          spacing={2}>
           <Grid item
             lg={6}
             md={12}

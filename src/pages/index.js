@@ -4,18 +4,44 @@ import Head from 'next/head'
 import {
   Box,
   Container,
-  Grid
+  TableContainer,
+  Card,
+  Grid,
+  CardHeader,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableFooter,
+  List,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Button
 } from '@mui/material'
+import TopUpDataLine from '../components/topUps/topups'
 import TotalTicketsSold from '../components/dashboard/totalTicketsSold'
-import TokenTopUpsApp from '../components/dashboard/recentTopUps'
+import moment from 'moment'
 import TokenPrice from '../components/dashboard/tokenPrice'
 import MarketCapApp from '../components/dashboard/marketCap'
+import { truncate } from '../utils/helpers'
 import { DashboardLayout } from '../components/dashboard-layout'
 let W3CWebSocket = require('websocket').w3cwebsocket;
+
+const style = {
+  width: '100%',
+  maxWidth: 560,
+  bgcolor: 'background.paper',
+};
 
 const Index = (props) => {
   const [protocolData, setProtocolData] = useState(false)
   const [protocolDays, setProtocolDays] = useState(false)
+  const [topUps, setTopUps] = useState(false)
+  const [integrators, setIntegrators] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const client = new W3CWebSocket('ws://localhost:3001/');
@@ -24,69 +50,172 @@ const Index = (props) => {
     };
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data)
+      console.log(pageData)
       setProtocolData(pageData.protocol)
-      console.log(msg.data)
+      setIntegrators(pageData.integrators)
+      setTopUps(pageData.topUpEvents)
+      setLoading(true)
     };
     client.onerror = function() {
       console.log('Connection Error');
     };
   }, [])
-  
+
+  const displayIndexPage = () => {
+    return (
+      <>
+        {console.log(topUps)}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            py: 8
+          }}
+        >
+          <Container maxWidth={false}>
+            <Grid
+              container
+              spacing={3}
+            >
+              <Grid item
+                lg={4}
+                sm={6}
+                xl={3}
+                xs={12} >
+            
+                <TotalTicketsSold
+                  sx={{ height: '100%' }}
+                  protocolData={protocolData}
+                />
+            
+              </Grid>
+              <Grid item
+                xl={4}
+                lg={4}
+                sm={6}
+                xs={12} >
+
+              </Grid>
+              <Grid item
+                xl={4}
+                lg={4}
+                sm={6}
+                xs={12} >
+                  
+                <TokenPrice sx={{ height: '100%' }} />
+                <MarketCapApp sx={{ height: '100%' }} />
+                  
+              </Grid>
+              <Grid
+                item
+                lg={8}
+                xs={12}
+              >
+                <Card sx={{
+                  margin: 2
+                }}>
+                  <CardHeader
+                    title="Recent Integrator Top Ups"
+                  />
+                  <TableContainer>
+                    <Table >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            Time / Date
+                          </TableCell>
+                          <TableCell>
+                            Integrator
+                          </TableCell>
+                          <TableCell>
+                            GET Price
+                          </TableCell>
+                          <TableCell>
+                            GET Total
+                          </TableCell>
+                          <TableCell>
+                            Total $
+                          </TableCell>
+                          <TableCell>
+                            TX
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                         {
+                          topUps.slice(0, 5).map(topUp => (
+                            <TopUpDataLine
+                              key={topUp.id}
+                              blockTimestamp={moment.unix(topUp.blockTimestamp).format("HH:mm : DD/MM/YY")}
+                              intagrator={topUp.integrator.name}
+                              intagratorLink={`/integrator/${topUp.integrator.id}`}
+                              getPrice={Number(topUp.price).toFixed(2)}
+                              total={Number(topUp.total).toFixed(4)}
+                              totalUsd={Number(topUp.totalUsd).toFixed(2)}
+                              txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
+                            />
+                          ))
+                        }
+                      </TableBody>
+                      <TableFooter>
+                        <TableRow>
+                        <Button
+                            size="large"
+                            href="/top-ups/"
+                          >
+                            View more
+                          </Button>
+                        </TableRow>
+                      </TableFooter>
+                    </Table>
+                  </TableContainer>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                lg={4}
+                xs={12}
+              >
+                <Card sx={{
+                margin: 2
+              }}>
+              <CardHeader
+                title="Integrators"
+                />
+
+                <List sx={style}
+                  component="nav"
+                  aria-label="mailbox folders"
+                >
+                <Divider />
+                {
+                  integrators.map(integrator => (
+                    <>
+                        <ListItemButton component="a"
+                          href={`/integrator/${integrator.id}`}>
+                          <ListItemText
+                            primary={truncate(integrator.name, 25)}
+                          />
+                        </ListItemButton>
+                      <Divider />
+                    </>
+                  ))
+                }
+                </List>
+              </Card>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      </>
+    )
+  }
+
   return (
     <>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8
-        }}
-      >
-        <Container maxWidth={false}>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid item
-            lg={4}
-            sm={6}
-            xl={3}
-            xs={12} >
-            
-              <TotalTicketsSold
-                sx={{ height: '100%' }}
-                protocolData={protocolData}
-              />
-            
-            </Grid>
-            <Grid item
-              xl={4}
-              lg={4}
-              sm={6}
-                  xs={12} >
-
-            </Grid>
-            <Grid item
-              xl={4}
-              lg={4}
-              sm={6}
-              xs={12} >
-                  
-              <TokenPrice sx={{ height: '100%' }} />
-              <MarketCapApp sx={{ height: '100%' }} />
-                  
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={12}
-              xl={9}
-              xs={12}
-            >
-              <TokenTopUpsApp />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+        { loading ? displayIndexPage() :
+          <LoadingSVG />
+        }
     </>
   )
 }
