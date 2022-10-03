@@ -29,6 +29,7 @@ import MarketCapApp from '../components/dashboard/marketCap'
 import { truncate } from '../utils/helpers'
 import { DashboardLayout } from '../components/dashboard-layout'
 let W3CWebSocket = require('websocket').w3cwebsocket;
+import configData from "../utils/config.json"
 
 const style = {
   width: '100%',
@@ -44,7 +45,7 @@ const Index = (props) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
+    const client = new W3CWebSocket(configData.WS_URL);
     client.onopen = () => {
       client.send("Index Page connected")
     };

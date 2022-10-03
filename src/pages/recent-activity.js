@@ -20,8 +20,7 @@ import LoadingSVG from '../components/loading/loadingSVG'
 import { truncate } from '../utils/helpers'
 import TableContainer from '@mui/material/TableContainer'
 let W3CWebSocket = require('websocket').w3cwebsocket;
-
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
+import configData from "../utils/config.json"
 
 import { DashboardLayout } from '../components/dashboard-layout'
 
@@ -31,44 +30,8 @@ const RecentMints = (props) => {
 
   const [loading, setLoading] = useState(false)
 
-  // const recentUsageFunction = async (activityType) => {    
-  //   try {
-  //     await axios.post(getSubGraphURL, {
-  //       query: `
-  //       {
-  //         usageEvents(orderBy: blockTimestamp, orderDirection: desc, first: 100, where: { type: ${activityType} }) {
-  //           blockTimestamp
-  //           type
-  //           nftId
-  //           integrator{
-  //             id
-  //             name
-  //           }
-  //           event {
-  //             id
-  //             name
-  //             imageUrl
-  //           }
-  //           getUsed
-  //           getUsedProtocol
-  //           price
-  //         }
-  //       }
-  //               `
-  //     }
-  //     ).then(res => {
-  //       let currentDate = new Date()
-  //       setRecentUsageList(res.data.data.usageEvents)
-  //       setlatestUpdate(`Recent Activity: updated ${Moment(currentDate).format("hh:mm:ss a")}.`)
-  //     })
-  //     setLoading(true)
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
-
   useEffect(() => {
-    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
+    const client = new W3CWebSocket(configData.WS_URL);
     client.onopen = () => {
       client.send("Recent Activity Page connected")
     };

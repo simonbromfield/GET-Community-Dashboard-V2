@@ -23,6 +23,7 @@ import { truncate } from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Divider from '@mui/material/Divider';
 let W3CWebSocket = require('websocket').w3cwebsocket;
+import configData from "../utils/config.json"
 
 const style = {
   width: '100%',
@@ -36,7 +37,7 @@ const TopUps = (props) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
+    const client = new W3CWebSocket(configData.WS_URL);
     client.onopen = () => {
       client.send("Index Page connected")
     };
