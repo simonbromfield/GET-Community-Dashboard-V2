@@ -16,7 +16,7 @@ const Integrators = (props) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const client = new W3CWebSocket('ws://localhost:3001/');
+    const client = new W3CWebSocket('ws://serene-reaches-92565.herokuapp.com/');
     client.onopen = () => {
       client.send("Index Page connected")
     };
