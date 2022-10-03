@@ -68,7 +68,7 @@ const RecentMints = (props) => {
   // }
 
   useEffect(() => {
-    const client = new W3CWebSocket('ws://serene-reaches-92565.herokuapp.com/');
+    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
     client.onopen = () => {
       client.send("Recent Activity Page connected")
     };
