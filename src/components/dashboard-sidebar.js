@@ -23,6 +23,11 @@ const items = [
     title: 'Events'
   },
   {
+    href: '/integrators',
+    icon: (''),
+    title: 'Integrators'
+  },
+  {
     href: '/trades',
     icon: (''),
     title: 'Trades'

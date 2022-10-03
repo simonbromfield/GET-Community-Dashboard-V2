@@ -40,6 +40,7 @@
     "chart.js": "^3.9.1",
     "coingecko-api": "^1.0.10",
     "date-fns": "^2.25.0",
+    "dotenv": "^16.0.3",
     "formik": "^2.1.5",
     "history": "^5.0.0",
     "lodash": "^4.17.21",
@@ -65,6 +66,7 @@
     "urql": "^2.2.3",
     "uuid": "^8.3.0",
     "webpack": "^5.74.0",
+    "websocket": "^1.0.34",
     "yup": "^0.32.9"
   },
   "devDependencies": {

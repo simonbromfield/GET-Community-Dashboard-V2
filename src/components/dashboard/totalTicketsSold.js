@@ -8,100 +8,73 @@ import {
   Typography,
   Divider
 } from '@mui/material';
-import axios from 'axios'
+import {
+  totalTicketSales,
+  totalEvents,
+  fuelFormat
+} from '../../utils/helpers'
 
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
-
-const TicketsSoldApp = () => {
-  const [ticketsSold, setTicketsSold] = useState(null)
-  const [events, setEvents] = useState(null)
-  const [loading, setLoading] = useState(false)
-
-  const ticketsSoldFunction = async () => {
-    try {
-      const data = await axios.post(getSubGraphURL, {
-        query: `
-                  {
-                    protocol(id: "1") {
-                      soldCount
-                      eventCount
-                    }
-                  }
-                `
-      }
-      ).then(res => {
-        setTicketsSold((Number(res.data.data.protocol.soldCount) + 640630).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))
-        setEvents((Number(res.data.data.protocol.eventCount) + 4470).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))
-      })
-      setLoading(true)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  useEffect(() => {
-    ticketsSoldFunction()
-  }, [])
+const TicketsSoldApp = (props) => {
+  let { protocolData } = props;
 
   const displayTicketsSold = () => {
     return (<>
-      <Typography
-        color="textSecondary"
-        gutterBottom
-        variant="overline"
-      >
-        TOTAL TICKETS
-      </Typography>
-      <Typography
-        color="textPrimary"
-        variant="h4"
-      >
-        { ticketsSold }
-      </Typography>
-                            
-      <Divider sx={{
-        width: "100%",
-        margin: 3
-      }}/>
-
-      <Typography
-        color="textSecondary"
-        gutterBottom
-        variant="overline"
-      >
-        TOTAL EVENTS
-      </Typography>
-      <Typography
-        color="textPrimary"
-        variant="h4"
-      >
-        { events }
-      </Typography>
-      </>
-            
+      <Card>
+        <CardContent>
+          <Typography
+            color="textSecondary"
+          >
+            TOTAL TICKETS
+          </Typography>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            sx={{
+              marginBottom: 3 
+            }}
+          >
+            { totalTicketSales(protocolData.soldCount) }
+          </Typography>
+          
+          <Typography
+            color="textSecondary"
+          >
+            TOTAL EVENTS
+          </Typography>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            sx={{
+              marginBottom: 3 
+            }}
+          >
+            { totalEvents(protocolData.eventCount) }
+          </Typography>
+          
+          <Typography
+            color="textSecondary"
+          >
+            RESERVED FUEL
+          </Typography>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+          >
+            {fuelFormat(protocolData.reservedFuel)}
+          </Typography>
+          
+        </CardContent>
+      </Card>
+      </>   
     )
   }
 
   return <div>
-    <Card
-        sx={{ height: '100%' }}
-      >
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-            sx={{ justifyContent: 'space-between' }}
-          >
-            <Grid item>
-    { loading ? displayTicketsSold() :
+        { protocolData ? displayTicketsSold() :
       <Box sx={{ display: 'flex' }}>
         <CircularProgress color="inherit" />
       </Box>
     }
-    </Grid>
-    </Grid>
-  </CardContent>
-</Card>
   </div>
 }
 

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { DashboardLayout } from '../components/dashboard-layout';
 import EventsNavigation from '../components/event/eventsNavigation'
-import { Box, Container, Grid, Typography } from '@mui/material'
+import {
+  Box,
+  Container,
+  Grid,
+  Typography
+} from '@mui/material'
 import axios from 'axios'
 import Head from 'next/head'
 import EventCards from '../components/event/eventCards'
-import * as R from 'ramda'
 
 import LoadingSVG from '../components/loading/loadingSVG'
 

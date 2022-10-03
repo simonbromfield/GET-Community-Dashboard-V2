@@ -15,14 +15,18 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import axios from 'axios'
 import Head from 'next/head'
 import TopUpDataLine from '../components/topUps/topups'
 import moment from 'moment'
 import TableContainer from '@mui/material/TableContainer'
-import { truncate } from '../utils/helpers'
+import {
+  truncate,
+  numberWithCommas
+} from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Divider from '@mui/material/Divider';
+let W3CWebSocket = require('websocket').w3cwebsocket;
+import configData from "../utils/config.json"
 
 const style = {
   width: '100%',
@@ -30,51 +34,26 @@ const style = {
   bgcolor: 'background.paper',
 };
 
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
-
 const TopUps = (props) => {
-
   const [topUps, setTopUps] = useState(false)
   const [integrators, setIntegrators] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const getTopUps = async (name) => {
-    try {
-      await axios.post(getSubGraphURL, {
-        query: `{
-          topUpEvents(orderBy: blockTimestamp, orderDirection: desc, first: 15) {
-            id
-            integrator{
-              name
-              id
-            }
-            total
-            totalUsd
-            price
-            blockNumber
-            blockTimestamp
-            txHash
-          }
-          integrators(where:{ isBillingEnabled: true }, orderBy: availableFuel, orderDirection: desc) {
-            id
-            name
-            availableFuel
-          }
-        }`
-      }).then(res => {
-
-        setIntegrators(res.data.data.integrators)
-        setTopUps(res.data.data.topUpEvents)
-
-      })
-      setLoading(true)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
   useEffect(() => {
-    getTopUps()
+    const client = new W3CWebSocket(configData.WS_URL);
+    client.onopen = () => {
+      client.send("Index Page connected")
+    };
+    client.onmessage = (msg) => {
+      let pageData = JSON.parse(msg.data)
+      setIntegrators(pageData.integrators)
+      setTopUps(pageData.topUpEvents)
+      setLoading(true)
+
+    };
+    client.onerror = function() {
+      console.log('Connection Error');
+    };
   }, [])
 
   const displayTopUps = () => {
@@ -135,7 +114,7 @@ const TopUps = (props) => {
                           intagratorLink={`/integrator/${topUp.integrator.id}`}
                           getPrice={Number(topUp.price).toFixed(2)}
                           total={Number(topUp.total).toFixed(4)}
-                          totalUsd={Number(topUp.totalUsd).toFixed(2)}
+                          totalUsd={numberWithCommas(Number(topUp.totalUsd).toFixed(2))}
                           txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                         />
                       ))
@@ -165,15 +144,13 @@ const TopUps = (props) => {
                 {
                   integrators.map(integrator => (
                     <>
-                      <ListItem>
                         <ListItemButton component="a"
                           href={`/integrator/${integrator.id}`}>
                           <ListItemText
                             primary={truncate(integrator.name, 25)}
-                            secondary={`Available Fuel: ${Number(integrator.availableFuel).toFixed(4)}GET`}
+                            secondary={`Available Fuel: ${numberWithCommas(Number(integrator.availableFuel).toFixed(2))} GET`}
                           />
                         </ListItemButton>
-                      </ListItem>
                       <Divider />
                     </>
                   ))

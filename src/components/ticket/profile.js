@@ -7,7 +7,7 @@ import {
   CardMedia
 } from '@mui/material'
 import axios from 'axios'
-import { Margin } from '@mui/icons-material'
+import TicketTimeLine from './timeline'
 import LoadingSVG from '../loading/loadingSVG'
 
 const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
@@ -83,6 +83,9 @@ const TicketProfile = (props) => {
               <h5>{ticketData.event.name}</h5>
               <h5>Issued by {ticketData.integrator.name}</h5>
             </Card>
+            <TicketTimeLine
+            
+            />
           </Grid>
           <Grid item
             xs={6}>
