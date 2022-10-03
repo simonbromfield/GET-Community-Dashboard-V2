@@ -19,7 +19,10 @@ import Head from 'next/head'
 import TopUpDataLine from '../components/topUps/topups'
 import moment from 'moment'
 import TableContainer from '@mui/material/TableContainer'
-import { truncate } from '../utils/helpers'
+import {
+  truncate,
+  numberWithCommas
+} from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Divider from '@mui/material/Divider';
 let W3CWebSocket = require('websocket').w3cwebsocket;
@@ -111,7 +114,7 @@ const TopUps = (props) => {
                           intagratorLink={`/integrator/${topUp.integrator.id}`}
                           getPrice={Number(topUp.price).toFixed(2)}
                           total={Number(topUp.total).toFixed(4)}
-                          totalUsd={Number(topUp.totalUsd).toFixed(2)}
+                          totalUsd={numberWithCommas(Number(topUp.totalUsd).toFixed(2))}
                           txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                         />
                       ))
@@ -141,15 +144,13 @@ const TopUps = (props) => {
                 {
                   integrators.map(integrator => (
                     <>
-                      <ListItem>
                         <ListItemButton component="a"
                           href={`/integrator/${integrator.id}`}>
                           <ListItemText
                             primary={truncate(integrator.name, 25)}
-                            secondary={`Available Fuel: ${Number(integrator.availableFuel).toFixed(4)}GET`}
+                            secondary={`Available Fuel: ${numberWithCommas(Number(integrator.availableFuel).toFixed(2))} GET`}
                           />
                         </ListItemButton>
-                      </ListItem>
                       <Divider />
                     </>
                   ))
