@@ -37,11 +37,14 @@ const TokenDataApp = () => {
     return (
       <>
        <Typography color="textPrimary"
-variant="h4" >
+variant="h5" >
         ${ tokenPriceUSD }
       </Typography>
-      <Typography color="textPrimary"
-variant="p" >
+        <Typography
+          color="textPrimary"
+          variant="p"
+          
+        >
          €{ tokenPriceEUR }
       </Typography>
       </>    
@@ -49,32 +52,16 @@ variant="p" >
   }
 
   return <div>
-    <Card
-        sx={{ height: '100%' }}
-      >
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-            sx={{ justifyContent: 'space-between' }}
-          >
-            <Grid item>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="overline"
+            <Typography
+              color="textSecondary"
               >
-                Token Price
+                TOKEN PRICE
               </Typography>
-    { loading ? displayTokenPrice() :
-      <Box sx={{ display: 'flex' }}>
-        <CircularProgress color="inherit" />
-      </Box>
-    }
-    </Grid>
-    </Grid>
-  </CardContent>
-</Card>
+              { loading ? displayTokenPrice() :
+                <Box sx={{ display: 'flex' }}>
+                  <CircularProgress color="inherit" />
+                </Box>
+              }
   </div>
 }
 

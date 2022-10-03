@@ -8,72 +8,73 @@ import {
   Typography,
   Divider
 } from '@mui/material';
-import axios from 'axios'
-
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
+import {
+  totalTicketSales,
+  totalEvents,
+  fuelFormat
+} from '../../utils/helpers'
 
 const TicketsSoldApp = (props) => {
   let { protocolData } = props;
 
   const displayTicketsSold = () => {
     return (<>
-      <Typography
-        color="textSecondary"
-        gutterBottom
-        variant="overline"
-      >
-        TOTAL TICKETS
-      </Typography>
-      <Typography
-        color="textPrimary"
-        variant="h4"
-      >
-        { protocolData.soldCount }
-      </Typography>
-                            
-      <Divider sx={{
-        width: "100%",
-        margin: 3
-      }}/>
-
-      <Typography
-        color="textSecondary"
-        gutterBottom
-        variant="overline"
-      >
-        TOTAL EVENTS
-      </Typography>
-      <Typography
-        color="textPrimary"
-        variant="h4"
-      >
-        { protocolData.eventCount }
-      </Typography>
-      </>
-            
+      <Card>
+        <CardContent>
+          <Typography
+            color="textSecondary"
+          >
+            TOTAL TICKETS
+          </Typography>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            sx={{
+              marginBottom: 3 
+            }}
+          >
+            { totalTicketSales(protocolData.soldCount) }
+          </Typography>
+          
+          <Typography
+            color="textSecondary"
+          >
+            TOTAL EVENTS
+          </Typography>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            sx={{
+              marginBottom: 3 
+            }}
+          >
+            { totalEvents(protocolData.eventCount) }
+          </Typography>
+          
+          <Typography
+            color="textSecondary"
+          >
+            RESERVED FUEL
+          </Typography>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+          >
+            {fuelFormat(protocolData.reservedFuel)}
+          </Typography>
+          
+        </CardContent>
+      </Card>
+      </>   
     )
   }
 
   return <div>
-    <Card
-        sx={{ height: '100%' }}
-      >
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-            sx={{ justifyContent: 'space-between' }}
-          >
-            <Grid item>
-    { protocolData ? displayTicketsSold() :
+        { protocolData ? displayTicketsSold() :
       <Box sx={{ display: 'flex' }}>
         <CircularProgress color="inherit" />
       </Box>
     }
-    </Grid>
-    </Grid>
-  </CardContent>
-</Card>
   </div>
 }
 

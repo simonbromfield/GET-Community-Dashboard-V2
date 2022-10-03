@@ -23,3 +23,23 @@ export function truncate(str, n, useWordBoundary) {
     ? subString.substr(0, subString.lastIndexOf(' '))
     : subString) + ' ...'
 }
+
+// add tickets sold prev to POLY
+export function totalTicketSales(x) {
+  let total = Number(Number(x) + 640630).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return total
+}
+
+// add events prev to POLY
+export function totalEvents(x) {
+  let total = Number(Number(x) + 4470).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return total
+}
+
+// format Fuel number
+export function fuelFormat(x) {
+  let total = `${Number(x).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} GET`
+  return total
+}
+
+

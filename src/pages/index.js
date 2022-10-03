@@ -16,10 +16,10 @@ import {
   TableFooter,
   List,
   Divider,
-  ListItem,
   ListItemButton,
   ListItemText,
-  Button
+  Button,
+  CardContent
 } from '@mui/material'
 import TopUpDataLine from '../components/topUps/topups'
 import TotalTicketsSold from '../components/dashboard/totalTicketsSold'
@@ -79,10 +79,9 @@ const Index = (props) => {
               spacing={3}
             >
               <Grid item
-                lg={4}
-                sm={6}
-                xl={3}
-                xs={12} >
+                lg={3}
+                sm={12}
+                xs={12}>
             
                 <TotalTicketsSold
                   sx={{ height: '100%' }}
@@ -91,21 +90,34 @@ const Index = (props) => {
             
               </Grid>
               <Grid item
-                xl={4}
-                lg={4}
-                sm={6}
-                xs={12} >
-
+                lg={5}
+                sm={12}
+                xs={12}>
+                <Card
+                  sx={{
+                    height: '100%',
+                    marginBottom: 2
+                  }}
+                >
+                  <h3>Chart</h3>
+      </Card>
               </Grid>
               <Grid item
-                xl={4}
                 lg={4}
-                sm={6}
-                xs={12} >
-                  
-                <TokenPrice sx={{ height: '100%' }} />
-                <MarketCapApp sx={{ height: '100%' }} />
-                  
+                sm={12}
+                xs={12}
+              >
+                <Card
+                sx={{
+                  height: '100%',
+                  marginBottom: 2
+                  }}
+                >
+                  <CardContent>
+                    <TokenPrice sx={{ height: '100%' }} />
+                    <MarketCapApp sx={{ height: '100%' }} />
+                  </CardContent>
+                </Card>     
               </Grid>
               <Grid
                 item

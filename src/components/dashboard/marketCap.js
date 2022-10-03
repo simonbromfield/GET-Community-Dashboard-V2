@@ -31,7 +31,7 @@ const MarketCapApp = () => {
     return (
       <>
        <Typography color="textPrimary"
-variant="h4" >
+variant="h5" >
         ${ marketCapUSD }
       </Typography>
       <Typography color="textPrimary"
@@ -43,32 +43,19 @@ variant="p" >
   }
 
   return <div>
-    <Card
-        sx={{ height: '100%' }}
-      >
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-            sx={{ justifyContent: 'space-between' }}
-          >
-            <Grid item>
               <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="overline"
+              color="textSecondary"
+              sx={{
+                marginTop: 3 
+              }}
               >
-                Market Cap
+                MARKET CAP
               </Typography>
     { loading ? displayMarketCap() :
       <Box sx={{ display: 'flex' }}>
         <CircularProgress color="inherit" />
       </Box>
     }
-    </Grid>
-    </Grid>
-  </CardContent>
-</Card>
   </div>
 }
 
