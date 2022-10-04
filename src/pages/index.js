@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Head from 'next/head'
+import LineGraph from '../components/dashboard/line'
+
 import {
   Box,
   Container,
@@ -55,6 +57,7 @@ const Index = (props) => {
       setProtocolData(pageData.protocol)
       setIntegrators(pageData.integrators)
       setTopUps(pageData.topUpEvents)
+      setProtocolDays(pageData.protocolDays)
       setLoading(true)
     };
     client.onerror = function() {
@@ -90,7 +93,7 @@ const Index = (props) => {
             
               </Grid>
               <Grid item
-                lg={5}
+                lg={6}
                 sm={12}
                 xs={12}>
                 <Card
@@ -99,11 +102,13 @@ const Index = (props) => {
                     marginBottom: 2
                   }}
                 >
-                  <h3>Chart</h3>
-      </Card>
+                  <LineGraph
+                    protocolDays={protocolDays}
+                  />
+              </Card>
               </Grid>
               <Grid item
-                lg={4}
+                lg={3}
                 sm={12}
                 xs={12}
               >
