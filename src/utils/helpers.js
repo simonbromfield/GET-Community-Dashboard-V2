@@ -42,4 +42,16 @@ export function fuelFormat(x) {
   return total
 }
 
+// turn protocolDay into a date string
+export function protocolDayToDate(x) {
+  const protocolStarted = new Date("June 22, 2021");
+  var daySinceStart = (x - 18800) 
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+  return addDays(protocolStarted, daySinceStart).toLocaleDateString('en-UK', { day: 'numeric', month:"short"})
+}
+
 

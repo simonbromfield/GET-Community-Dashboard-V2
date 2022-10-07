@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Head from 'next/head'
+import LineGraph from '../components/dashboard/line'
+import ActivityTopTile from '../components/activity/activitytopTile'
 import {
   Box,
   Container,
@@ -19,7 +21,7 @@ import {
   ListItemButton,
   ListItemText,
   Button,
-  CardContent
+  CardContent,
 } from '@mui/material'
 import TopUpDataLine from '../components/topUps/topups'
 import TotalTicketsSold from '../components/dashboard/totalTicketsSold'
@@ -42,6 +44,7 @@ const Index = (props) => {
   const [protocolDays, setProtocolDays] = useState(false)
   const [topUps, setTopUps] = useState(false)
   const [integrators, setIntegrators] = useState(false)
+  const [recentUsage, setRecentUsageList] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -51,10 +54,11 @@ const Index = (props) => {
     };
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data)
-      console.log(pageData)
       setProtocolData(pageData.protocol)
       setIntegrators(pageData.integrators)
       setTopUps(pageData.topUpEvents)
+      setProtocolDays(pageData.protocolDays)
+      setRecentUsageList(pageData.usageEvents)
       setLoading(true)
     };
     client.onerror = function() {
@@ -90,7 +94,7 @@ const Index = (props) => {
             
               </Grid>
               <Grid item
-                lg={5}
+                lg={6}
                 sm={12}
                 xs={12}>
                 <Card
@@ -99,11 +103,13 @@ const Index = (props) => {
                     marginBottom: 2
                   }}
                 >
-                  <h3>Chart</h3>
-      </Card>
+                  <LineGraph
+                    protocolDays={protocolDays}
+                  />
+              </Card>
               </Grid>
               <Grid item
-                lg={4}
+                lg={3}
                 sm={12}
                 xs={12}
               >
@@ -119,6 +125,40 @@ const Index = (props) => {
                   </CardContent>
                 </Card>     
               </Grid>
+
+                  
+              <Grid container
+                spacing={2}
+                margin={2}
+              >
+                {
+                  recentUsage.slice(0, 4).map(usage => (
+                    <ActivityTopTile
+                      key={usage.nftId}
+                      blockTimestamp={usage.blockTimestamp}
+                      eventName={truncate(usage.event.name, 10)}
+                      integrator={usage.integrator.name}
+                      getUsed={usage.getUsed}
+                      activityType={usage.type}
+                      price={usage.price}
+                      imageUrl={usage.event.imageUrl}
+                    />
+                  ))
+                }
+                <Grid item
+                lg={3}
+                sm={12}
+                xs={12}
+                >
+                  <Button
+                    variant="contained"
+                    href='/recent-activity'
+                  >
+                    Recent Activity
+                  </Button>
+              </Grid>
+            </Grid>
+
               <Grid
                 item
                 lg={8}

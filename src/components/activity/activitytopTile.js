@@ -23,7 +23,7 @@ function ActivityTopTile(props) {
                   lg={3}
                   sm={3}
                   xl={3}
-                  xs={12} >
+                  xs={6} >
                   <Card sx={{
                     height: '100%',
                     border: '5px solid #59C399',
@@ -57,7 +57,7 @@ function ActivityTopTile(props) {
                 lg={3}
                 sm={3}
                 xl={3}
-                xs={12} >
+                xs={6} >
                   <Card sx={{
                     height: '100%',
                     border: '5px solid #CA60A1',
@@ -92,7 +92,7 @@ function ActivityTopTile(props) {
                 lg={3}
                 sm={3}
                 xl={3}
-                xs={12} >
+                xs={6} >
                   <Card sx={{
                     height: '100%',
                     border: '5px solid #E8A845',
@@ -128,7 +128,7 @@ label={activityType} />
                 lg={3}
                 sm={3}
                 xl={3}
-                xs={12} >
+                xs={6} >
                   <Card sx={{
                     border: '5px solid #EC5F58',
                     background: '#EC5F58',
@@ -160,7 +160,7 @@ label={activityType} />
                   lg={3}
                   sm={3}
                   xl={3}
-                  xs={12} >
+                  xs={6} >
                   <Card sx={{
                       border: '5px solid #325FEB',
                     height: '100%'
@@ -195,7 +195,7 @@ label={activityType} />
                   lg={3}
                   sm={3}
                   xl={3}
-                  xs={12} >
+                  xs={6} >
                   <Card sx={{
                     border: '5px solid #6EB7E4',
                     padding: 2
