@@ -54,7 +54,6 @@ const Index = (props) => {
     };
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data)
-      console.log(pageData)
       setProtocolData(pageData.protocol)
       setIntegrators(pageData.integrators)
       setTopUps(pageData.topUpEvents)
