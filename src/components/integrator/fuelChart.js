@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react"
+import CircularProgress from '@mui/material/CircularProgress';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Pie } from 'react-chartjs-2';
 import {
@@ -9,7 +10,7 @@ import {
 } from '@mui/material';
 import { protocolDayToDate } from '../../utils/helpers'
 
-const TicketsSoldApp = (props) => {
+const FuelChart = (props) => {
   let { data, title } = props
 
   const [chartData, setChartData] = useState({
@@ -19,14 +20,14 @@ const TicketsSoldApp = (props) => {
         'Available'
       ],
       datasets: [{
-        label: 'My First Dataset',
+        label: 'Fuel',
         data: [data.reservedFuel, data.spentFuel, data.availableFuel],
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)'
+          '#543BD1',
+          '#15083F',
+          '#77B094'
         ],
-        hoverOffset: 4
+        hoverOffset: 3
       }]
   })
 
@@ -53,4 +54,4 @@ const TicketsSoldApp = (props) => {
         </div>
 }
 
-export default TicketsSoldApp
+export default FuelChart

@@ -12,19 +12,26 @@ import FuelChart from '../integrator/fuelChart'
 import IntegratorTopUp from './integratorTopUp'
 let W3CWebSocket = require('websocket').w3cwebsocket;
 import configData from "../../utils/config.json"
+import LoadingSVG from '../loading/loadingSVG'
+import NotFound from './notFound'
 
 const Profile = (props) => {
   const { id } = props;
   const [profileData, setProfileData] = useState(false)
+  const [found, setFound] = useState(true)
   
   useEffect(() => {
     const client = new W3CWebSocket(configData.WS_URL);
     client.onopen = () => {
       client.send("Index Page connected")
     };
-    client.onmessage = (msg) => {
-      let pageData = JSON.parse(msg.data)
+    client.onmessage = async (msg) => {
+      let pageData = await JSON.parse(msg.data)
       setProfileData(pageData.integrators.find(x => x.id === id))
+      if (!profileData) {
+        setFound(false)
+        console.log(found)
+      }
     };
     client.onerror = function() {
       console.log('Connection Error');
@@ -53,7 +60,7 @@ const Profile = (props) => {
               }}
             >
             <FuelChart
-              title={"Fuel"}
+              title={`${profileData.name}'s Fuel`}
               data={profileData}
             />
             </Card>
@@ -78,7 +85,11 @@ const Profile = (props) => {
           </Grid>
         </Grid>
       </Container>
-      : null}
+      :
+      found ? 
+        <LoadingSVG />
+        :
+        <NotFound />}
   </>
   )
 }
