@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react' 
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import axios from 'axios'
 import { Container } from '@mui/system';
 import { numberWithCommas } from '../../utils/helpers'
 let W3CWebSocket = require('websocket').w3cwebsocket;
@@ -23,8 +22,8 @@ const DailyData = () => {
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data)
       setSoldCount(numberWithCommas(pageData.protocolDays[0].soldCount))
-      setReservedFuel(Number(pageData.protocolDays[0].reservedFuel).toFixed(4))
-      setSalesVolume(Number(pageData.protocolDays[0].totalSalesVolume).toFixed(2))
+      setReservedFuel(numberWithCommas(Number(pageData.protocolDays[0].reservedFuel).toFixed(2)))
+      setSalesVolume(numberWithCommas(Number(pageData.protocolDays[0].totalSalesVolume).toFixed(2)))
       setEventCount(Number(pageData.protocolDays[0].eventCount))
       setLoading(true)
     };
@@ -37,8 +36,8 @@ const DailyData = () => {
     return (
       <>
         <p sx={{
-          padding: 2
-        }}>TODAY: {soldCountItem} tickets sold | {reservedFuel} GET used | {eventCount} events created | ${salesVolume} sales volume  </p>
+          margin: 2
+        }}><b>TODAY:</b> {soldCountItem} tickets sold | {reservedFuel} GET used | {eventCount} events created | ${salesVolume} sales volume  </p>
       </>
     )
   }
