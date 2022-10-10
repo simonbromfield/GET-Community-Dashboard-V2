@@ -2,18 +2,18 @@ import {
   Box,
   Card,
   CardContent,
-  Typography
+  Typography,
+  CardHeader
 } from '@mui/material';
+import { numberWithCommas } from '../../utils/helpers'
+
 
 function AccountProfile(props) {
-  const {
-    profileName,
-    eventCount,
-    availableFuel
-  } = props;
+  const { profileData } = props;
 
   return (
     <Card>
+      <CardHeader title={`${profileData.eventCount} events`} />
       <CardContent>
         <Box
           sx={{
@@ -26,13 +26,13 @@ function AccountProfile(props) {
             color="textSecondary"
             variant="h4"
           >
-            {`${eventCount} events`}
+            {`${profileData.eventCount} events`}
           </Typography>
           <Typography
             color="textSecondary"
             variant="h7"
           >
-            {availableFuel} $GET Available
+            {numberWithCommas(Number(profileData.availableFuel).toFixed(2))} $GET Available
           </Typography>
         </Box>
       </CardContent>

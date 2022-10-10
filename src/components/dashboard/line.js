@@ -18,8 +18,7 @@ const TicketsSoldApp = (props) => {
   protocolDays.map(x => (reSold.push(x.resoldCount)))
   let scanned = []
   protocolDays.map(x => (scanned.push(x.scannedCount)))
-  let claimed = []
-  protocolDays.map(x => (claimed.push(x.claimedCount)))
+  
   let days = []
   protocolDays.map(x => (days.push(protocolDayToDate(x.day))))
   
@@ -46,13 +45,6 @@ const TicketsSoldApp = (props) => {
       borderColor: "#E8A845",
       backgroundColor: "#E8A845",
       tension: 0.2
-    },{
-      label: 'CLAIMED',
-      data: claimed.reverse(),
-      fill: false,
-      borderColor: "#6EB7E4",
-      backgroundColor: "#6EB7E4",
-      tension: 0.1
     }]
   })
 

@@ -131,10 +131,11 @@ const Index = (props) => {
                 spacing={2}
                 margin={2}
               >
-                {
+                {/* {
                   recentUsage.slice(0, 4).map(usage => (
+                    <>
                     <ActivityTopTile
-                      key={usage.nftId}
+                      key={recentUsage.length-1}
                       blockTimestamp={usage.blockTimestamp}
                       eventName={truncate(usage.event.name, 10)}
                       integrator={usage.integrator.name}
@@ -143,8 +144,9 @@ const Index = (props) => {
                       price={usage.price}
                       imageUrl={usage.event.imageUrl}
                     />
+                  </>
                   ))
-                }
+                } */}
                 <Grid item
                 lg={3}
                 sm={12}
@@ -195,7 +197,7 @@ const Index = (props) => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                         {
+                         {/* {
                           topUps.slice(0, 5).map(topUp => (
                             <TopUpDataLine
                               key={topUp.id}
@@ -208,7 +210,7 @@ const Index = (props) => {
                               txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                             />
                           ))
-                        }
+                        } */}
                       </TableBody>
                       <TableFooter>
                         <TableRow>
@@ -241,7 +243,7 @@ const Index = (props) => {
                   aria-label="mailbox folders"
                 >
                 <Divider />
-                {
+                {/* {
                   integrators.map(integrator => (
                     <>
                         <ListItemButton component="a"
@@ -253,7 +255,7 @@ const Index = (props) => {
                       <Divider />
                     </>
                   ))
-                }
+                } */}
                 </List>
               </Card>
               </Grid>
