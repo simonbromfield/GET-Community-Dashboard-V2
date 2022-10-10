@@ -28,7 +28,7 @@ class Trending extends React.Component {
       <>
       <Head>
         <title>
-          Events | GET Protocol Community
+          Integrator Profile | GET Protocol Community
         </title>
       </Head>
       <Post />

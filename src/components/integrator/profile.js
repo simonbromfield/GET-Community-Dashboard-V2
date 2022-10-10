@@ -2,82 +2,94 @@ import React, { useEffect, useState } from 'react'
 import {
   Container,
   Grid,
-  Typography
+  Typography,
+  Card,
+  CardHeader
 } from '@mui/material'
 import AccountProfile from './account-profile';
+import LineGraph from '../dashboard/line'
+import FuelChart from '../integrator/fuelChart'
 import IntegratorTopUp from './integratorTopUp'
-
-import axios from 'axios'
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
+let W3CWebSocket = require('websocket').w3cwebsocket;
+import configData from "../../utils/config.json"
+import LoadingSVG from '../loading/loadingSVG'
+import NotFound from './notFound'
 
 const Profile = (props) => {
   const { id } = props;
-  const [loading, setLoading] = useState(false)
   const [profileData, setProfileData] = useState(false)
-  const getProfileData = async (props) => {
-    try {
-      const data = await axios.post(getSubGraphURL, {
-        query: `{
-          integrators(where: {id: ${id}}){
-            name
-            availableFuel
-            eventCount
-          }
-          topUpEvents(orderBy: blockTimestamp, orderDirection: desc, where: {integratorIndex: "${id}"}) {
-            integratorIndex
-            integrator{
-              name
-            }
-            total
-            totalUsd
-            price
-            blockTimestamp
-          }
-          integratorDays(
-            orderBy: day
-            orderDirection: desc
-            first: 30
-            where: {integrator: "${id}"}
-          ) {
-            day
-            soldCount
-          }
-        }                  
-        `
-      }
-      ).then(res => {
-        setProfileData(res.data.data.integrators[0])
-        console.log(res)
-      })
-      setLoading(true)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
+  const [found, setFound] = useState(true)
+  
   useEffect(() => {
-    getProfileData()
+    const client = new W3CWebSocket(configData.WS_URL);
+    client.onopen = () => {
+      client.send("Index Page connected")
+    };
+    client.onmessage = async (msg) => {
+      let pageData = await JSON.parse(msg.data)
+      setProfileData(pageData.integrators.find(x => x.id === id))
+      if (!profileData) {
+        setFound(false)
+        console.log(found)
+      }
+    };
+    client.onerror = function() {
+      console.log('Connection Error');
+    };
+
   }, [])
 
   return (<>
-    <Container maxWidth={false}>
-      <Typography
-        sx={{ mb: 3 }}
-        variant="h4"
+    {profileData ?
+      <Container maxWidth={false}>
+        <Typography
+          sx={{ mb: 3 }}
+          variant="h4"
         >
           {profileData.name}
-      </Typography>
-          <Grid container spacing={3} >
-        <Grid item lg={6} sm={12} xl={6} xs={12} >
-          <AccountProfile 
-            eventCount={profileData.eventCount}
-            availableFuel={profileData.availableFuel}
-          />
+        </Typography>
+        <Grid container
+          spacing={3} >
+          <Grid item
+            lg={4}
+            sm={12} >
+            <Card
+              sx={{
+                height: '100%',
+                marginBottom: 2
+              }}
+            >
+            <FuelChart
+              title={`${profileData.name}'s Fuel`}
+              data={profileData}
+            />
+            </Card>
+          </Grid>
+          <Grid item
+            lg={8}
+            sm={12} >
+            <Card
+              sx={{
+                height: '100%',
+                marginBottom: 2
+              }}
+            >
+              <CardHeader
+                title="Recent Activity">
+              </CardHeader>
+              <LineGraph
+                protocolDays={profileData.integratorDays}
+              />
+            </Card>
+           
+          </Grid>
         </Grid>
-        <Grid item lg={6} sm={12} xl={6} xs={12} >
-        </Grid>
-        </Grid>
-  </Container>
+      </Container>
+      :
+      found ? 
+        <LoadingSVG />
+        :
+        <NotFound />}
   </>
   )
 }

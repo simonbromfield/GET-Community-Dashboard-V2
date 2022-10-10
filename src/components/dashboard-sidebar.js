@@ -91,14 +91,12 @@ export const DashboardSidebar = (props) => {
               href="/"
               passHref
             >
-              <a>
               <Image
                   src="/static/images/logo.svg"
                   alt="Picture of the author"
                   width={300}
                   height={100}
                 />
-              </a>
             </NextLink>
           </Box>
         </div>
