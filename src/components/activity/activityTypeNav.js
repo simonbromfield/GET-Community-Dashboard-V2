@@ -29,10 +29,6 @@ function ActivityTypeNav(props) {
     backgroundColor: '#325FEB',
     color: 'white'
   };
-  const claimedStyle = {
-    backgroundColor: '#6EB7E4',
-    color: 'white'
-  };
 
   const handleClick = (activityType) => {
     setLoading(false)
@@ -46,6 +42,17 @@ function ActivityTypeNav(props) {
           spacing={1}
           margin={1}
         >
+          <Grid item
+            lg={2}
+            sm={4}
+            xl={2}
+            xs={4}
+          >
+            <Chip 
+              label="ALL"
+              onClick={() => handleClick()}
+              />
+          </Grid>
           <Grid item
             lg={2}
             sm={4}
@@ -99,17 +106,6 @@ function ActivityTypeNav(props) {
             <Chip sx={checkedInStyle}
               label="CHECKED IN"
               onClick={() => handleClick("CHECKED_IN")}
-              />
-          </Grid>
-          <Grid item
-            lg={2}
-            sm={4}
-            xl={2}
-            xs={4}
-          >
-            <Chip sx={claimedStyle}
-              label="CLAIMED"
-              onClick={() => handleClick("CLAIMED")}
               />
           </Grid>
         </Grid>
