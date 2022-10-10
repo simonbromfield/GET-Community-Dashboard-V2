@@ -54,13 +54,13 @@ const TicketsSoldApp = (props) => {
           <Typography
             color="textSecondary"
           >
-            RESERVED FUEL
+            SPENT FUEL
           </Typography>
           <Typography
             color="textPrimary"
             variant="h5"
           >
-            {fuelFormat(protocolData.reservedFuel)}
+            {fuelFormat(protocolData.collectedSpentFuel)}
           </Typography>
           
         </CardContent>
