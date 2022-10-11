@@ -49,14 +49,11 @@ const TicketsSoldApp = (props) => {
   })
 
   const displayGraph = () => {
-    return (
-      <>
-        <Container>
-        <Line
-          data={chartData} />
-          </Container>
+    return <>
+      <Line
+          data={chartData}
+          />
       </>
-    )
   }
 
   return <div>

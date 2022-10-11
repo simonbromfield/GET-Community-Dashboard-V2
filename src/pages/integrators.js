@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Container
+  Container,
+  Box,
+  Grid
 } from '@mui/material'
 import { DashboardLayout } from '../components/dashboard-layout';
 import LoadingSVG from '../components/loading/loadingSVG'
 let W3CWebSocket = require('websocket').w3cwebsocket;
 import configData from "../utils/config.json"
+import IntegratorCard from '../components/integrator/card'
 
 const Integrators = (props) => {
   const [integrators, setIntegrators] = useState(false)
@@ -29,17 +32,29 @@ const Integrators = (props) => {
   const displayIntegrators = () => {
     return (
       <>
-        <Container>
-        <ul>
-        {
-          integrators.map(integrator => (
-            <li key={integrator.id}>
-            {integrator.name}
-            </li>
-          ))
-          }
-          </ul>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            py: 8
+          }}
+        >
+          <Container maxWidth={false}>
+          <Grid
+              container
+              spacing={3}
+            >
+              {
+                integrators.map(integrator => (
+                  <IntegratorCard
+                    key={integrator.id}
+                    data={integrator}
+                  />
+                ))
+                  }
+              </Grid>
           </Container>
+        </Box>
       </>      
     )
   }
