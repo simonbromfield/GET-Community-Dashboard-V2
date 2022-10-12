@@ -69,7 +69,6 @@ const Index = (props) => {
   const displayIndexPage = () => {
     return (
       <>
-        {console.log(topUps)}
         <Box
           component="main"
           sx={{
@@ -125,8 +124,7 @@ const Index = (props) => {
                   </CardContent>
                 </Card>     
               </Grid>
-
-                  
+  
               <Grid container
                 spacing={2}
                 margin={2}

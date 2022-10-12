@@ -49,23 +49,22 @@ const TicketsSoldApp = (props) => {
   })
 
   const displayGraph = () => {
-    return (
-      <>
-        <Container>
-        <Line
-          data={chartData} />
-          </Container>
+    return <>
+      <Line
+          data={chartData}
+          />
       </>
-    )
   }
 
   return <div>
-          { chartData ? displayGraph() :
-            <Box sx={{ display: 'flex' }}>
-              <CircularProgress color="inherit" />
-            </Box>
-          }
-        </div>
+    <Container>
+      { chartData ? displayGraph() :
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress color="inherit" />
+        </Box>
+      }
+      </Container>
+    </div>
 }
 
 export default TicketsSoldApp
