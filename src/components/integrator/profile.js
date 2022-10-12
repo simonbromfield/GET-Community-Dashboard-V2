@@ -4,12 +4,10 @@ import {
   Grid,
   Typography,
   Card,
-  CardHeader
+  Chip
 } from '@mui/material'
-import AccountProfile from './account-profile';
 import LineGraph from '../dashboard/line'
 import FuelChart from '../integrator/fuelChart'
-import IntegratorTopUp from './integratorTopUp'
 let W3CWebSocket = require('websocket').w3cwebsocket;
 import configData from "../../utils/config.json"
 import LoadingSVG from '../loading/loadingSVG'
@@ -74,9 +72,7 @@ const Profile = (props) => {
                 marginBottom: 2
               }}
             >
-              <CardHeader
-                title="Recent Activity">
-              </CardHeader>
+              
               <LineGraph
                 protocolDays={profileData.integratorDays}
               />
