@@ -5,47 +5,55 @@ import PropTypes from 'prop-types';
 import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image'
 import { NavItem } from './nav-item';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import EventIcon from '@mui/icons-material/Event';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import SsidChartIcon from '@mui/icons-material/SsidChart';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import PublishIcon from '@mui/icons-material/Publish';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 const items = [
   {
     href: '/',
-    icon: (''),
+    icon: (<DashboardIcon />),
     title: 'Dashboard'
   },
   {
     href: '/recent-activity',
-    icon: (''),
+    icon: (<ConfirmationNumberIcon />),
     title: 'Recent Activity'
   },
   {
     href: '/events',
-    icon: (''),
+    icon: (<EventIcon />),
     title: 'Events'
   },
   {
     href: '/integrators',
-    icon: (''),
+    icon: (<IntegrationInstructionsIcon />),
     title: 'Integrators'
   },
   {
     href: '/charts',
-    icon: (''),
+    icon: (<SsidChartIcon />),
     title: 'Charts'
   },
   {
     href: '/trades',
-    icon: (''),
+    icon: (<SyncAltIcon />),
     title: 'Trades'
   },
   {
     href: '/top-ups',
-    icon: (''),
+    icon: (<PublishIcon />),
     title: 'Top Ups'
   },
   {
-    href: '/top-events',
-    icon: (''),
-    title: 'Top Events'
+    href: 'https://twitter.com/GET_comm_dash',
+    icon: (<SmartToyIcon />),
+    title: 'Twitter Bot'
   }
 ];
 
