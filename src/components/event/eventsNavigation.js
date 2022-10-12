@@ -8,9 +8,11 @@ const customEventNavStyle = {
 };
 
 export default function EventsMenu(props) {
+  const { integrators } = props
   return (
     <Container sx={customEventNavStyle}>
-      <IntegratorButtons />
+      <IntegratorButtons
+        integrators={ integrators } />
     </Container>
   )
 }

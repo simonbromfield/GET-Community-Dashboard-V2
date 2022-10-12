@@ -136,7 +136,7 @@ const Index = (props) => {
                       key={recentUsage.length-1}
                       blockTimestamp={usage.blockTimestamp}
                       eventName={truncate(usage.event.name, 10)}
-                      integrator={usage.integrator.name}
+                      integrator={usage.event.integrator.name}
                       getUsed={usage.getUsed}
                       activityType={usage.type}
                       price={usage.price}

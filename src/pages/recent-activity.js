@@ -82,7 +82,7 @@ const RecentMints = (props) => {
                   key={usage.nftId}
                   blockTimestamp={usage.blockTimestamp}
                   eventName={truncate(usage.event.name, 10)}
-                  integrator={usage.integrator.name}
+                  integrator={usage.event.integrator.name}
                   getUsed={usage.getUsed}
                   activityType={usage.type}
                   price={usage.price}
@@ -123,13 +123,13 @@ const RecentMints = (props) => {
                         key={usage.nftId}
                         blockTimestamp={usage.blockTimestamp}
                         eventName={truncate(usage.event.name, 15)}
-                        integrator={usage.integrator.name}
+                        integrator={usage.event.integrator.name}
                         getUsed={usage.getUsed}
                         activityType={usage.type}
                         price={usage.price}
                         nftId={usage.nftId}
                         eventID={usage.event.id}
-                        integratorID={usage.integrator.id}
+                        integratorID={usage.event.integrator.id}
                       />
                     ))
                   }
