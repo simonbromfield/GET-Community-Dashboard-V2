@@ -7,61 +7,36 @@ import {
   Grid,
   Typography
 } from '@mui/material'
-import axios from 'axios'
 import Head from 'next/head'
 import EventCards from '../components/event/eventCards'
 
 import LoadingSVG from '../components/loading/loadingSVG'
+let W3CWebSocket = require('websocket').w3cwebsocket;
+import configData from "../utils/config.json"
 
-const getSubGraphURL = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
 
 const Events = (props) => {
 
   const [eventList, setEventList] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const getEventsFunction = async (name) => {
-    try {
-      await axios.post(getSubGraphURL, {
-        query: `{
-          events (orderBy: blockTimestamp, orderDirection: desc, first: 800) {
-            id
-            name
-            imageUrl
-            shopUrl
-            startTime
-            endTime
-            createTx
-            integrator{
-              id
-              name
-            }
-          }
-        }  `
-      }).then(res => {
-
-        res = res.data.data.events
-        res = res.filter(e => e.integrator.name !== 'Demo v1')
-        res = res.filter(e => e.integrator.name !== 'YourTicketProvider v1')
-        res = res.reduce((acc, current) => {
-          const x = acc.find(item => item.name === current.name)
-          if (!x) {
-            return acc.concat([current])
-          } else {
-            return acc
-          }
-        }, [])
-        setEventList(res)
-      })
-      setLoading(true)
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  const [integrators, setIntegrators] = useState(false)
 
   useEffect(() => {
-    getEventsFunction()
+    const client = new W3CWebSocket(configData.WS_URL);
+    client.onopen = () => {
+      client.send("Index Page connected")
+    };
+    client.onmessage = (msg) => {
+      let pageData = JSON.parse(msg.data)
+      setEventList(pageData.events)
+      setIntegrators(pageData.integrators)
+      setLoading(true)
+    };
+    client.onerror = function() {
+      console.log('Connection Error');
+    };
   }, [])
+
 
   const displayEvents = () => {
     return (
@@ -78,7 +53,7 @@ const Events = (props) => {
             component="div"
             marginLeft="14px"
           >
-            Recent Events
+            Recently Created Events
             </Typography>
         <Container maxWidth={false}>
           <Grid
@@ -110,7 +85,8 @@ const Events = (props) => {
 
   return (
     <>
-        <EventsNavigation />
+      {/* <EventsNavigation
+        integrators={ integrators } /> */}
         { loading ? displayEvents() :
           <LoadingSVG />
         }
