@@ -4,9 +4,9 @@
   "version": "3.0.0",
   "private": false,
   "scripts": {
-    "dev": "next",
+    "dev": "next & npm start --prefix backend/",
     "build": "next build",
-    "start": "next start",
+    "start": "next start & node /backend/server.js",
     "export": "next export",
     "lint": "next lint",
     "lint-fix": "next lint --fix"
