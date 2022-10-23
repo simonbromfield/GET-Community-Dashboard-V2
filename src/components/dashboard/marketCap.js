@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Typography
+} from '@mui/material';
 import { numberWithCommas } from '../../utils/helpers'
 
 import CoinGecko from 'coingecko-api'

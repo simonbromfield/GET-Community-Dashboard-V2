@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import {
   Box,
-  Card,
-  CardContent,
-  Grid,
   Typography
 } from '@mui/material';
 
@@ -20,7 +17,6 @@ const TokenDataApp = () => {
   const tokenDataFunction = async () => {
     try {
       const coinData = await CoinGeckoClient.coins.fetch('get-token', {})
-      console.log(coinData.data)
       setTokenPriceUSD(coinData.data.market_data.current_price.usd)
       setTokenPriceEUR(coinData.data.market_data.current_price.eur)
       setLoading(true)
