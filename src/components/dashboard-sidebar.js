@@ -12,7 +12,8 @@ import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstruct
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import PublishIcon from '@mui/icons-material/Publish';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
+import PeopleIcon from '@mui/icons-material/People';
 
 const items = [
   {
@@ -43,7 +44,7 @@ const items = [
   {
     href: '/trades',
     icon: (<SyncAltIcon />),
-    title: 'Trades'
+    title: 'DEX Trades'
   },
   {
     href: '/top-ups',
@@ -51,9 +52,14 @@ const items = [
     title: 'Top Ups'
   },
   {
-    href: 'https://twitter.com/GET_comm_dash',
-    icon: (<SmartToyIcon />),
-    title: 'Twitter Bot'
+    href: 'https://www.get-community.com/',
+    icon: (<PeopleIcon />),
+    title: 'Community Homepage'
+  },
+  {
+    href: 'https://sleepy-shore-42215.herokuapp.com/',
+    icon: (<BackupTableIcon />),
+    title: 'Archived Dashboad V1 '
   }
 ];
 

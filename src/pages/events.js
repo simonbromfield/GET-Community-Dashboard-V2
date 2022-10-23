@@ -9,32 +9,18 @@ import {
 } from '@mui/material'
 import Head from 'next/head'
 import EventCards from '../components/event/eventCards'
-
 import LoadingSVG from '../components/loading/loadingSVG'
-let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from "../utils/config.json"
 
+const Events = ({ wsdata }) => {
 
-const Events = (props) => {
-
-  const [eventList, setEventList] = useState(false)
+  const [eventList, setEventList] = useState(wsdata.events.slice(0, 100))
+  const [integrators, setIntegrators] = useState(wsdata.integrators)
   const [loading, setLoading] = useState(false)
-  const [integrators, setIntegrators] = useState(false)
 
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
-    client.onopen = () => {
-      client.send("Index Page connected")
-    };
-    client.onmessage = (msg) => {
-      let pageData = JSON.parse(msg.data)
-      setEventList(pageData.events)
-      setIntegrators(pageData.integrators)
+      setEventList(wsdata.events.slice(0, 100))
+      setIntegrators(wsdata.integrators)
       setLoading(true)
-    };
-    client.onerror = function() {
-      console.log('Connection Error');
-    };
   }, [])
 
 

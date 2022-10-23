@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import React, { useEffect, useState } from 'react'
 import { CacheProvider } from '@emotion/react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -8,14 +9,36 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
 import '../../public/static/CSS/loadingSVG.css'
 import { useRouter } from 'next/router'
+let W3CWebSocket = require('websocket').w3cwebsocket;
+import configData from "../utils/config.json"
+import LoadingSVG from '../components/loading/loadingSVG'
 
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
+  const [loading, setLoading] = useState(false)
+  const [wsdata, setwsdata] = useState(false)
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  const getLayout = Component.getLayout ?? ((page) => page);
+  useEffect(() => {
+    const client = new W3CWebSocket(configData.WS_URL);
+    client.onopen = () => {
+      client.send("Dashboard connected")
+    };
+    client.onmessage = (msg) => {
+      let pageData = JSON.parse(msg.data)
+      setwsdata(pageData)
+      console.log(pageData)
+      setLoading(true)
+    };
+    client.onerror = function() {
+      console.log('Connection Error');
+    };
+  }, [])
 
+  const getLayout = Component.getLayout ?? ((page) => page);
+ 
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -30,7 +53,12 @@ const App = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {getLayout(<Component {...pageProps} />)}
+          {loading ? 
+            getLayout(<Component {...pageProps}
+              wsdata={ wsdata } />)
+          :
+          <LoadingSVG />
+          }
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>

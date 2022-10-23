@@ -30,8 +30,6 @@ import TokenPrice from '../components/dashboard/tokenPrice'
 import MarketCapApp from '../components/dashboard/marketCap'
 import { truncate } from '../utils/helpers'
 import { DashboardLayout } from '../components/dashboard-layout'
-let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from "../utils/config.json"
 
 const style = {
   width: '100%',
@@ -39,35 +37,22 @@ const style = {
   bgcolor: 'background.paper',
 };
 
-const Index = (props) => {
-  const [protocolData, setProtocolData] = useState(false)
-  const [protocolDays, setProtocolDays] = useState(false)
-  const [topUps, setTopUps] = useState(false)
-  const [integrators, setIntegrators] = useState(false)
-  const [recentUsage, setRecentUsageList] = useState(null)
-  const [loading, setLoading] = useState(false)
+const Index = ({ wsdata }) => {
+  const [protocolData, setProtocolData] = useState(wsdata.protocol)
+  const [protocolDays, setProtocolDays] = useState(wsdata.protocolDays)
+  const [topUps, setTopUps] = useState(wsdata.topUpEvents)
+  const [integrators, setIntegrators] = useState(wsdata.integrators)
+  const [recentUsage, setRecentUsageList] = useState(wsdata.usageEvents)
 
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
-    client.onopen = () => {
-      client.send("Index Page connected")
-    };
-    client.onmessage = (msg) => {
-      let pageData = JSON.parse(msg.data)
-      setProtocolData(pageData.protocol)
-      setIntegrators(pageData.integrators)
-      setTopUps(pageData.topUpEvents)
-      setProtocolDays(pageData.protocolDays)
-      setRecentUsageList(pageData.usageEvents)
-      setLoading(true)
-    };
-    client.onerror = function() {
-      console.log('Connection Error');
-    };
+    setProtocolData(wsdata.protocol)
+    setIntegrators(wsdata.integrators)
+    setTopUps(wsdata.topUpEvents)
+    setProtocolDays(wsdata.protocolDays)
+    setRecentUsageList(wsdata.usageEvents)
   }, [])
 
-  const displayIndexPage = () => {
-    return (
+  return (
       <>
         <Box
           component="main"
@@ -262,17 +247,7 @@ const Index = (props) => {
         </Box>
       </>
     )
-  }
-
-  return (
-    <>
-        { loading ? displayIndexPage() :
-          <LoadingSVG />
-        }
-    </>
-  )
 }
-
 
 Index.getLayout = (page) => (
   <>
