@@ -4,37 +4,32 @@ import {
   Grid,
   Typography,
   Card,
-  Chip
+  CardHeader,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
 } from '@mui/material'
 import LineGraph from '../dashboard/line'
 import FuelChart from '../integrator/fuelChart'
-let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from "../../utils/config.json"
 import LoadingSVG from '../loading/loadingSVG'
 import NotFound from './notFound'
+import EventDataLine from './eventDataLine'
 
 const Profile = (props) => {
-  const { id } = props;
-  const [profileData, setProfileData] = useState(false)
+  const { id, wsdata } = props;
+  const [profileData, setProfileData] = useState(wsdata.integrators.find(x => x.id === id))
+  const [eventList, setEventList]= useState(profileData.events.slice(0, 10))
   const [found, setFound] = useState(true)
   
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
-    client.onopen = () => {
-      client.send("Index Page connected")
-    };
-    client.onmessage = async (msg) => {
-      let pageData = await JSON.parse(msg.data)
-      setProfileData(pageData.integrators.find(x => x.id === id))
-      if (!profileData) {
-        setFound(false)
-        console.log(found)
-      }
-    };
-    client.onerror = function() {
-      console.log('Connection Error');
-    };
-
+    setProfileData(wsdata.integrators.find(x => x.id === id))
+    setEventList(profileData.events.slice(0, 10))
+    if (!profileData) {
+      setFound(false)
+    }
   }, [])
 
   return (<>
@@ -77,8 +72,50 @@ const Profile = (props) => {
                 protocolDays={profileData.integratorDays}
               />
             </Card>
-           
           </Grid>
+        </Grid>
+        <Grid container
+          sx={{marginTop: 2, marginBottom: 4}}
+        >
+        <Card>
+        <CardHeader
+          title="Top 10 events by reserved fuel."
+                  />
+                  <TableContainer>
+                    <Table >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            Event Name
+                          </TableCell>
+                          <TableCell>
+                            Fuel Reserved
+                          </TableCell>
+                          <TableCell>
+                            Tickets Sold
+                          </TableCell>
+                          <TableCell>
+                            Link
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                          {
+                          eventList.slice(0, 30).map(event => (
+                            <EventDataLine
+                              key={event.id}
+                              id={event.id}
+                              eventName={event.name}
+                              fuel={event.reservedFuel}
+                              soldCount={event.soldCount}
+                              link={`#`}
+                            />
+                          ))
+                        } 
+                      </TableBody>
+                    </Table>
+            </TableContainer>
+            </Card>
         </Grid>
       </Container>
       :
