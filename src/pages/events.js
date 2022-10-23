@@ -15,13 +15,11 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 const Events = ({ wsdata }) => {
 
   const [eventList, setEventList] = useState(wsdata.events.slice(0, 100))
-  const [integrators, setIntegrators] = useState(wsdata.integrators)
   const [loading, setLoading] = useState(false)
-  const [showYTP, setShowYTP] = useState(true)
+  const [showYTP, setShowYTP] = useState(false)
 
   useEffect(() => {
       setEventList(wsdata.events.slice(0, 100))
-      setIntegrators(wsdata.integrators)
       setLoading(true)
   }, [])
 
