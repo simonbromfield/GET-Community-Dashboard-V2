@@ -18,7 +18,7 @@ const NotFound = (props) => {
           sx={{ mb: 3 }}
           variant="p"
         >
-          Although many things could cause this issue, it may also be down to the ID you entered is not accociated with a configured Integrator.
+          Although many things could cause this issue, it may also be down to the ID you entered is not accociated with an integrator that has &apos;billingEnabled&apos;.
         </Typography>
         
       </Container>

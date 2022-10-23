@@ -4,26 +4,11 @@ import Head from 'next/head'
 import Profile from '../../components/integrator/profile'
 import { DashboardLayout } from '../../components/dashboard-layout'
 
-const Post = () => {
+const IntegratorPofile = ({ wsdata }) => {
   const router = useRouter()
   const { id } = router.query
-    
   return (
     <>
-      {
-        id ?
-          <Profile id={id} />
-          : null
-      }
-    </>
-  )
-
-}
-
-class Trending extends React.Component {
-
-  render() {
-    return (
       <DashboardLayout>
       <>
       <Head>
@@ -31,11 +16,19 @@ class Trending extends React.Component {
           Integrator Profile | GET Protocol Community
         </title>
       </Head>
-      <Post />
+      {
+        id ?
+          <Profile
+                id={id}
+                wsdata={wsdata}
+            />
+          :
+          <h2>Error</h2>
+      }
       </>
       </DashboardLayout>
-    );
-  }
+    </>
+  )
 }
 
-export default Trending
+export default IntegratorPofile
