@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { DashboardLayout } from '../components/dashboard-layout';
-import EventsNavigation from '../components/event/eventsNavigation'
 import {
   Box,
   Container,
@@ -10,19 +9,30 @@ import {
 import Head from 'next/head'
 import EventCards from '../components/event/eventCards'
 import LoadingSVG from '../components/loading/loadingSVG'
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 const Events = ({ wsdata }) => {
 
   const [eventList, setEventList] = useState(wsdata.events.slice(0, 100))
-  const [integrators, setIntegrators] = useState(wsdata.integrators)
   const [loading, setLoading] = useState(false)
+  const [showYTP, setShowYTP] = useState(false)
 
   useEffect(() => {
       setEventList(wsdata.events.slice(0, 100))
-      setIntegrators(wsdata.integrators)
       setLoading(true)
   }, [])
 
+  const handleChange = (event, showYTP) => {
+    if (showYTP === true) {
+      let newList = wsdata.events.filter(e => e.integrator.id !== '3')
+      setEventList(newList.slice(0, 100));
+      setShowYTP(true)
+    } else {
+      setEventList(wsdata.events.slice(0, 100));
+      setShowYTP(false)
+    }
+  };
 
   const displayEvents = () => {
     return (
@@ -31,9 +41,21 @@ const Events = ({ wsdata }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 4
         }}
         >
+          <ToggleButtonGroup
+            color="primary"
+            value={showYTP}
+            exclusive
+            onChange={handleChange}
+            aria-label="Platform"
+            sx={{padding: 2}}
+          >
+            <ToggleButton value={true}>Hide YTP</ToggleButton>
+            <ToggleButton value={false}>Show YTP</ToggleButton>
+          </ToggleButtonGroup> 
+
           <Typography gutterBottom
               variant="h5"
             component="div"

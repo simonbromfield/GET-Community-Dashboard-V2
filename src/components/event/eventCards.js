@@ -52,11 +52,26 @@ function EventCards(props) {
           key={key} >
         <CardMedia
           component="img"
-          height="160"
+          height="190"
           image={imageUrl}
           alt={eventName}
         />
           <CardContent>
+          <Button
+                size="medium"
+                href={integratorLink}
+                sx={{
+                  margin: 0.3,
+                  backgroundColor: "none",
+                  color: "#64B292",
+                  '&:hover': {
+                    background: "none",
+                  }
+                }}
+              >
+                <BookOnlineIcon /> {truncate(integrator, 15)}
+            </Button>
+            <br />
             <Chip
               icon={<EventIcon />}
               label={moment.unix(startTime).format("DD/MM/YY")}
@@ -84,13 +99,12 @@ function EventCards(props) {
                 }}
               />
             }
-            
             <Stack spacing={0}>
               <Button
                 size="large"
                 href={eventLink}
                 sx={{
-                  margin: 1,
+                  margin: 0.3,
                   backgroundColor: "none",
                   color: "#170742",
                   '&:hover': {
@@ -99,20 +113,6 @@ function EventCards(props) {
                 }}
               >
                 {truncate(eventName, 25)}
-              </Button>  
-              <Button
-                size="medium"
-                href={integratorLink}
-                sx={{
-                  margin: 1,
-                  backgroundColor: "none",
-                  color: "#64B292",
-                  '&:hover': {
-                    background: "none",
-                  }
-                }}
-              >
-                <BookOnlineIcon /> {truncate(integrator, 15)}
               </Button>
             </Stack>
           </CardContent>

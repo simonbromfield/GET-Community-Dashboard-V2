@@ -101,7 +101,7 @@ const RecentMints = ({ wsdata }) => {
                 </TableHead>
                 <TableBody>
                   {
-                    recentUsage.slice(4, 50).map(usage => (
+                    recentUsage.slice(0, 250).map(usage => (
                       <ActivityDataLine
                         key={usage.nftId}
                         blockTimestamp={usage.blockTimestamp}

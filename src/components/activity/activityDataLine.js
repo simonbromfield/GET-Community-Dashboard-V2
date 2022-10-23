@@ -28,9 +28,17 @@ function ActivityDataLine(props) {
     <>
     <TableRow hover >
       <TableCell>
-        <Link href={`/ticket/${nftId}`}
+          <Link
+            href={`https://explorer.get-protocol.io/ticket/${nftId}`}
+            target="_blank"
             passHref>
-          <Button variant="text"> #{nftId} </Button>
+            <Button
+              variant="text"
+              sx={{
+                margin: 0,
+                padding: 0.2
+              }}
+            > #{nftId} </Button>
         </Link>          
           <br />
           {Moment.unix(blockTimestamp).format("hh:mm:ss a")}

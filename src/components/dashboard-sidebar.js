@@ -150,7 +150,8 @@ export const DashboardSidebar = (props) => {
             contribute | learn | get involved
           </Typography>
           <NextLink
-            href="#"
+            href="https://discord.gg/get-protocol-889431643494944768"
+            target="_blank"
             passHref
           >
             <Button
