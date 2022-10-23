@@ -12,7 +12,6 @@ import {
   TableBody
 } from '@mui/material'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Head from 'next/head'
@@ -25,8 +24,6 @@ import {
 } from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
 import Divider from '@mui/material/Divider';
-let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from "../utils/config.json"
 
 const style = {
   width: '100%',
@@ -34,26 +31,15 @@ const style = {
   bgcolor: 'background.paper',
 };
 
-const TopUps = (props) => {
-  const [topUps, setTopUps] = useState(false)
-  const [integrators, setIntegrators] = useState(false)
+const TopUps = ({ wsdata }) => {
+  const [topUps, setTopUps] = useState(wsdata.topUpEvents)
+  const [integrators, setIntegrators] = useState(wsdata.integrators)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
-    client.onopen = () => {
-      client.send("Index Page connected")
-    };
-    client.onmessage = (msg) => {
-      let pageData = JSON.parse(msg.data)
-      setIntegrators(pageData.integrators)
-      setTopUps(pageData.topUpEvents)
-      setLoading(true)
-
-    };
-    client.onerror = function() {
-      console.log('Connection Error');
-    };
+    setIntegrators(wsdata.integrators)
+    setTopUps(wsdata.topUpEvents)
+    setLoading(true)
   }, [])
 
   const displayTopUps = () => {

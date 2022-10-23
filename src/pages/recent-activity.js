@@ -1,8 +1,7 @@
-import React, { useEffect, useState, CSSProperties  } from 'react'
+import React, { useEffect, useState  } from 'react'
 import Head from 'next/head'
 import {
   Box,
-  CardHeader,
   Table,
   TableRow,
   TableHead,
@@ -18,18 +17,13 @@ import ActivityTypeNav from '../components/activity/activityTypeNav'
 import LoadingSVG from '../components/loading/loadingSVG'
 import { truncate } from '../utils/helpers'
 import NoTickets from '../components/activity/noTickets'
-let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from "../utils/config.json"
-
 import { DashboardLayout } from '../components/dashboard-layout'
 
-const RecentMints = (props) => {
-  const [recentUsage, setRecentUsageList] = useState(null)
-  const [originalUsageData, setOriginalUsageData] = useState(null)
+const RecentMints = ({ wsdata }) => {
+  const [recentUsage, setRecentUsageList] = useState(wsdata.usageEvents)
+  const [originalUsageData, setOriginalUsageData] = useState(wsdata.usageEvents)
   const [currentType, setCurrentType] = useState(null)
   
-  const [latestUpdate, setlatestUpdate] = useState(null)
-
   const [loading, setLoading] = useState(false)
 
   function recentUsageFunction(type) {
@@ -48,20 +42,9 @@ const RecentMints = (props) => {
 
 
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
-    client.onopen = () => {
-      client.send("Recent Activity Page connected")
-    };
-    client.onmessage = (msg) => {
-      let pageData = JSON.parse(msg.data)
-      setRecentUsageList(pageData.usageEvents)
-      setOriginalUsageData(pageData.usageEvents)
-      setLoading(true)
-    };
-    client.onerror = function() {
-      console.log('Connection Error');
-    };
-
+    setRecentUsageList(wsdata.usageEvents)
+    setOriginalUsageData(wsdata.usageEvents)
+    setLoading(true)
   }, [] )
 
   function displayRecentActivity() {
