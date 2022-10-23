@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { DashboardLayout } from '../components/dashboard-layout';
-import EventsNavigation from '../components/event/eventsNavigation'
 import {
   Box,
   Container,
@@ -27,7 +26,7 @@ const Events = ({ wsdata }) => {
   }, [])
 
   const handleChange = (event, showYTP) => {
-    if (showYTP === "true") {
+    if (showYTP === true) {
       let newList = wsdata.events.filter(e => e.integrator.id !== '3')
       setEventList(newList.slice(0, 100));
       setShowYTP(true)
@@ -55,8 +54,8 @@ const Events = ({ wsdata }) => {
             aria-label="Platform"
             sx={{padding: 2}}
           >
-            <ToggleButton value="true">Hide YTP</ToggleButton>
-            <ToggleButton value="false">Show YTP</ToggleButton>
+            <ToggleButton value={true}>Hide YTP</ToggleButton>
+            <ToggleButton value={false}>Show YTP</ToggleButton>
           </ToggleButtonGroup> 
 
           <Typography gutterBottom
