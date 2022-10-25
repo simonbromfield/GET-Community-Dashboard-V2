@@ -18,7 +18,7 @@ const FuelChart = (props) => {
       ],
       datasets: [{
         label: 'Fuel',
-        data: [data.reservedFuel, data.spentFuel, data.availableFuel],
+        data: [Number(data.reservedFuel).toFixed(2), Number(data.spentFuel).toFixed(2), Number(data.availableFuel).toFixed(2)],
         backgroundColor: [
           '#543BD1',
           '#15083F',

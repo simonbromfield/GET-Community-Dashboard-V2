@@ -13,22 +13,23 @@ import EventCards from '../components/event/eventCards'
 import LoadingSVG from '../components/loading/loadingSVG'
 
 const Events = ({ wsdata }) => {
-  const [eventList, setEventList] = useState(wsdata.events.slice(0, 100))
+  let noDemoList = wsdata.events.filter(e => e.integrator.id !== '0')
+  const [eventList, setEventList] = useState(noDemoList.slice(0, 100))
   const [loading, setLoading] = useState(false)
   const [showYTP, setShowYTP] = useState(false)
 
   useEffect(() => {
-      setEventList(wsdata.events.slice(0, 100))
+      setEventList(noDemoList.slice(0, 100))
       setLoading(true)
   }, [])
 
   const handleChange = (event, showYTP) => {
     if (showYTP === true) {
-      let newList = wsdata.events.filter(e => e.integrator.id !== '3')
+      let newList = noDemoList.filter(e => e.integrator.id !== '3')
       setEventList(newList.slice(0, 100));
       setShowYTP(true)
     } else {
-      setEventList(wsdata.events.slice(0, 100));
+      setEventList(noDemoList.slice(0, 100));
       setShowYTP(false)
     }
   };
