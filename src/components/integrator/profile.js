@@ -17,6 +17,10 @@ import FuelChart from '../integrator/fuelChart'
 import LoadingSVG from '../loading/loadingSVG'
 import NotFound from './notFound'
 import EventDataLine from './eventDataLine'
+import {
+  numberWithCommas,
+  truncate
+} from '../../utils/helpers'
 
 const Profile = (props) => {
   const { id, wsdata } = props;
@@ -26,7 +30,7 @@ const Profile = (props) => {
   
   useEffect(() => {
     setProfileData(wsdata.integrators.find(x => x.id === id))
-    setEventList(profileData.events.slice(0, 10))
+    setEventList(profileData.events.slice(0, 30))
     if (!profileData) {
       setFound(false)
     }
@@ -79,8 +83,7 @@ const Profile = (props) => {
         >
         <Card>
         <CardHeader
-          title="Top 10 events by reserved fuel."
-                  />
+              title={`Top if 30 events by reserved fuel.`} />
                   <TableContainer>
                     <Table >
                       <TableHead>
@@ -94,9 +97,6 @@ const Profile = (props) => {
                           <TableCell>
                             Tickets Sold
                           </TableCell>
-                          <TableCell>
-                            Link
-                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -105,10 +105,9 @@ const Profile = (props) => {
                             <EventDataLine
                               key={event.id}
                               id={event.id}
-                              eventName={event.name}
-                              fuel={event.reservedFuel}
-                              soldCount={event.soldCount}
-                              link={`#`}
+                              eventName={truncate(event.name, 20)}
+                              fuel={numberWithCommas(Number(event.reservedFuel).toFixed(2))}
+                              soldCount={numberWithCommas(Number(event.soldCount).toFixed(2))}
                             />
                           ))
                         } 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import LoadingSVG from '../components/loading/loadingSVG'
 import Head from 'next/head'
 import LineGraph from '../components/dashboard/line'
 import ActivityTopTile from '../components/activity/activitytopTile'
@@ -41,12 +40,12 @@ const Index = ({ wsdata }) => {
   const [protocolData, setProtocolData] = useState(wsdata.protocol)
   const [protocolDays, setProtocolDays] = useState(wsdata.protocolDays)
   const [topUps, setTopUps] = useState(wsdata.topUpEvents)
-  const [integrators, setIntegrators] = useState(wsdata.integrators)
+  const [integrators, setIntegrators] = useState(wsdata.integrators.filter(i => i.isBillingEnabled === true))
   const [recentUsage, setRecentUsageList] = useState(wsdata.usageEvents)
 
   useEffect(() => {
     setProtocolData(wsdata.protocol)
-    setIntegrators(wsdata.integrators)
+    setIntegrators(wsdata.integrators.filter(i => i.isBillingEnabled === true))
     setTopUps(wsdata.topUpEvents)
     setProtocolDays(wsdata.protocolDays)
     setRecentUsageList(wsdata.usageEvents)

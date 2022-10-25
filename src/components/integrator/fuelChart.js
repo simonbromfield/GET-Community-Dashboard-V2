@@ -1,18 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from "react"
 import CircularProgress from '@mui/material/CircularProgress';
-import { Chart as ChartJS } from 'chart.js/auto'
 import { Pie } from 'react-chartjs-2';
 import {
   Box,
   Container,
   CardHeader
 } from '@mui/material';
-import { protocolDayToDate } from '../../utils/helpers'
 
 const FuelChart = (props) => {
   let { data, title } = props
-
   const [chartData, setChartData] = useState({
       labels: [
         'Reserved',
@@ -38,9 +35,8 @@ const FuelChart = (props) => {
           title={title}
         />
         <Container>
-        <Pie
-          data={chartData} />
-          </Container>
+          <Pie data={chartData} />
+        </Container>
       </>
     )
   }
