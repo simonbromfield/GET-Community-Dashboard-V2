@@ -10,8 +10,7 @@ function EventDataLine(props) {
     id,
     eventName,
     fuel,
-    soldCount,
-    link
+    soldCount
   } = props;
   
   return (
@@ -25,9 +24,6 @@ function EventDataLine(props) {
       </TableCell>
       <TableCell>
         {soldCount}
-      </TableCell>
-      <TableCell>
-        {link}
       </TableCell>
     </TableRow>        
     </>

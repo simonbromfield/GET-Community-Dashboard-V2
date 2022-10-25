@@ -4,16 +4,15 @@ import {
   Box,
   Container,
   Grid,
-  Typography
+  Typography,
+  ToggleButton,
+  ToggleButtonGroup
 } from '@mui/material'
 import Head from 'next/head'
 import EventCards from '../components/event/eventCards'
 import LoadingSVG from '../components/loading/loadingSVG'
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 const Events = ({ wsdata }) => {
-
   const [eventList, setEventList] = useState(wsdata.events.slice(0, 100))
   const [loading, setLoading] = useState(false)
   const [showYTP, setShowYTP] = useState(false)

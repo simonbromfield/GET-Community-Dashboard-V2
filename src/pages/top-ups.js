@@ -33,11 +33,11 @@ const style = {
 
 const TopUps = ({ wsdata }) => {
   const [topUps, setTopUps] = useState(wsdata.topUpEvents)
-  const [integrators, setIntegrators] = useState(wsdata.integrators)
+  const [integrators, setIntegrators] = useState(wsdata.integrators.filter(i => i.isBillingEnabled === true))
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setIntegrators(wsdata.integrators)
+    setIntegrators(wsdata.integrators.filter(i => i.isBillingEnabled === true))
     setTopUps(wsdata.topUpEvents)
     setLoading(true)
   }, [])
