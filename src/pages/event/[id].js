@@ -3,21 +3,15 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import {
   Box,
-  Container
+  Container,
+  Link
 } from '@mui/material'
 import { DashboardLayout } from '../../components/dashboard-layout'
 
-const Post = () => {
+const eventProfile = ({ wsdata }) => {
   const router = useRouter()
   const { id } = router.query
 
-  return <p>Param: {id}</p>
-}
-
-
-class Trending extends React.Component {
-
-  render() {
     return (
       <DashboardLayout>
       <>
@@ -34,14 +28,20 @@ class Trending extends React.Component {
         }}
       >
         <Container maxWidth={false}>
-          <h2>EVENT PROFILE</h2>
-          <Post />
+              <h2>EVENT PROFILE</h2>
+              <p>This page is under construction, visit this event via dashboard v1:</p>
+              <Link
+                size="large"
+                href={`https://sleepy-shore-42215.herokuapp.com/event-profile/${id}`}
+                target="_blank"
+              >
+                View Event
+              </Link>
         </Container>
       </Box>
       </>
       </DashboardLayout>
     );
   }
-}
 
-export default Trending
+export default eventProfile

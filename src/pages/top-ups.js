@@ -64,7 +64,7 @@ const TopUps = ({ wsdata }) => {
                 margin: 2
               }}>
               <CardHeader
-                  title="Recent Top Ups"
+                  title="15 Most Recent Top Ups"
                 />
                 <TableContainer>
                   <Table >
@@ -92,14 +92,14 @@ const TopUps = ({ wsdata }) => {
                     </TableHead>
                     <TableBody>
                     {
-                      topUps.map(topUp => (
+                      topUps.slice(0,15).map(topUp => (
                         <TopUpDataLine
                           key={topUp.id}
                           blockTimestamp={moment.unix(topUp.blockTimestamp).format("HH:mm : DD/MM/YY")}
                           intagrator={topUp.integrator.name}
                           intagratorLink={`/integrator/${topUp.integrator.id}`}
                           getPrice={Number(topUp.price).toFixed(2)}
-                          total={Number(topUp.total).toFixed(4)}
+                          total={Number(topUp.total).toFixed(2)}
                           totalUsd={numberWithCommas(Number(topUp.totalUsd).toFixed(2))}
                           txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                         />

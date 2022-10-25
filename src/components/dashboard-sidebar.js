@@ -19,47 +19,56 @@ const items = [
   {
     href: '/',
     icon: (<DashboardIcon />),
-    title: 'Dashboard'
+    title: 'Dashboard',
+    target: ''
   },
   {
     href: '/recent-activity',
     icon: (<ConfirmationNumberIcon />),
-    title: 'Recent Activity'
+    title: 'Recent Activity',
+    target: ''
   },
   {
     href: '/events',
     icon: (<EventIcon />),
-    title: 'Events'
+    title: 'Events',
+    target: ''
   },
   {
     href: '/integrators',
     icon: (<IntegrationInstructionsIcon />),
-    title: 'Integrators'
+    title: 'Integrators',
+    target: ''
   },
   {
     href: '/charts',
     icon: (<SsidChartIcon />),
-    title: 'Charts'
+    title: 'Charts',
+    target: ''
   },
   {
     href: '/trades',
     icon: (<SyncAltIcon />),
-    title: 'DEX Trades'
+    title: 'DEX Trades',
+    target: ''
   },
   {
     href: '/top-ups',
     icon: (<PublishIcon />),
-    title: 'Top Ups'
+    title: 'Top Ups',
+    target: ''
   },
   {
     href: 'https://www.get-community.com/',
     icon: (<PeopleIcon />),
-    title: 'Community Homepage'
+    title: 'Community Homepage',
+    target: '_blank'
   },
   {
     href: 'https://sleepy-shore-42215.herokuapp.com/',
     icon: (<BackupTableIcon />),
-    title: 'Archived Dashboad V1 '
+    title: 'Archived Dashboad V1 ',
+    target: '_blank'
   }
 ];
 
@@ -127,6 +136,7 @@ export const DashboardSidebar = (props) => {
               icon={item.icon}
               href={item.href}
               title={item.title}
+              target={item.target}
             />
           ))}
         </Box>

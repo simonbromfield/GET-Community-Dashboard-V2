@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import LoadingSVG from '../components/loading/loadingSVG'
 import LineGraph from '../components/dashboard/line'
 import {
   Container,
   Grid,
-  Card
+  Card,
+  Typography
 } from '@mui/material'
 import Head from 'next/head'
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -31,9 +31,18 @@ const Charts = ({ wsdata }) => {
               <Card
                 sx={{
                   height: '100%',
-                  marginBottom: 2
+                marginBottom: 2,
+                  padding: 4
                 }}
-              >
+            >
+              <Typography gutterBottom
+              variant="p"
+              component="div"
+              margin={2}
+              marginBottom={0}
+            >
+              Ticket Interactions
+            </Typography>
                 <LineGraph
                   protocolDays={protocolDays}
                 />
