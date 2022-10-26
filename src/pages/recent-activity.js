@@ -9,11 +9,13 @@ import {
   TableCell,
   Grid,
   Container,
-  TableContainer
+  TableContainer,
+  ToggleButton,
+  Typography,
+  ToggleButtonGroup
 } from '@mui/material';
 import ActivityDataLine from '../components/activity/activityDataLine'
 import ActivityTopTile from '../components/activity/activitytopTile'
-import ActivityTypeNav from '../components/activity/activityTypeNav'
 import LoadingSVG from '../components/loading/loadingSVG'
 import { truncate } from '../utils/helpers'
 import NoTickets from '../components/activity/noTickets'
@@ -21,38 +23,53 @@ import { DashboardLayout } from '../components/dashboard-layout'
 
 const RecentMints = ({ wsdata }) => {
   const [recentUsage, setRecentUsageList] = useState(wsdata.usageEvents)
-  const [originalUsageData, setOriginalUsageData] = useState(wsdata.usageEvents)
-  const [currentType, setCurrentType] = useState(null)
+  const [currentType, setCurrentType] = useState("ALL")
   
   const [loading, setLoading] = useState(false)
 
-  function recentUsageFunction(type) {
-    if (!type) {
-      setRecentUsageList(originalUsageData)
-      setLoading(true)
+  const handleChange = (event, type) => {
+    if (type === "ALL") {
+      setRecentUsageList(wsdata.usageEvents)
+      setCurrentType(type)
+    } else if (type === null) {
+      setRecentUsageList(wsdata.usageEvents)
+      setCurrentType("ALL")
     } else {
-      let result = originalUsageData.filter(obj => {
-        return obj.type === String(type)
-      })
-      setCurrentType(String(type))
-      setRecentUsageList(result)
-      setLoading(true)
-    }
-  }
-
+      setRecentUsageList(wsdata.usageEvents.filter(a => a.type === type))
+      setCurrentType(type)
+    }  
+  };
 
   useEffect(() => {
     setRecentUsageList(wsdata.usageEvents)
-    setOriginalUsageData(wsdata.usageEvents)
     setLoading(true)
   }, [] )
 
   function displayRecentActivity() {
     return (<>
-      <ActivityTypeNav
-        recentUsageFunction={recentUsageFunction}
-        setLoading={setLoading}
-      />
+      <Typography gutterBottom
+          variant="p"
+          component="div"
+          margin={2}
+          marginBottom={0}
+        >
+          Sort by
+        </Typography>
+        <ToggleButtonGroup
+          color="primary"
+          value={currentType}
+          exclusive
+          onChange={handleChange}
+          sx={{ padding: 2 }}
+        >
+          <ToggleButton value={"ALL"}>ALL</ToggleButton>
+          <ToggleButton value={"SOLD"}>Sold</ToggleButton>
+          <ToggleButton value={"RESOLD"}>Re-Sold</ToggleButton>
+          <ToggleButton value={"SCANNED"}>Scanned</ToggleButton>
+          <ToggleButton value={"INVALIDATED"}>Invalidated</ToggleButton>
+          <ToggleButton value={"CHECKED IN"}>Checked In</ToggleButton>
+        
+        </ToggleButtonGroup>
       {recentUsage.length > 1 ?
         <Container maxWidth={false}>
           <Grid container
