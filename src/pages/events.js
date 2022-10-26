@@ -52,8 +52,8 @@ const Events = ({ wsdata }) => {
             aria-label="Platform"
             sx={{padding: 2}}
           >
-            <ToggleButton value={true}>Hide YTP</ToggleButton>
-            <ToggleButton value={false}>Show YTP</ToggleButton>
+            <ToggleButton value={true}>Hide DT</ToggleButton>
+            <ToggleButton value={false}>Show DT</ToggleButton>
           </ToggleButtonGroup> 
 
           <Typography gutterBottom

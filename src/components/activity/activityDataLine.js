@@ -59,7 +59,7 @@ function ActivityDataLine(props) {
         <DisplayPrice price={price}/>
       </TableCell>
       <TableCell>
-          {getUsed}
+          {Number(getUsed).toFixed(2)}
       </TableCell>
       <TableCell>
         <ActivityType activityType={activityType} />

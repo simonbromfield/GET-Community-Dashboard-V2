@@ -187,7 +187,7 @@ const Index = ({ wsdata }) => {
                               intagrator={topUp.integrator.name}
                               intagratorLink={`/integrator/${topUp.integrator.id}`}
                               getPrice={Number(topUp.price).toFixed(2)}
-                              total={Number(topUp.total).toFixed(4)}
+                              total={Number(topUp.total).toFixed(2)}
                               totalUsd={Number(topUp.totalUsd).toFixed(2)}
                               txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                             />
