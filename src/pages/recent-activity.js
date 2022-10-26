@@ -83,7 +83,7 @@ const RecentMints = ({ wsdata }) => {
                   blockTimestamp={usage.blockTimestamp}
                   eventName={truncate(usage.event.name, 10)}
                   integrator={usage.event.integrator.name}
-                  getUsed={usage.getUsed}
+                  getUsed={Number(usage.getUsed).toFixed(2)}
                   activityType={usage.type}
                   price={usage.price}
                   imageUrl={usage.event.imageUrl}
@@ -93,7 +93,7 @@ const RecentMints = ({ wsdata }) => {
           </Grid>
           <Box >
             <TableContainer>
-              <Table >
+            <Table stickyHeader >
                 <TableHead>
                   <TableRow>
                     <TableCell>
