@@ -14,6 +14,7 @@ import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import PublishIcon from '@mui/icons-material/Publish';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import PeopleIcon from '@mui/icons-material/People';
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
 
 const items = [
   {
@@ -129,6 +130,7 @@ export const DashboardSidebar = (props) => {
             my: 3
           }}
         />
+    
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
@@ -175,6 +177,9 @@ export const DashboardSidebar = (props) => {
             </Button>
           </NextLink>
         </Box>
+        <TwitterFollowButton
+          screenName={'GET_comm_dash'}
+        />
       </Box>
     </div>
   );

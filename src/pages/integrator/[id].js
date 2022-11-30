@@ -7,6 +7,7 @@ import { DashboardLayout } from '../../components/dashboard-layout'
 const IntegratorPofile = ({ wsdata }) => {
   const router = useRouter()
   const { id } = router.query
+
   return (
     <>
       <DashboardLayout>
