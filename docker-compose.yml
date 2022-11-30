@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  dashboard:
-    image: brom/getdashboard
-    container_name: dashboard
-    ports:
-      - "4000:3000"
