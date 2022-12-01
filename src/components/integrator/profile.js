@@ -83,7 +83,7 @@ const Profile = (props) => {
         >
         <Card>
         <CardHeader
-              title={`Top if 30 events by reserved fuel.`} />
+              title={`Top events by reserved fuel.`} />
                   <TableContainer>
                     <Table >
                       <TableHead>
