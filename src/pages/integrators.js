@@ -7,6 +7,7 @@ import {
   ToggleButtonGroup,
   Typography
 } from '@mui/material'
+import Head from 'next/head'
 import { DashboardLayout } from '../components/dashboard-layout';
 import IntegratorCard from '../components/integrator/card'
 
@@ -111,9 +112,16 @@ const Integrators = ({ wsdata }) => {
 }
 
 Integrators.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
+  <>
+    <Head>
+      <title>
+        Integrators | GET Protocol Community
+      </title>
+    </Head>
+    <DashboardLayout>
+      {page}
+    </DashboardLayout>
+  </>
 );
 
 export default Integrators
