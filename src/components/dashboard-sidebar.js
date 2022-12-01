@@ -14,7 +14,8 @@ import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import PublishIcon from '@mui/icons-material/Publish';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import PeopleIcon from '@mui/icons-material/People';
-import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { TwitterFollowButton } from 'react-twitter-embed';
 
 const items = [
   {
@@ -57,6 +58,12 @@ const items = [
     href: '/top-ups',
     icon: (<PublishIcon />),
     title: 'Top Ups',
+    target: ''
+  },
+  {
+    href: '/bot',
+    icon: (<TwitterIcon />),
+    title: 'Twitter Bot',
     target: ''
   },
   {
