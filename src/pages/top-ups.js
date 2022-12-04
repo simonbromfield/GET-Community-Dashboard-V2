@@ -57,7 +57,7 @@ const TopUps = ({ wsdata }) => {
           size="large"
           onClick={showMore}
         >
-          Show More Top Ups
+          More
         </Button> 
       )
     }
