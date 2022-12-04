@@ -9,7 +9,8 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody
+  TableBody,
+  Button
 } from '@mui/material'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -32,15 +33,35 @@ const style = {
 };
 
 const TopUps = ({ wsdata }) => {
-  const [topUps, setTopUps] = useState(wsdata.topUpEvents)
+  const [showNumber, setShowNumber] = useState(3)
+  const [topUps, setTopUps] = useState(wsdata.topUpEvents.slice(0,showNumber))
   const [integrators, setIntegrators] = useState(wsdata.integrators.filter(i => i.isBillingEnabled === true))
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setIntegrators(wsdata.integrators.filter(i => i.isBillingEnabled === true))
-    setTopUps(wsdata.topUpEvents)
+    setTopUps(wsdata.topUpEvents.slice(0,showNumber))
     setLoading(true)
   }, [])
+
+  const showMore = () => {
+    setShowNumber(showNumber + 4);
+    setTopUps(wsdata.topUpEvents.slice(0, showNumber))
+    console.log(showNumber)
+  };
+
+  const moreButton = () => {
+    if (showNumber <= wsdata.topUpEvents.length) {
+      return (
+        <Button
+          size="large"
+          onClick={showMore}
+        >
+          Show More Top Ups
+        </Button> 
+      )
+    }
+  }
 
   const displayTopUps = () => {
     return (
@@ -64,7 +85,7 @@ const TopUps = ({ wsdata }) => {
                 margin: 2
               }}>
               <CardHeader
-                  title="15 Most Recent Top Ups"
+                  title="Recent Top Ups"
                 />
                 <TableContainer>
                   <Table >
@@ -92,7 +113,7 @@ const TopUps = ({ wsdata }) => {
                     </TableHead>
                     <TableBody>
                     {
-                      topUps.slice(0,15).map(topUp => (
+                      topUps.map(topUp => (
                         <TopUpDataLine
                           key={topUp.id}
                           blockTimestamp={moment.unix(topUp.blockTimestamp).format("HH:mm : DD/MM/YY")}
@@ -104,7 +125,8 @@ const TopUps = ({ wsdata }) => {
                           txlink={`https://polygonscan.com/tx/${topUp.txHash}`}
                         />
                       ))
-                    }
+                      }
+                      {moreButton()}
                     </TableBody>
                   </Table>
                   </TableContainer>
