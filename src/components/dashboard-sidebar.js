@@ -15,6 +15,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import PeopleIcon from '@mui/icons-material/People';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import { TwitterFollowButton } from 'react-twitter-embed';
 
 const items = [
@@ -58,6 +59,12 @@ const items = [
     href: '/top-ups',
     icon: (<PublishIcon />),
     title: 'Top Ups',
+    target: ''
+  },
+  {
+    href: '/leaderboards',
+    icon: (<LeaderboardIcon />),
+    title: 'Leaderboards',
     target: ''
   },
   {
