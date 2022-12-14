@@ -7,7 +7,6 @@ import {
   Grid,
   Chip
 } from '@mui/material';
-import { numberWithCommas, truncate } from '../../utils/helpers'
 
 function ActivityTopTile(props) {
   const { key, blockTimestamp, eventName, integrator, getUsed, activityType, imageUrl } = props;

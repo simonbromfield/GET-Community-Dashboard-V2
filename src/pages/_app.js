@@ -29,7 +29,7 @@ const App = (props) => {
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data)
       setwsdata(pageData)
-      console.log(pageData)
+      console.log(msg.data)
       setLoading(true)
     };
     client.onerror = function() {
