@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DashboardLayout } from '../components/dashboard-layout';
 import {
-  Box,
   Grid,
   CardHeader,
   Card,
@@ -10,21 +9,17 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Button,
-  ToggleButton,
-  Typography,
-  ToggleButtonGroup
 } from '@mui/material'
 import Head from 'next/head'
 import LeaderboardDataLine from '../components/leaderboard/dataline'
-import moment from 'moment'
+import DayDataLine from '../components/leaderboard/dayDataline'
 import TableContainer from '@mui/material/TableContainer'
 import {
   truncate,
-  numberWithCommas
+  numberWithCommas,
+  protocolDayToDateInFull
 } from '../utils/helpers'
 import LoadingSVG from '../components/loading/loadingSVG'
-import Divider from '@mui/material/Divider';
 
 const style = {
   width: '100%',
@@ -34,63 +29,77 @@ const style = {
 
 const Leaderboards = ({ wsdata }) => {
   const [leaderboard, setLeaderboard] = useState(wsdata.allTimeTop)
+  const [topDays, setTopDays] = useState(wsdata.topDays)
   const [loading, setLoading] = useState(false)
-  const [currentBoard, setCurrentBoard] = useState("ALL TIME")
-
-  const handleChange = (event, type) => {
-    if (type === "ALL TIME") {
-      setCurrentBoard("ALL TIME")
-      setLeaderboard(wsdata.allTimeTop)
-    } else if (type === "LAST 7 DAYS") {
-      setCurrentBoard("LAST 7 DAYS")
-      //// Populate the data for last 7 days
-    } else if (type === "YESTERDAY") {
-      setCurrentBoard("YESTERDAY")
-      //// Populate the data for last 1 day
-    } else {
-      setCurrentBoard("ALL TIME")
-      //// Populate the data for all time
-    }  
-  };
 
   useEffect(() => {
     setLeaderboard(wsdata.allTimeTop)
+    setTopDays(wsdata.topDays)
     setLoading(true)
   }, [])
 
   const displayTopUps = () => {
     return (
       <>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          width: "100%"
-        }}
-      >
-          <Grid container
-            spacing={2}
-          >
+          <Grid container>
           <Grid item
-            lg={12}
+            lg={6}
             md={12}
-            xl={12}
+            xl={6}
             xs={12}>
               <Card sx={{
                 margin: 2
               }}>
-                <ToggleButtonGroup
-                  color="primary"
-                  value={currentBoard}
-                  exclusive
-                  onChange={handleChange}
-                  sx={{ padding: 2 }}
-                >
-                  <ToggleButton value={"ALL TIME"}>All Time</ToggleButton>
-                  <ToggleButton value={"LAST 7 DAYS"}>Last 7 days</ToggleButton>
-                  <ToggleButton value={"YESTERDAY"}>Yesterday</ToggleButton>
-                </ToggleButtonGroup>
-                <CardHeader title={`Leaderbaord - ${currentBoard}`}>
+                <CardHeader title={`Top Days by GET reserved`}>
+                </CardHeader>
+                <TableContainer>
+                  <Table >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>
+                          #
+                        </TableCell>
+                        <TableCell>
+                          Day
+                        </TableCell>
+                        <TableCell>
+                          GET Reserved
+                        </TableCell>
+                        <TableCell>
+                          Tickets Sold
+                        </TableCell>
+                        <TableCell>
+                          Sales Volume
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {
+                      topDays.map((day, index) => (
+                        <DayDataLine
+                          key={index}
+                          postion={index+1}
+                          day={protocolDayToDateInFull(day.day)}
+                          fuel={numberWithCommas(Number(day.reservedFuel).toFixed(2))}
+                          soldCount={numberWithCommas(Number(day.soldCount))}
+                          salesVolume={numberWithCommas(Number(day.totalSalesVolume).toFixed(2))}
+                        />
+                      ))
+                      }
+                    </TableBody>
+                  </Table>
+                  </TableContainer>
+              </Card>
+            </Grid>
+          <Grid item
+            lg={6}
+            md={12}
+            xl={6}
+            xs={12}>
+              <Card sx={{
+                margin: 2
+              }}>
+                <CardHeader title={`Top Events of all time by GET reserved`}>
                 
                 </CardHeader>
                 <TableContainer>
@@ -120,7 +129,7 @@ const Leaderboards = ({ wsdata }) => {
                         <LeaderboardDataLine
                           key={index}
                           postion={index+1}
-                          eventName={truncate(event.name, 22)}
+                          eventName={truncate(event.name, 10)}
                           eventLink={`/event/${event.id}`}
                           intagrator={event.integrator.name}
                           intagratorLink={`/integrator/${event.integrator.id}`}
@@ -135,7 +144,6 @@ const Leaderboards = ({ wsdata }) => {
               </Card>
             </Grid>
           </Grid>
-          </Box>
       </>      
     )
   }
