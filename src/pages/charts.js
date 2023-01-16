@@ -45,7 +45,7 @@ const Charts = ({ wsdata }) => {
               Reserved Fuel
             </Typography>
                 <FuelGraph
-                  protocolDays={protocolDays.slice(0,30)}
+                  protocolDays={protocolDays}
                 />
             </Card>
           </Grid>
@@ -69,7 +69,7 @@ const Charts = ({ wsdata }) => {
               Ticket Interactions
             </Typography>
                 <LineGraph
-                  protocolDays={protocolDays.slice(0,30)}
+                  protocolDays={protocolDays}
                 />
             </Card>
           </Grid>

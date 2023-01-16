@@ -87,7 +87,7 @@ const Index = ({ wsdata }) => {
                   }}
                 >
                   <LineGraph
-                    protocolDays={protocolDays.slice(0,30)}
+                    protocolDays={protocolDays}
                   />
               </Card>
               </Grid>
