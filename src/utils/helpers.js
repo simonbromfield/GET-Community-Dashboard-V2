@@ -66,4 +66,34 @@ export function protocolDayToDateInFull(x) {
   return addDays(protocolStarted, daySinceStart).toLocaleDateString('en-UK', { day: 'numeric', month:"short", year:"2-digit"})
 }
 
+// turn protocolDay into a date string full date
+export function protocolDayToFormattedDate(x) {
+  const protocolStarted = new Date("June 22, 2021");
+  var daySinceStart = (x - 18800) 
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+  return addDays(protocolStarted, daySinceStart).toLocaleDateString('en-UK')
+}
+
+// export a JSON file into a CSV file
+export function jsonToCsv(jsonData) {
+  // Extract the keys from the first object in the data
+  const keys = Object.keys(jsonData[0]);
+
+  // Create a CSV string from the data
+  const csvData = jsonData.map((row) => {
+    return keys.map((key) => {
+      return `"${row[key]}"`;
+    }).join(',');
+  });
+
+  // Insert the keys at the beginning of the CSV string
+  csvData.unshift(keys.join(','));
+
+  return csvData.join('\n');
+}
+
 
