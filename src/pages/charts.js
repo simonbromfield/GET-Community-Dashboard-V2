@@ -112,7 +112,7 @@ const Charts = ({ wsdata }) => {
             onClick={handleDownload}
             startIcon={<FileDownloadIcon />
             }>
-            Download 365 days as CSV.
+            Download protocolDays as CSV.
           </Button>
         </Stack>
       </Container>
