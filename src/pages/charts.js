@@ -25,7 +25,6 @@ const Charts = ({ wsdata }) => {
 
     const updatedData = protocolDays.map(x => {
       x.dateString = protocolDayToFormattedDate(Number(x.day))
-      x.totalSalesVolume = usd(Number(x.totalSalesVolume))
       return x;
     });
 
