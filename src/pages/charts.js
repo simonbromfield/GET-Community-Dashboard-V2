@@ -3,15 +3,42 @@ import {
   Container,
   Grid,
   Card,
-  Typography
+  Typography,
+  Stack,
+  Button
 } from '@mui/material'
 import Head from 'next/head'
 import { DashboardLayout } from '../components/dashboard-layout';
 import LineGraph from '../components/dashboard/line'
 import FuelGraph from '../components/dashboard/fuelGraph'
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import {
+  jsonToCsv,
+  protocolDayToFormattedDate
+} from '../utils/helpers'
 
 const Charts = ({ wsdata }) => {
   const [protocolDays, setProtocolDays] = useState(wsdata.protocolDays)
+
+  const handleDownload = () => {
+
+    const updatedData = protocolDays.map(x => {
+      x.dateString = protocolDayToFormattedDate(Number(x.day));
+      return x;
+    });
+
+    // Convert jsonData to CSV format
+    const csvData = jsonToCsv(updatedData);
+
+    // Create a Blob object containing the CSV data
+    const blob = new Blob([csvData], { type: 'text/csv' });
+
+    // Create a link element and trigger a download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = '365ProtocolDays.csv';
+    link.click();
+  };
 
   useEffect(() => {
     setProtocolDays(wsdata.protocolDays)
@@ -74,6 +101,18 @@ const Charts = ({ wsdata }) => {
             </Card>
           </Grid>
         </Grid>
+        <Stack direction="row"
+          spacing={2}
+          margin={4}
+        >
+          <Button
+            variant="outlined"
+            onClick={handleDownload}
+            startIcon={<FileDownloadIcon />
+            }>
+            Download 365 days as CSV.
+          </Button>
+        </Stack>
       </Container>
     </>
   )
