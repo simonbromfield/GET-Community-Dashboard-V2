@@ -38,7 +38,7 @@ const Charts = ({ wsdata }) => {
     // Create a link element and trigger a download
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = '365ProtocolDays.csv';
+    link.download = 'GET-ProtocolDays.csv';
     link.click();
   };
 
