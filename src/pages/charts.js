@@ -14,7 +14,8 @@ import FuelGraph from '../components/dashboard/fuelGraph'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
   jsonToCsv,
-  protocolDayToFormattedDate
+  protocolDayToFormattedDate,
+  usd
 } from '../utils/helpers'
 
 const Charts = ({ wsdata }) => {
@@ -23,7 +24,8 @@ const Charts = ({ wsdata }) => {
   const handleDownload = () => {
 
     const updatedData = protocolDays.map(x => {
-      x.dateString = protocolDayToFormattedDate(Number(x.day));
+      x.dateString = protocolDayToFormattedDate(Number(x.day))
+      x.totalSalesVolume = usd(Number(x.totalSalesVolume))
       return x;
     });
 

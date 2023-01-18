@@ -78,6 +78,16 @@ export function protocolDayToFormattedDate(x) {
   return addDays(protocolStarted, daySinceStart).toLocaleDateString('en-UK')
 }
 
+// turn value into USD currency for spreadsheet
+export function usd(number) {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+  const formattedCurrency = formatter.format(number);
+  return formattedCurrency
+}
+
 // export a JSON file into a CSV file
 export function jsonToCsv(jsonData) {
   // Extract the keys from the first object in the data
