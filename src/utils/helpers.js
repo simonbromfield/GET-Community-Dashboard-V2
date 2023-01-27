@@ -106,4 +106,7 @@ export function jsonToCsv(jsonData) {
   return csvData.join('\n');
 }
 
-
+export function getColorByID(id) {
+  let colorArray = ["red", "orange", "yellow", "green", "blue", "indigo", "violet", "pink", "purple", "black", "coral", "gray", "brown", "magenta", "cyan", "lime", "teal", "navy", "maroon", "olive", "silver", "gold", "plum", "peach", "turquoise", "aquamarine", "coral", "salmon", "tan"];
+  return colorArray[id - 1];
+}
