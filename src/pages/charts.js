@@ -12,6 +12,8 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import LineGraph from '../components/dashboard/line'
 import FuelGraph from '../components/dashboard/fuelGraph'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import WhiteLabelDominance from '../components/dashboard/whitelabeldom'
+import TimeWhiteLabelDominance from '../components/dashboard/timewhitelabeldom'
 import {
   jsonToCsv,
   protocolDayToFormattedDate,
@@ -25,7 +27,6 @@ const Charts = ({ wsdata }) => {
 
     const updatedData = protocolDays.map(x => {
       x.dateString = protocolDayToFormattedDate(Number(x.day))
-      x.totalSalesVolume = usd(Number(x.totalSalesVolume))
       return x;
     });
 
@@ -38,7 +39,7 @@ const Charts = ({ wsdata }) => {
     // Create a link element and trigger a download
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = '365ProtocolDays.csv';
+    link.download = 'GET-ProtocolDays.csv';
     link.click();
   };
 
@@ -68,7 +69,7 @@ const Charts = ({ wsdata }) => {
               <Typography gutterBottom
               variant="p"
               component="div"
-              margin={2}
+              margin={1}
               marginBottom={0}
             >
               Reserved Fuel
@@ -85,14 +86,14 @@ const Charts = ({ wsdata }) => {
               <Card
                 sx={{
                   height: '100%',
-                marginBottom: 2,
-                  padding: 4
+                marginBottom: 1,
+                  padding: 1
                 }}
             >
               <Typography gutterBottom
               variant="p"
               component="div"
-              margin={2}
+              margin={1}
               marginBottom={0}
             >
               Ticket Interactions
@@ -100,6 +101,51 @@ const Charts = ({ wsdata }) => {
                 <LineGraph
                   protocolDays={protocolDays}
                 />
+            </Card>
+          </Grid>
+          <Grid item
+              lg={6}
+              sm={12}
+              xs={12}>
+              <Card
+                sx={{
+                  height: '100%',
+                marginBottom: 2,
+                  padding: 4
+                }}
+            >
+              <Typography gutterBottom
+              variant="p"
+              component="div"
+              margin={1}
+              marginBottom={0}
+            >
+              Total Ticket Sales (WL)
+            </Typography>
+            <WhiteLabelDominance />
+            </Card>
+          </Grid>
+
+          <Grid item
+              lg={6}
+              sm={12}
+              xs={12}>
+              <Card
+                sx={{
+                  height: '100%',
+                marginBottom: 2,
+                  padding: 4
+                }}
+            >
+              <Typography gutterBottom
+              variant="p"
+              component="div"
+              margin={1}
+              marginBottom={0}
+            >
+              30 Day Ticket Sales (WL)
+            </Typography>
+            <TimeWhiteLabelDominance />
             </Card>
           </Grid>
         </Grid>
@@ -112,7 +158,7 @@ const Charts = ({ wsdata }) => {
             onClick={handleDownload}
             startIcon={<FileDownloadIcon />
             }>
-            Download 365 days as CSV.
+            Download protocolDays as CSV.
           </Button>
         </Stack>
       </Container>
