@@ -21,7 +21,7 @@ const AverageReservedFuel = () => {
         const res = await axios.post(API_URL, {
           query: `
             {
-              protocolDays(orderBy: day, orderDirection: desc, first: 30) {
+              protocolDays(orderBy: day, orderDirection: desc, first: 30, skip: 1) {
                 reservedFuel
               }
             }
