@@ -51,18 +51,6 @@ const TicketsSoldApp = (props) => {
             { totalEvents(protocolData.eventCount) }
           </Typography>
           
-          <Typography
-            color="textSecondary"
-          >
-            SPENT FUEL
-          </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h5"
-          >
-            {fuelFormat(protocolData.collectedSpentFuel)}
-          </Typography>
-          
         </CardContent>
       </Card>
       </>   

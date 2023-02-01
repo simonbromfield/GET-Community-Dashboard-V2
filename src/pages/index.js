@@ -29,6 +29,7 @@ import TokenPrice from '../components/dashboard/tokenPrice'
 import MarketCapApp from '../components/dashboard/marketCap'
 import { truncate } from '../utils/helpers'
 import { DashboardLayout } from '../components/dashboard-layout'
+import ThirtyDayAverageFuel from '../components/dashboard/30dayAverageFuel'
 
 const style = {
   width: '100%',
@@ -74,7 +75,7 @@ const Index = ({ wsdata }) => {
                   sx={{ height: '100%' }}
                   protocolData={protocolData}
                 />
-            
+              <ThirtyDayAverageFuel />
               </Grid>
               <Grid item
                 lg={6}
