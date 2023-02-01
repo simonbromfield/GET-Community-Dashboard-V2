@@ -15,6 +15,7 @@ import SalesGraph from '../components/dashboard/salesVolumeGraph'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import WhiteLabelDominance from '../components/dashboard/whitelabeldom'
 import TimeWhiteLabelDominance from '../components/dashboard/timewhitelabeldom'
+import YoyWhiteLabelDominance from '../components/dashboard/yoywhitelabeldom'
 import {
   jsonToCsv,
   protocolDayToFormattedDate,
@@ -129,7 +130,7 @@ const Charts = ({ wsdata }) => {
             </Card>
           </Grid>
           <Grid item
-              lg={6}
+              lg={4}
               sm={12}
               xs={12}>
               <Card
@@ -152,7 +153,7 @@ const Charts = ({ wsdata }) => {
           </Grid>
 
           <Grid item
-              lg={6}
+              lg={4}
               sm={12}
               xs={12}>
               <Card
@@ -171,6 +172,28 @@ const Charts = ({ wsdata }) => {
               30 Day Ticket Sales (WL)
             </Typography>
             <TimeWhiteLabelDominance />
+            </Card>
+          </Grid>
+          <Grid item
+              lg={4}
+              sm={12}
+              xs={12}>
+              <Card
+                sx={{
+                  height: '100%',
+                marginBottom: 1,
+                  padding: 1
+                }}
+            >
+              <Typography gutterBottom
+              variant="p"
+              component="div"
+              margin={1}
+              marginBottom={0}
+            >
+              30 Day Ticket Sales (WL) - 365 days
+            </Typography>
+            <YoyWhiteLabelDominance />
             </Card>
           </Grid>
         </Grid>
