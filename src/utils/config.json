@@ -1,5 +1,0 @@
-{
-  "WS_URL": "wss://serene-reaches-92565.herokuapp.com/",
-  "HEROKU_WS_URL": "wss://serene-reaches-92565.herokuapp.com/",
-  "LOCAL_WS_URL": "ws://localhost:3001/"
-}
