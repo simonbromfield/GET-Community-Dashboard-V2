@@ -9,7 +9,8 @@ function SoldChip(props) {
     color: 'white',
   };
 
-  return <Chip sx={soldStyle} label={soldCount} />;
+  return <Chip sx={soldStyle}
+label={soldCount} />;
 }
 
 export default SoldChip;

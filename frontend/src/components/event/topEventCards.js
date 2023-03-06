@@ -49,8 +49,13 @@ function TopEventCards(props) {
 
   return (
     <>
-      <Grid item lg={4} sm={6} xl={3} xs={12}>
-        <Card sx={{ margin: 1 }} key={key}>
+      <Grid item
+lg={4}
+sm={6}
+xl={3}
+xs={12}>
+        <Card sx={{ margin: 1 }}
+key={key}>
           <CardMedia
             component="img"
             height="140"
@@ -58,12 +63,16 @@ function TopEventCards(props) {
             alt="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h6" component="div">
+            <Typography gutterBottom
+variant="h6"
+component="div">
               {truncate(eventName, 20)} | {truncate(integrator, 25)}
             </Typography>
 
-            <Stack direction="column" spacing={0.3}>
-              <Chip icon={<LocalGasStationIcon />} label={getUsed} />
+            <Stack direction="column"
+spacing={0.3}>
+              <Chip icon={<LocalGasStationIcon />}
+label={getUsed} />
               <SoldChip soldCount={`SOLD: ${soldCount}`} />
               <ReSoldChip reSoldCount={`RESOLD: ${reSoldCount}`} />
               <ScannedChip scannedCount={`SCANNED: ${scannedCount}`} />
@@ -76,13 +85,17 @@ function TopEventCards(props) {
           </CardContent>
           <Divider variant="middle" />
           <CardActions>
-            <Button size="small" href={integratorLink}>
+            <Button size="small"
+href={integratorLink}>
               {truncate(integrator, 15)}
             </Button>
-            <Button size="small" href={eventLink}>
+            <Button size="small"
+href={eventLink}>
               View Event
             </Button>
-            <Button size="small" href={txLink} target="_blank">
+            <Button size="small"
+href={txLink}
+target="_blank">
               TX
             </Button>
           </CardActions>

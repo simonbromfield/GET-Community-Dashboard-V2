@@ -10,7 +10,8 @@ function ClaimedChip(props) {
     color: 'white',
   };
 
-  return <Chip sx={claimedStyle} label={claimedCount} />;
+  return <Chip sx={claimedStyle}
+label={claimedCount} />;
 }
 
 export default ClaimedChip;

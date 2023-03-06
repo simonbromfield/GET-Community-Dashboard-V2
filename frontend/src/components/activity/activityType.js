@@ -34,17 +34,23 @@ function ActivityType(props) {
       {(() => {
         switch (activityType) {
           case 'SOLD':
-            return <Chip sx={soldStyle} label="SOLD" />;
+            return <Chip sx={soldStyle}
+label="SOLD" />;
           case 'RESOLD':
-            return <Chip sx={resoldStyle} label="RESOLD" />;
+            return <Chip sx={resoldStyle}
+label="RESOLD" />;
           case 'SCANNED':
-            return <Chip sx={scannedStyle} label="SCANNED" />;
+            return <Chip sx={scannedStyle}
+label="SCANNED" />;
           case 'INVALIDATED':
-            return <Chip sx={invalidatedStyle} label="INVALIDATED" />;
+            return <Chip sx={invalidatedStyle}
+label="INVALIDATED" />;
           case 'CHECKED_IN':
-            return <Chip sx={checkedInStyle} label="CHECKED_IN" />;
+            return <Chip sx={checkedInStyle}
+label="CHECKED_IN" />;
           case 'CLAIMED':
-            return <Chip sx={claimedStyle} label="CLAIMED" />;
+            return <Chip sx={claimedStyle}
+label="CLAIMED" />;
           default:
             return <Chip label={activityType} />;
         }

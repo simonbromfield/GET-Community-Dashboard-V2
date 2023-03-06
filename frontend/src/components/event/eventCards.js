@@ -44,8 +44,13 @@ function EventCards(props) {
 
   return (
     <>
-      <Grid item lg={4} sm={6} xl={3} xs={12}>
-        <Card sx={{ margin: 1 }} key={key}>
+      <Grid item
+lg={4}
+sm={6}
+xl={3}
+xs={12}>
+        <Card sx={{ margin: 1 }}
+key={key}>
           <CardMedia
             component="img"
             height="190"
@@ -114,10 +119,13 @@ function EventCards(props) {
           </CardContent>
           <Divider variant="middle" />
           <CardActions>
-            <Button href={txLink} target="_blank">
+            <Button href={txLink}
+target="_blank">
               <OpenInNewIcon />
             </Button>
-            <Button size="small" href={shopUrl} target="_blank">
+            <Button size="small"
+href={shopUrl}
+target="_blank">
               Visit ticket shop
             </Button>
           </CardActions>

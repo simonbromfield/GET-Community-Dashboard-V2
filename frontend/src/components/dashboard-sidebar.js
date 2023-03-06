@@ -132,7 +132,8 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-            <NextLink href="/" passHref>
+            <NextLink href="/"
+passHref>
               <Image
                 src="/static/images/logo.svg"
                 alt="Picture of the author"
@@ -167,10 +168,12 @@ export const DashboardSidebar = (props) => {
             py: 3,
           }}
         >
-          <Typography color="neutral.100" variant="subtitle2">
+          <Typography color="neutral.100"
+variant="subtitle2">
             Join our community
           </Typography>
-          <Typography color="neutral.500" variant="body2">
+          <Typography color="neutral.500"
+variant="body2">
             contribute | learn | get involved
           </Typography>
           <NextLink

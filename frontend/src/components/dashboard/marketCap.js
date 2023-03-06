@@ -34,10 +34,12 @@ const MarketCapApp = () => {
   const displayMarketCap = () => {
     return (
       <>
-        <Typography color="textPrimary" variant="h5">
+        <Typography color="textPrimary"
+variant="h5">
           ${marketCapUSD}
         </Typography>
-        <Typography color="textPrimary" variant="p">
+        <Typography color="textPrimary"
+variant="p">
           €{marketCapEUR}
         </Typography>
       </>

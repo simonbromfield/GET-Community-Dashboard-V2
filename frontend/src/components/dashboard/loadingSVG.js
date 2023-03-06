@@ -4,7 +4,9 @@ function LoadingSVG(props) {
   return (
     <>
       <div className="container">
-        <svg width="100" height="100" viewBox="0 0 300 300">
+        <svg width="100"
+height="100"
+viewBox="0 0 300 300">
           <defs>
             <linearGradient
               id="gradient-fill"

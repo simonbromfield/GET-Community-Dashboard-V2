@@ -15,11 +15,20 @@ const TradesTopUps = (props) => {
           width: '100%',
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item lg={6} md={12} xl={6} xs={12}>
+        <Grid container
+spacing={2}>
+          <Grid item
+lg={6}
+md={12}
+xl={6}
+xs={12}>
             <EthTrades />
           </Grid>
-          <Grid item lg={6} md={12} xl={6} xs={12}>
+          <Grid item
+lg={6}
+md={12}
+xl={6}
+xs={12}>
             <PolyTrades />
           </Grid>
         </Grid>

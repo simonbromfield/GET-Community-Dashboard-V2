@@ -42,7 +42,11 @@ const Leaderboards = ({ wsdata }) => {
     return (
       <>
         <Grid container>
-          <Grid item lg={6} md={12} xl={6} xs={12}>
+          <Grid item
+lg={6}
+md={12}
+xl={6}
+xs={12}>
             <Card
               sx={{
                 margin: 2,
@@ -80,7 +84,11 @@ const Leaderboards = ({ wsdata }) => {
               </TableContainer>
             </Card>
           </Grid>
-          <Grid item lg={6} md={12} xl={6} xs={12}>
+          <Grid item
+lg={6}
+md={12}
+xl={6}
+xs={12}>
             <Card
               sx={{
                 margin: 2,

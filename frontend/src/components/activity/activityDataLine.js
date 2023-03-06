@@ -44,12 +44,14 @@ function ActivityDataLine(props) {
           {Moment.unix(blockTimestamp).format('hh:mm:ss a')}
         </TableCell>
         <TableCell>
-          <Link href={eventLink} passHref>
+          <Link href={eventLink}
+passHref>
             <Button variant="text"> {eventName} </Button>
           </Link>
         </TableCell>
         <TableCell>
-          <Link href={integratorLink} passHref>
+          <Link href={integratorLink}
+passHref>
             <Button variant="text"> {integrator} </Button>
           </Link>
         </TableCell>

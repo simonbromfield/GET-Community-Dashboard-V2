@@ -134,7 +134,8 @@ const TicketsSoldApp = (props) => {
     <div>
       <Container>
         <Box sx={{ width: 1 }}>
-          <Typography id="non-linear-slider" sx={{ pt: 3 }}>
+          <Typography id="non-linear-slider"
+sx={{ pt: 3 }}>
             Range: {valueLabelFormat(value)}
           </Typography>
           <Slider

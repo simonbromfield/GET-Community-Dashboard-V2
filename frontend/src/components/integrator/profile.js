@@ -39,11 +39,15 @@ const Profile = (props) => {
     <>
       {profileData ? (
         <Container maxWidth={false}>
-          <Typography sx={{ mb: 3 }} variant="h4">
+          <Typography sx={{ mb: 3 }}
+variant="h4">
             {profileData.name}
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item lg={4} sm={12}>
+          <Grid container
+spacing={3}>
+            <Grid item
+lg={4}
+sm={12}>
               <Card
                 sx={{
                   height: '100%',
@@ -56,7 +60,9 @@ const Profile = (props) => {
                 />
               </Card>
             </Grid>
-            <Grid item lg={8} sm={12}>
+            <Grid item
+lg={8}
+sm={12}>
               <Card
                 sx={{
                   height: '100%',
@@ -67,7 +73,8 @@ const Profile = (props) => {
               </Card>
             </Grid>
           </Grid>
-          <Grid container sx={{ marginTop: 2, marginBottom: 4 }}>
+          <Grid container
+sx={{ marginTop: 2, marginBottom: 4 }}>
             <Card>
               <CardHeader title={`Top events by reserved fuel.`} />
               <TableContainer>

@@ -100,9 +100,11 @@ const Integrators = ({ wsdata }) => {
         </ToggleButtonGroup>
 
         <Container maxWidth={false}>
-          <Grid container spacing={3}>
+          <Grid container
+spacing={3}>
             {integrators.map((integrator) => (
-              <IntegratorCard key={integrator.id} data={integrator} />
+              <IntegratorCard key={integrator.id}
+data={integrator} />
             ))}
           </Grid>
         </Container>

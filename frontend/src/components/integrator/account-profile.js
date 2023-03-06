@@ -15,10 +15,12 @@ function AccountProfile(props) {
             flexDirection: 'column',
           }}
         >
-          <Typography color="textSecondary" variant="h4">
+          <Typography color="textSecondary"
+variant="h4">
             {`${profileData.eventCount} events`}
           </Typography>
-          <Typography color="textSecondary" variant="h7">
+          <Typography color="textSecondary"
+variant="h7">
             {numberWithCommas(Number(profileData.availableFuel).toFixed(2))}{' '}
             $GET Available
           </Typography>

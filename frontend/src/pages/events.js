@@ -65,7 +65,8 @@ const Events = ({ wsdata }) => {
             Recently Created Events
           </Typography>
           <Container maxWidth={false}>
-            <Grid container spacing={3}>
+            <Grid container
+spacing={3}>
               {eventList
                 ? eventList.map((event) => (
                     <EventCards

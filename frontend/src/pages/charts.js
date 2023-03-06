@@ -47,8 +47,13 @@ const Charts = ({ wsdata }) => {
   return (
     <>
       <Container maxWidth={false}>
-        <Grid container marginTop={2} spacing={3}>
-          <Grid item lg={12} sm={12} xs={12}>
+        <Grid container
+marginTop={2}
+spacing={3}>
+          <Grid item
+lg={12}
+sm={12}
+xs={12}>
             <Card
               sx={{
                 height: '100%',
@@ -68,7 +73,10 @@ const Charts = ({ wsdata }) => {
               <FuelGraph protocolDays={protocolDays} />
             </Card>
           </Grid>
-          <Grid item lg={12} sm={12} xs={12}>
+          <Grid item
+lg={12}
+sm={12}
+xs={12}>
             <Card
               sx={{
                 height: '100%',
@@ -88,7 +96,10 @@ const Charts = ({ wsdata }) => {
               <LineGraph protocolDays={protocolDays} />
             </Card>
           </Grid>
-          <Grid item lg={12} sm={12} xs={12}>
+          <Grid item
+lg={12}
+sm={12}
+xs={12}>
             <Card
               sx={{
                 height: '100%',
@@ -108,7 +119,10 @@ const Charts = ({ wsdata }) => {
               <SalesGraph protocolDays={protocolDays} />
             </Card>
           </Grid>
-          <Grid item lg={4} sm={12} xs={12}>
+          <Grid item
+lg={4}
+sm={12}
+xs={12}>
             <Card
               sx={{
                 height: '100%',
@@ -129,7 +143,10 @@ const Charts = ({ wsdata }) => {
             </Card>
           </Grid>
 
-          <Grid item lg={4} sm={12} xs={12}>
+          <Grid item
+lg={4}
+sm={12}
+xs={12}>
             <Card
               sx={{
                 height: '100%',
@@ -149,7 +166,10 @@ const Charts = ({ wsdata }) => {
               <TimeWhiteLabelDominance />
             </Card>
           </Grid>
-          <Grid item lg={4} sm={12} xs={12}>
+          <Grid item
+lg={4}
+sm={12}
+xs={12}>
             <Card
               sx={{
                 height: '100%',
@@ -170,7 +190,9 @@ const Charts = ({ wsdata }) => {
             </Card>
           </Grid>
         </Grid>
-        <Stack direction="row" spacing={2} margin={4}>
+        <Stack direction="row"
+spacing={2}
+margin={4}>
           <Button
             variant="outlined"
             onClick={handleDownload}

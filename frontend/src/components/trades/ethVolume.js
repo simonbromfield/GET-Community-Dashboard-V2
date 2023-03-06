@@ -16,7 +16,8 @@ function ETHVolume(props) {
       {(() => {
         switch (amount1In) {
           case '0':
-            return <Chip sx={buyStyle} label={Number(amount1Out).toFixed(6)} />;
+            return <Chip sx={buyStyle}
+label={Number(amount1Out).toFixed(6)} />;
           default:
             return (
               <>

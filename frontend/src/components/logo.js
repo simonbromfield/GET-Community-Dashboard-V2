@@ -9,7 +9,8 @@ class Logo extends React.Component {
       fontSize: '8px',
       margin: '0px',
     };
-    return <img src={logoImage} alt="GET Protocol Community" />;
+    return <img src={logoImage}
+alt="GET Protocol Community" />;
   }
 }
 

@@ -40,13 +40,15 @@ const App = (props) => {
     <>
       <Head>
         <title>GET Protocol Community | Dashboard</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta name="viewport"
+content="initial-scale=1, width=device-width" />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {loading ? (
-            getLayout(<Component {...pageProps} wsdata={wsdata} />)
+            getLayout(<Component {...pageProps}
+wsdata={wsdata} />)
           ) : (
             <LoadingSVG />
           )}

@@ -16,7 +16,8 @@ function GETVolume(props) {
       {(() => {
         switch (amount0In) {
           case '0':
-            return <Chip sx={buyStyle} label={Number(amount0Out).toFixed(3)} />;
+            return <Chip sx={buyStyle}
+label={Number(amount0Out).toFixed(3)} />;
           default:
             return (
               <>

@@ -29,10 +29,12 @@ const TokenDataApp = () => {
   const displayTokenPrice = () => {
     return (
       <>
-        <Typography color="textPrimary" variant="h5">
+        <Typography color="textPrimary"
+variant="h5">
           ${tokenPriceUSD}
         </Typography>
-        <Typography color="textPrimary" variant="p">
+        <Typography color="textPrimary"
+variant="p">
           €{tokenPriceEUR}
         </Typography>
       </>

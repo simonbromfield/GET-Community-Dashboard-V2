@@ -15,7 +15,8 @@ const IntegratorPofile = ({ wsdata }) => {
           <Head>
             <title>Integrator Profile | GET Protocol Community</title>
           </Head>
-          {id ? <Profile id={id} wsdata={wsdata} /> : <h2>Error</h2>}
+          {id ? <Profile id={id}
+wsdata={wsdata} /> : <h2>Error</h2>}
         </>
       </DashboardLayout>
     </>

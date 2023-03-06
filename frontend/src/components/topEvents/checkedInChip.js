@@ -9,7 +9,8 @@ function CheckedInChip(props) {
     color: 'white',
   };
 
-  return <Chip sx={checkedInStyle} label={checkedInCount} />;
+  return <Chip sx={checkedInStyle}
+label={checkedInCount} />;
 }
 
 export default CheckedInChip;

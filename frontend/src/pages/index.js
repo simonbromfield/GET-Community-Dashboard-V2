@@ -66,15 +66,22 @@ const Index = ({ wsdata }) => {
         }}
       >
         <Container maxWidth={false}>
-          <Grid container spacing={3}>
-            <Grid item lg={3} sm={12} xs={12}>
+          <Grid container
+spacing={3}>
+            <Grid item
+lg={3}
+sm={12}
+xs={12}>
               <TotalTicketsSold
                 sx={{ height: '100%' }}
                 protocolData={protocolData}
               />
               <ThirtyDayAverageFuel />
             </Grid>
-            <Grid item lg={6} sm={12} xs={12}>
+            <Grid item
+lg={6}
+sm={12}
+xs={12}>
               <Card
                 sx={{
                   height: '100%',
@@ -84,7 +91,10 @@ const Index = ({ wsdata }) => {
                 <LineGraph protocolDays={protocolDays} />
               </Card>
             </Grid>
-            <Grid item lg={3} sm={12} xs={12}>
+            <Grid item
+lg={3}
+sm={12}
+xs={12}>
               <Card
                 sx={{
                   height: '100%',
@@ -98,7 +108,9 @@ const Index = ({ wsdata }) => {
               </Card>
             </Grid>
 
-            <Grid container spacing={2} margin={2}>
+            <Grid container
+spacing={2}
+margin={2}>
               {recentUsage.slice(0, 4).map((usage) => (
                 <>
                   <ActivityTopTile
@@ -113,14 +125,20 @@ const Index = ({ wsdata }) => {
                   />
                 </>
               ))}
-              <Grid item lg={3} sm={12} xs={12}>
-                <Button variant="contained" href="/recent-activity">
+              <Grid item
+lg={3}
+sm={12}
+xs={12}>
+                <Button variant="contained"
+href="/recent-activity">
                   Recent Activity
                 </Button>
               </Grid>
             </Grid>
 
-            <Grid item lg={8} xs={12}>
+            <Grid item
+lg={8}
+xs={12}>
               <Card
                 sx={{
                   margin: 2,
@@ -157,7 +175,8 @@ const Index = ({ wsdata }) => {
                     </TableBody>
                     <TableFooter>
                       <TableRow>
-                        <Button size="large" href="/top-ups/">
+                        <Button size="large"
+href="/top-ups/">
                           View more
                         </Button>
                       </TableRow>
@@ -166,7 +185,9 @@ const Index = ({ wsdata }) => {
                 </TableContainer>
               </Card>
             </Grid>
-            <Grid item lg={4} xs={12}>
+            <Grid item
+lg={4}
+xs={12}>
               <Card
                 sx={{
                   margin: 2,
@@ -174,7 +195,9 @@ const Index = ({ wsdata }) => {
               >
                 <CardHeader title="Integrators" />
 
-                <List sx={style} component="nav" aria-label="mailbox folders">
+                <List sx={style}
+component="nav"
+aria-label="mailbox folders">
                   <Divider />
                   {integrators.map((integrator) => (
                     <>

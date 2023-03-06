@@ -22,13 +22,18 @@ import { numberWithCommas } from '../../utils/helpers';
 const IntegratorCard = (props) => {
   const { data } = props;
   return (
-    <Grid item lg={3} sm={12} xs={12}>
+    <Grid item
+lg={3}
+sm={12}
+xs={12}>
       <Card>
         <CardContent>
-          <Typography color="textPrimary" variant="h5">
+          <Typography color="textPrimary"
+variant="h5">
             {data.name}
           </Typography>
-          <Stack direction="column" spacing={0.3}>
+          <Stack direction="column"
+spacing={0.3}>
             <ListItemText
               primary={numberWithCommas(Number(data.eventCount))}
               secondary={`events`}

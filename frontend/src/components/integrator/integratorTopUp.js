@@ -28,7 +28,9 @@ function IntegratorTopUp(props) {
             flexDirection: 'column',
           }}
         >
-          <Typography color="textPrimary" gutterBottom variant="h5">
+          <Typography color="textPrimary"
+gutterBottom
+variant="h5">
             TOP UPS
           </Typography>
         </Box>

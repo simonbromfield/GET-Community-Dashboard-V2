@@ -5,10 +5,12 @@ const NotFound = (props) => {
   return (
     <>
       <Container>
-        <Typography sx={{ mb: 3 }} variant="h4">
+        <Typography sx={{ mb: 3 }}
+variant="h4">
           Integrator was not found
         </Typography>
-        <Typography sx={{ mb: 3 }} variant="p">
+        <Typography sx={{ mb: 3 }}
+variant="p">
           Although many things could cause this issue, it may also be down to
           the ID you entered is not accociated with an integrator that has
           &apos;billingEnabled&apos;.

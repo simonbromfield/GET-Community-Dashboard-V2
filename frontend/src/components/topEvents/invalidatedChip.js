@@ -9,7 +9,8 @@ function InvalidatedChip(props) {
     color: 'white',
   };
 
-  return <Chip sx={invalidatedStyle} label={invalidatedCount} />;
+  return <Chip sx={invalidatedStyle}
+label={invalidatedCount} />;
 }
 
 export default InvalidatedChip;

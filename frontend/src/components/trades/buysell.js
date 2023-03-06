@@ -18,9 +18,11 @@ function BuySell(props) {
       {(() => {
         switch (amount0In) {
           case '0':
-            return <Chip sx={buyStyle} label="BUY" />;
+            return <Chip sx={buyStyle}
+label="BUY" />;
           default:
-            return <Chip sx={sellStyle} label="SELL" />;
+            return <Chip sx={sellStyle}
+label="SELL" />;
         }
       })()}
     </>

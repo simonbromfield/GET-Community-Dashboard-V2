@@ -15,7 +15,8 @@ function LeaderboardDataLine(props) {
   const { key, postion, day, fuel, soldCount, salesVolume } = props;
   return (
     <>
-      <TableRow hover key={key}>
+      <TableRow hover
+key={key}>
         <TableCell>{postion}</TableCell>
         <TableCell>{day}</TableCell>
         <TableCell>{fuel} GET</TableCell>

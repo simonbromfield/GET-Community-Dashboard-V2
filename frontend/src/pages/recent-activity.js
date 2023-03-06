@@ -73,7 +73,9 @@ const RecentMints = ({ wsdata }) => {
         </ToggleButtonGroup>
         {recentUsage.length > 1 ? (
           <Container maxWidth={false}>
-            <Grid container spacing={4} marginBottom={2}>
+            <Grid container
+spacing={4}
+marginBottom={2}>
               {recentUsage.slice(0, 4).map((usage) => (
                 <ActivityTopTile
                   key={usage.nftId}

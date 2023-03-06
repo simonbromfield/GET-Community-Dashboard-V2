@@ -26,7 +26,8 @@ function TopUpDataLine(props) {
   } = props;
   return (
     <>
-      <TableRow hover key={key}>
+      <TableRow hover
+key={key}>
         <TableCell>{blockTimestamp}</TableCell>
         <TableCell>
           <Button
@@ -41,7 +42,8 @@ function TopUpDataLine(props) {
         <TableCell>{total} GET</TableCell>
         <TableCell>${totalUsd}</TableCell>
         <TableCell>
-          <Button href={txlink} target="_blank">
+          <Button href={txlink}
+target="_blank">
             <OpenInNewIcon />
           </Button>
         </TableCell>

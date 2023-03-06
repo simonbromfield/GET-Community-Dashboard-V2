@@ -54,7 +54,8 @@ const TopUps = ({ wsdata }) => {
   const moreButton = () => {
     if (showNumber <= wsdata.topUpEvents.length) {
       return (
-        <Button size="large" onClick={showMore}>
+        <Button size="large"
+onClick={showMore}>
           More
         </Button>
       );
@@ -71,8 +72,13 @@ const TopUps = ({ wsdata }) => {
             width: '100%',
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item lg={8} md={12} xl={8} xs={12}>
+          <Grid container
+spacing={2}>
+            <Grid item
+lg={8}
+md={12}
+xl={8}
+xs={12}>
               <Card
                 sx={{
                   margin: 2,
@@ -114,7 +120,11 @@ const TopUps = ({ wsdata }) => {
                 </TableContainer>
               </Card>
             </Grid>
-            <Grid item lg={4} md={12} xl={4} xs={12}>
+            <Grid item
+lg={4}
+md={12}
+xl={4}
+xs={12}>
               <Card
                 sx={{
                   margin: 2,
@@ -122,7 +132,9 @@ const TopUps = ({ wsdata }) => {
               >
                 <CardHeader title="Integrators" />
 
-                <List sx={style} component="nav" aria-label="mailbox folders">
+                <List sx={style}
+component="nav"
+aria-label="mailbox folders">
                   <Divider />
                   {integrators.map((integrator) => (
                     <>

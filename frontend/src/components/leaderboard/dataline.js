@@ -24,10 +24,13 @@ function LeaderboardDataLine(props) {
   } = props;
   return (
     <>
-      <TableRow hover key={key}>
+      <TableRow hover
+key={key}>
         <TableCell>{postion}</TableCell>
         <TableCell>
-          <Button size="large" href={eventLink} sx={{ integratorBtnStyle }}>
+          <Button size="large"
+href={eventLink}
+sx={{ integratorBtnStyle }}>
             {eventName}
           </Button>
         </TableCell>

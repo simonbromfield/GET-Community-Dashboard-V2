@@ -35,39 +35,66 @@ function ActivityTypeNav(props) {
   return (
     <>
       <Container>
-        <Grid container spacing={1} margin={1}>
-          <Grid item lg={2} sm={4} xl={2} xs={4}>
-            <Chip label="ALL" onClick={() => handleClick()} />
+        <Grid container
+spacing={1}
+margin={1}>
+          <Grid item
+lg={2}
+sm={4}
+xl={2}
+xs={4}>
+            <Chip label="ALL"
+onClick={() => handleClick()} />
           </Grid>
-          <Grid item lg={2} sm={4} xl={2} xs={4}>
+          <Grid item
+lg={2}
+sm={4}
+xl={2}
+xs={4}>
             <Chip
               sx={soldStyle}
               label="SOLD"
               onClick={() => handleClick('SOLD')}
             />
           </Grid>
-          <Grid item lg={2} sm={4} xl={2} xs={4}>
+          <Grid item
+lg={2}
+sm={4}
+xl={2}
+xs={4}>
             <Chip
               sx={resoldStyle}
               label="RESOLD"
               onClick={() => handleClick('RESOLD')}
             />
           </Grid>
-          <Grid item lg={2} sm={4} xl={2} xs={4}>
+          <Grid item
+lg={2}
+sm={4}
+xl={2}
+xs={4}>
             <Chip
               sx={scannedStyle}
               label="SCANNED"
               onClick={() => handleClick('SCANNED')}
             />
           </Grid>
-          <Grid item lg={2} sm={4} xl={2} xs={4}>
+          <Grid item
+lg={2}
+sm={4}
+xl={2}
+xs={4}>
             <Chip
               sx={invalidatedStyle}
               label="INVALIDATED"
               onClick={() => handleClick('INVALIDATED')}
             />
           </Grid>
-          <Grid item lg={2} sm={4} xl={2} xs={4}>
+          <Grid item
+lg={2}
+sm={4}
+xl={2}
+xs={4}>
             <Chip
               sx={checkedInStyle}
               label="CHECKED IN"

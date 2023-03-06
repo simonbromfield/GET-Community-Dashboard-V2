@@ -9,7 +9,8 @@ function ScannedChip(props) {
     color: 'white',
   };
 
-  return <Chip sx={scannedStyle} label={scannedCount} />;
+  return <Chip sx={scannedStyle}
+label={scannedCount} />;
 }
 
 export default ScannedChip;

@@ -43,7 +43,8 @@ const AverageReservedFuel = () => {
           <Typography color="textSecondary">
             DAILY FUEL AVERAGE (30 days)
           </Typography>
-          <Typography color="textPrimary" variant="h5">
+          <Typography color="textPrimary"
+variant="h5">
             {numberWithCommas(Number(average).toFixed(2)) + ' GET'}
           </Typography>
         </CardContent>

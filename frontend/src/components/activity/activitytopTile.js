@@ -19,7 +19,12 @@ function ActivityTopTile(props) {
         switch (activityType) {
           case 'SOLD':
             return (
-              <Grid item lg={3} sm={3} xl={3} xs={6} key={key}>
+              <Grid item
+lg={3}
+sm={3}
+xl={3}
+xs={6}
+key={key}>
                 <Card
                   sx={{
                     height: '100%',
@@ -58,7 +63,12 @@ function ActivityTopTile(props) {
             );
           case 'RESOLD':
             return (
-              <Grid item lg={3} sm={3} xl={3} xs={6} key={key}>
+              <Grid item
+lg={3}
+sm={3}
+xl={3}
+xs={6}
+key={key}>
                 <Card
                   sx={{
                     height: '100%',
@@ -98,7 +108,12 @@ function ActivityTopTile(props) {
             );
           case 'SCANNED':
             return (
-              <Grid item lg={3} sm={3} xl={3} xs={6} key={key}>
+              <Grid item
+lg={3}
+sm={3}
+xl={3}
+xs={6}
+key={key}>
                 <Card
                   sx={{
                     height: '100%',
@@ -139,7 +154,12 @@ function ActivityTopTile(props) {
             );
           case 'INVALIDATED':
             return (
-              <Grid item lg={3} sm={3} xl={3} xs={6} key={key}>
+              <Grid item
+lg={3}
+sm={3}
+xl={3}
+xs={6}
+key={key}>
                 <Card
                   sx={{
                     border: '5px solid #EC5F58',
@@ -174,7 +194,12 @@ function ActivityTopTile(props) {
             );
           case 'CHECKED_IN':
             return (
-              <Grid item lg={3} sm={3} xl={3} xs={6} key={key}>
+              <Grid item
+lg={3}
+sm={3}
+xl={3}
+xs={6}
+key={key}>
                 <Card
                   sx={{
                     border: '5px solid #325FEB',
@@ -214,7 +239,12 @@ function ActivityTopTile(props) {
             );
           case 'CLAIMED':
             return (
-              <Grid item lg={3} sm={3} xl={3} xs={6} key={key}>
+              <Grid item
+lg={3}
+sm={3}
+xl={3}
+xs={6}
+key={key}>
                 <Card
                   sx={{
                     border: '5px solid #6EB7E4',

@@ -24,13 +24,16 @@ function TradeDataLine(props) {
         </TableCell>
         <TableCell>${Number(amount).toFixed(2)}</TableCell>
         <TableCell>
-          <GETVolume amount0In={amount0In} amount0Out={amount0Out} />
+          <GETVolume amount0In={amount0In}
+amount0Out={amount0Out} />
         </TableCell>
         <TableCell>
-          <ETHVolume amount1In={amount1In} amount1Out={amount1Out} />
+          <ETHVolume amount1In={amount1In}
+amount1Out={amount1Out} />
         </TableCell>
         <TableCell>
-          <Button href={txlink} target="_blank">
+          <Button href={txlink}
+target="_blank">
             <OpenInNewIcon />
           </Button>
         </TableCell>

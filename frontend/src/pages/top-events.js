@@ -73,7 +73,8 @@ const Events = (props) => {
             Top events by GET usage of all time
           </Typography>
           <Container maxWidth={false}>
-            <Grid container spacing={3}>
+            <Grid container
+spacing={3}>
               {topEvents
                 ? topEvents.map((event) => (
                     <TopEventCards
