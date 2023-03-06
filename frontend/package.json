@@ -1,0 +1,58 @@
+{
+  "name": "get-community-dashboard",
+  "author": "Simon Bromfield",
+  "version": "3.0.0",
+  "private": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "next lint",
+    "lint-fix": "next lint --fix"
+  },
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": "next/core-web-vitals",
+    "rules": {
+      "@next/next/no-img-element": "off",
+      "jsx-a11y/alt-text": "off",
+      "react/display-name": "off",
+      "react/jsx-max-props-per-line": [
+        1,
+        {
+          "maximum": 1
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.5.0",
+    "@emotion/react": "^11.5.0",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/lab": "^5.0.0-alpha.53",
+    "@mui/material": "^5.0.6",
+    "axios": "^0.27.2",
+    "chart.js": "^3.9.1",
+    "coingecko-api": "^1.0.10",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "formik": "^2.1.5",
+    "moment": "^2.29.4",
+    "next": "^12.0.3-canary.7",
+    "prop-types": "^15.7.2",
+    "ramda": "^0.28.0",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^4.3.1",
+    "react-dom": "^18.2.0",
+    "react-twitter-embed": "^4.0.4",
+    "websocket": "^1.0.34"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-next": "12.0.3-canary.7",
+    "prettier": "^2.8.4"
+  }
+}
