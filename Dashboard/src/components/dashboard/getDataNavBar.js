@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import { Container } from '@mui/system';
 import { numberWithCommas } from '../../utils/helpers';
 let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from '../../pages/config.json';
 
 const DailyData = () => {
   const [soldCountItem, setSoldCount] = useState(null);
@@ -15,7 +14,8 @@ const DailyData = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
+    alert(process.env.WSurl)
+    const client = new W3CWebSocket('ws://localhost:3001/');
     client.onopen = () => {
       client.send('Index Page connected');
     };

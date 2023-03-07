@@ -8,7 +8,6 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
 import '../../public/static/CSS/loadingSVG.css';
 let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from './config.json';
 import LoadingSVG from '../components/loading/loadingSVG';
 
 const clientSideEmotionCache = createEmotionCache();
@@ -20,7 +19,7 @@ const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   useEffect(() => {
-    const client = new W3CWebSocket(configData.WS_URL);
+    const client = new W3CWebSocket('ws://localhost:3001/');
     client.onopen = () => {
       client.send('Dashboard connected');
     };
