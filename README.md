@@ -1,6 +1,6 @@
 # GET Community Dashboard - V2
 
-This repository contains the code for [GET Community Dashbaord]. This guide will explain how to install Docker, clone the repository, and run the dashboard and it's required websocket locally, from your terminal.
+This repository contains the code for GET Community Dashbaord. This guide will explain how to install Docker, clone the repository, and run the dashboard and it's required websocket locally, from your terminal.
 
 ## Installation
 
@@ -10,13 +10,20 @@ To use this project, you must first install Docker on your machine. Please follo
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 * [Docker for Linux](https://docs.docker.com/engine/install/)
 
-## Clone the Repository
+## Fork the Repository
 
-Once Docker is installed, you can clone the repository by opening a terminal window and running the following command:
+To make changes to the code, you should first fork the repository by clicking the "Fork" button at the top right of the repository page on GitHub. This will create a copy of the repository in your own GitHub account.
+
+Once you've forked the repository, you can clone your copy of the repository by opening a terminal window and running the following command:
+
 
 `git clone https://github.com/simonbromfield/GET-Community-Dashboard-V2.git`
 
-This will create a local copy of the repository on your machine.
+This will create a local copy of your forked repository on your machine.
+
+You can then make changes to the code, commit them to your local copy of the repository, and push the changes back up to your forked repository on GitHub.
+
+From here you will be able to create a "pull request"
 
 ## Running Docker Compose
 
@@ -34,4 +41,5 @@ To stop the application, press `CTRL-C` in your terminal window.
 
 ## Conclusion
 
-You should now be able to clone the repository and start the project using Docker Compose. If you encounter any issues, please refer to the project documentation or raise an issue in the project repository.
+You should now be able to fork and clone the repository and start the dashbaord using Docker Compose. 
+
