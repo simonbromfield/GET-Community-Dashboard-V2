@@ -10,8 +10,6 @@ import '../../public/static/CSS/loadingSVG.css';
 let W3CWebSocket = require('websocket').w3cwebsocket;
 import configData from './config.json';
 import LoadingSVG from '../components/loading/loadingSVG';
-require('dotenv').config()
-const wsUrl = process.env.WS_URL;
 
 const clientSideEmotionCache = createEmotionCache();
 

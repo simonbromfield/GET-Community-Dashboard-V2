@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { Container } from '@mui/system';
 import { numberWithCommas } from '../../utils/helpers';
 let W3CWebSocket = require('websocket').w3cwebsocket;
-import configData from '../../utils/config.json';
+import configData from '../../pages/config.json';
 
 const DailyData = () => {
   const [soldCountItem, setSoldCount] = useState(null);
