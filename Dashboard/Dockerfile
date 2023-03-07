@@ -1,8 +1,6 @@
-FROM node:alpine
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app
+FROM node:16
+WORKDIR /dashboard
+COPY package.json /dashboard
 RUN npm install
-COPY . /usr/src/app
-RUN npm
-CMD [ "run", "dev" ]
+COPY . /dashboard
+CMD ["npm", "run", "dev"]
