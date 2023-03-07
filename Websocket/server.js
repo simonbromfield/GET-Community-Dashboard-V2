@@ -12,9 +12,12 @@ const PORT = process.env.PORT || 3001;
 const INDEX = './index.html';
 const http = require('http');
 
-setInterval(() => {
-  http.get(process.env.HOST);
-}, 15 * 60 * 1000); // every 15 minutes
+if (process.env.NODE_ENV === 'production') {
+  // keep the HEROKU live
+  setInterval(() => {
+    http.get(process.env.HOST);
+  }, 15 * 60 * 1000); // every 15 minutes  
+}
 
 const runWebSocket = async () => {
   try {
