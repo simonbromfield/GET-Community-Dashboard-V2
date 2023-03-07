@@ -1,11 +1,11 @@
-const axios = require('axios')
-const thegraphAPI = 'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph'
+const axios = require('axios');
+const thegraphAPI =
+  'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph';
 
 module.exports = {
   subgraphData: async () => {
     try {
-      let subGraphData = await axios.post(
-        thegraphAPI, {
+      let subGraphData = await axios.post(thegraphAPI, {
         query: `
         {
           protocol(id: "1") {
@@ -108,17 +108,16 @@ module.exports = {
             }
           }
         } 
-        `
-      })
-      return subGraphData.data.data
+        `,
+      });
+      return subGraphData.data.data;
     } catch (e) {
-      return e
+      return e;
     }
   },
   allTimeTopEvents: async () => {
     try {
-      let subGraphData = await axios.post(
-        thegraphAPI, {
+      let subGraphData = await axios.post(thegraphAPI, {
         query: `
         {
           events(orderBy: reservedFuel, orderDirection: desc, first: 10) {
@@ -132,17 +131,16 @@ module.exports = {
             }
           }
         } 
-        `
-      })
-      return subGraphData.data.data.events
+        `,
+      });
+      return subGraphData.data.data.events;
     } catch (e) {
-      return e
+      return e;
     }
   },
   topDays: async () => {
     try {
-      let subGraphData = await axios.post(
-        thegraphAPI, {
+      let subGraphData = await axios.post(thegraphAPI, {
         query: `
         {
           protocolDays(orderBy: reservedFuel, orderDirection: desc, first: 10) {
@@ -152,11 +150,11 @@ module.exports = {
             totalSalesVolume
           }
         } 
-        `
-      })
-      return subGraphData.data.data.protocolDays
+        `,
+      });
+      return subGraphData.data.data.protocolDays;
     } catch (e) {
-      return e
+      return e;
     }
-  }
-}
+  },
+};
