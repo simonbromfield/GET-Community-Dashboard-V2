@@ -14,7 +14,6 @@ const DailyData = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    alert(process.env.WSurl)
     const client = new W3CWebSocket('ws://localhost:3001/');
     client.onopen = () => {
       client.send('Index Page connected');
