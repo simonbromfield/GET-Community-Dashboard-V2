@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>GET Dashboard - web socket</title>
+    <script>
+      let HOST = location.origin.replace(/^http/, 'ws')
+      let ws = new WebSocket(HOST);
+      let el;
+      
+      ws.onmessage = (event) => {
+        var newElement = document.createElement("p");
+        newElement.innerHTML = "check console";
+        document.getElementById("server-messages").appendChild(newElement);
+        console.log(JSON.parse(event.data))
+      };
+    </script>
+  </head>
+  <body>
+    <div id="server-messages"></div>
+  </body>
+</html>
