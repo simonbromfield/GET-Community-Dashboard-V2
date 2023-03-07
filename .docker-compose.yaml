@@ -6,7 +6,7 @@ services:
       context: ./Websocket
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "3001:3001"
       
   dashboard:
     build:
