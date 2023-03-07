@@ -1,6 +1,5 @@
-FROM node:16
-WORKDIR /dashboard
-COPY package.json /dashboard
+FROM node
+WORKDIR /usr/src/app
+COPY . .
 RUN npm install
-COPY . /dashboard
-CMD ["npm", "run", "dev"]
+CMD [ "npm", "run", "dev" ]
