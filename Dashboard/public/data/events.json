@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 1,
+    "name": "Event 1",
+    "date": "2023-03-01",
+    "description": "A description of Event 1.",
+    "organizer": "Organizer 1",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": 2,
+    "name": "Event 2",
+    "date": "2023-03-05",
+    "description": "A description of Event 2.",
+    "organizer": "Organizer 2",
+    "lat": 40.7128,
+    "lng": -74.0060
+  },
+  {
+    "id": 3,
+    "name": "Event 3",
+    "date": "2023-04-02",
+    "description": "A description of Event 3.",
+    "organizer": "Organizer 3",
+    "lat": 34.0522,
+    "lng": -118.2437
+  },
+  {
+    "id": 4,
+    "name": "Event 4",
+    "date": "2023-04-12",
+    "description": "A description of Event 4.",
+    "organizer": "Organizer 4",
+    "lat": 51.5074,
+    "lng": -0.1278
+  },
+  {
+    "id": 5,
+    "name": "Event 5",
+    "date": "2023-05-01",
+    "description": "A description of Event 5.",
+    "organizer": "Organizer 5",
+    "lat": 48.8566,
+    "lng": 2.3522
+  },
+  {
+    "id": 6,
+    "name": "Event 6",
+    "date": "2023-05-15",
+    "description": "A description of Event 6.",
+    "organizer": "Organizer 6",
+    "lat": 35.6895,
+    "lng": 139.6917
+  },
+  {
+    "id": 7,
+    "name": "Event 7",
+    "date": "2023-06-03",
+    "description": "A description of Event 7.",
+    "organizer": "Organizer 7",
+    "lat": -33.8688,
+    "lng": 151.2093
+  },
+  {
+    "id": 8,
+    "name": "Event 8",
+    "date": "2023-06-18",
+    "description": "A description of Event 8.",
+    "organizer": "Organizer 8",
+    "lat": 52.5200,
+    "lng": 13.4050
+  }
+]
