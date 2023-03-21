@@ -22,18 +22,28 @@ import {
 } from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
 import moment from "moment";
+import LoadingSVG from '../loading/loadingSVG';
 
 const Calendar = ({ events }) => {
   const [eventsList, setEvents] = useState(events);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setEvents(events);
-  }, []);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [currentMonth]);
 
   const renderCalendarDays = () => {
+    if (loading) {
+      return <LoadingSVG />;
+    }
+
     const startDate = startOfMonth(currentMonth);
     const endDate = endOfMonth(currentMonth);
     const days = eachDayOfInterval({ start: startDate, end: endDate });
@@ -41,15 +51,12 @@ const Calendar = ({ events }) => {
     return days.map((day) => {
       const dateEvents = eventsList.filter(
         (event) => format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
-        );
+      );
 
       return (
-        <Grid item xs={12} sm={6} md={4} lg={2} key={day}
-        sx={{height: "200px"}}>
-          <Paper variant="outlined" square elevation={3} sx={{height: "100%"}}>
-            <div className="day"
-              onClick={dateEvents.length > 0 ? () => handleOpen(day) : undefined}
-            >
+        <Grid item xs={12} sm={6} md={4} lg={2} key={day} sx={{ height: "200px" }}>
+          <Paper variant="outlined" square elevation={3} sx={{ height: "100%" }}>
+            <div className="day" onClick={dateEvents.length > 0 ? () => handleOpen(day) : undefined}>
               <Typography variant="h6">{format(day, "d")}</Typography>
               {dateEvents.length > 0 && (
                 <Typography>{dateEvents.length} event(s)</Typography>
@@ -63,10 +70,12 @@ const Calendar = ({ events }) => {
 
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
+    setLoading(true);
   };
 
   const handleLastMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
+    setLoading(true);
   };
 
   const handleOpen = (day) => {
