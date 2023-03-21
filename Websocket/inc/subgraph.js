@@ -157,4 +157,74 @@ module.exports = {
       return e;
     }
   },
+  allEvents: async () => {
+    try {
+      let allEventData = [];
+      let batchSize = 1000;
+  
+      let lastTimestamp = null;
+      let hasMoreData = true;
+  
+      while (hasMoreData) {
+        // Make request to API with offset and batch size
+        let subGraphData = await axios.post(thegraphAPI, {
+          query: `
+          {
+            events (orderBy: blockTimestamp, orderDirection: desc, first: ${batchSize}${lastTimestamp ? `, where: {blockTimestamp_lte: "${lastTimestamp}"}` : ''}) {
+              id
+              name
+              imageUrl
+              shopUrl
+              startTime
+              endTime
+              createTx
+              integrator{
+                id
+                name
+              }
+              blockTimestamp
+            }
+          } 
+          `,
+        });
+  
+        let eventData = subGraphData.data.data.events;
+  
+        if (!eventData || eventData.length === 0) {
+          // No more data available, exit loop
+          hasMoreData = false;
+        } else {
+          let lastEventInAllData = allEventData[allEventData.length - 1];
+          let lastEventInFetchedData = eventData[eventData.length - 1];
+  
+          // Check if the last event in the fetched data is the same as the last event in allEventData
+          if (lastEventInAllData && lastEventInFetchedData.id === lastEventInAllData.id) {
+            // No new data, exit loop
+            hasMoreData = false;
+          } else {
+            // Add retrieved data to array
+            allEventData = allEventData.concat(eventData);
+  
+            // Update the lastTimestamp to the blockTimestamp of the last event in the fetched data
+            lastTimestamp = lastEventInFetchedData.blockTimestamp;
+  
+            console.log(`batched - new length = ${allEventData.length}`);
+          }
+        }
+      }
+
+      function getObjectSizeInKB(obj) {
+        const jsonString = JSON.stringify(obj);
+        const bytes = new TextEncoder().encode(jsonString).length;
+        return bytes / 1024;
+      }
+      
+      // After the while loop in your allEvents function
+      console.log(`Object size: ${getObjectSizeInKB(allEventData)} KB`);
+  
+      return allEventData;
+    } catch (e) {
+      throw e;
+    }
+  }      
 };
