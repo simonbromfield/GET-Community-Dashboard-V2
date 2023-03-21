@@ -13,12 +13,9 @@ const INDEX = './index.html';
 const http = require('http');
 const subgraph = require('./inc/subgraph.js');
 
-if (process.env.NODE_ENV === 'production') {
-  // keep the HEROKU live
-  setInterval(() => {
-    http.get(process.env.HOST);
-  }, 15 * 60 * 1000); // every 15 minutes
-}
+setInterval(() => {
+  http.get('https://serene-reaches-92565.herokuapp.com');
+}, 15 * 60 * 1000); // every 15 minutes
 
 const runWebSocket = async () => {
   try {
