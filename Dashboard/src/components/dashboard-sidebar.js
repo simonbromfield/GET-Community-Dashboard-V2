@@ -24,6 +24,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import { TwitterFollowButton } from 'react-twitter-embed';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 const items = [
   {
@@ -42,6 +43,12 @@ const items = [
     href: '/events',
     icon: <EventIcon />,
     title: 'Events',
+    target: '',
+  },
+  {
+    href: '/calendar',
+    icon: <CalendarTodayIcon />,
+    title: 'Calendar',
     target: '',
   },
   {
