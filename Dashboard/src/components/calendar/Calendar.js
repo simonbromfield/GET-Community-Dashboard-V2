@@ -21,9 +21,6 @@ import {
   Chip
 } from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-
-import OLMap from "./Map";
 import moment from "moment";
 
 const Calendar = ({ events }) => {

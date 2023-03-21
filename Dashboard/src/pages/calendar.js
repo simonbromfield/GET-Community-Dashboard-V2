@@ -5,6 +5,7 @@ import Head from 'next/head';
 import moment from 'moment';
 let W3CWebSocket = require('websocket').w3cwebsocket;
 import Calendar from "../components/calendar/Calendar";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const CalendarPage = () => {
   const [eventData, setEventData] = useState()
@@ -39,7 +40,7 @@ const CalendarPage = () => {
       >
         <div>
           {loading ? (
-            <div>LOADING</div>
+            <CircularProgress />
           ) : (
             <Calendar events={eventData} />
           )}
