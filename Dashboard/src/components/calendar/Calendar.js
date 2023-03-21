@@ -23,6 +23,8 @@ import {
 import Backdrop from '@mui/material/Backdrop';
 import moment from "moment";
 import LoadingSVG from '../loading/loadingSVG';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const Calendar = ({ events }) => {
   const [eventsList, setEvents] = useState(events);
@@ -88,10 +90,45 @@ const Calendar = ({ events }) => {
           }}
           onClick={dateEvents.length > 0 ? () => handleDayClick(day) : undefined}
         >
-          <div className="day" >
-            <Chip label={format(day, "d")} />
+          <div className="day">
+              <Chip
+                label={format(day, "d")}
+                sx={{
+                  marginBottom: 1,
+                  backgroundColor: '#6EB7E4',
+                  cursor: "pointer",
+                }}/>
             {dateEvents.length > 0 && (
-              <Typography>{dateEvents.length} event(s)</Typography>
+              <>
+                <Chip
+                    label={dateEvents.length + " events(s)"}
+                    sx={{
+                      marginBottom: 1,
+                      backgroundColor: '#59C399',
+                      width: 1,
+                      cursor: "pointer",
+                    }}
+                />
+                <Chip
+                  icon={<LocalGasStationIcon />}
+                    label={dateEvents.reduce((total, event) => total + parseFloat(event.reservedFuel), 0).toFixed(2)}
+                    sx={{
+                      marginBottom: 1,
+                      width: 1,
+                      cursor: "pointer",
+                    }}
+                />
+                <Chip
+                  icon={<ConfirmationNumberIcon />}
+                    label={dateEvents.reduce((total, event) => total + parseInt(event.soldCount), 0)}
+                    sx={{
+                      marginBottom: 1,
+                      width: 1,
+                      cursor: "pointer",
+                    }}
+                />
+                  
+              </>
             )}
           </div>
         </Paper>
