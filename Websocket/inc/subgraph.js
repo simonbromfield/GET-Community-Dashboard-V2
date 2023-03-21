@@ -178,7 +178,10 @@ module.exports = {
               startTime
               endTime
               createTx
+              scannedCount
               soldCount
+              checkedInCount
+              invalidatedCount
               reservedFuel
               integrator{
                 id
