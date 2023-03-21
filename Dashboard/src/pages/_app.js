@@ -21,7 +21,7 @@ const App = (props) => {
   useEffect(() => {
     const client = new W3CWebSocket('ws://localhost:3001/');
     client.onopen = () => {
-      client.send('Dashboard connected');
+      client.send(JSON.stringify({ action: 'dashboard' }));
     };
     client.onmessage = (msg) => {
       let pageData = JSON.parse(msg.data);

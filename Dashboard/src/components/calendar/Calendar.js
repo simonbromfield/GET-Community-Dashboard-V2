@@ -21,10 +21,11 @@ import {
   Chip
 } from "@mui/material";
 import OLMap from "./Map";
+import moment from "moment";
 import { padding } from "@mui/system";
 
 const Calendar = ({ events }) => {
-  const [eventsList, setEvents] = useState([]);
+  const [eventsList, setEvents] = useState(events);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [open, setOpen] = useState(false);
@@ -40,8 +41,8 @@ const Calendar = ({ events }) => {
 
     return days.map((day) => {
       const dateEvents = eventsList.filter(
-        (event) => format(new Date(event.start), "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
-      );
+        (event) => format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
+        );
 
       return (
         <Grid item xs={12} sm={6} md={4} lg={2} key={day}
@@ -90,19 +91,19 @@ const Calendar = ({ events }) => {
             .filter(
               (event) =>
                 selectedDay &&
-                format(new Date(event.start), "yyyy-MM-dd") ===
+                format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") ===
                   format(selectedDay, "yyyy-MM-dd")
             )
             .map((event) => (
               <ListItem key={event.id}>
                 <ListItemText
-                  primary={event.title}
+                  primary={event.name}
                   secondary={
                     <>
                       <Typography component="span" variant="body2">
-                        Organized by: {event.integrator}
+                        Organized by: {event.integrator.name}
                       </Typography>
-                      <OLMap lat={event.lat} lng={event.lng} />
+                      {/* <OLMap lat={event.lat} lng={event.lng} /> */}
                     </>
                   }
                 />

@@ -3,22 +3,28 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import moment from 'moment';
+let W3CWebSocket = require('websocket').w3cwebsocket;
 import Calendar from "../components/calendar/Calendar";
 
-const CalendarPage = ({ wsdata }) => {
-  let noDemoList = wsdata.events.filter(e => e.integrator.id !== '0')
-  const [eventWSData, setEventWSData] = useState(noDemoList)
-  const events = eventWSData.map((item) => ({
-    id: item.id,
-    title: item.name,
-    integrator: item.integrator.name,
-    start: moment.unix(item.startTime).format('YYYY-MM-DD'),
-    textColor: 'white',
-  }));
+const CalendarPage = () => {
+  const [eventData, setEventData] = useState()
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setEventWSData(noDemoList)
-
+    const client = new W3CWebSocket('ws://localhost:3001/');
+    client.onopen = () => {
+      // Send a message to the server indicating the client wants the 'allEvents' data
+      client.send(JSON.stringify({ action: 'requestAllEvents' }));
+    };
+    client.onmessage = (msg) => {
+      let pageData = JSON.parse(msg.data);
+      setEventData(pageData)
+      setLoading(false);
+    };
+    client.onerror = function () {
+      console.log('Connection Error');
+    };
+    
   }, []);
 
   return (
@@ -31,7 +37,13 @@ const CalendarPage = ({ wsdata }) => {
           padding: 3
         }}
       >
-        <Calendar events={events} />
+        <div>
+          {loading ? (
+            <div>LOADING</div>
+          ) : (
+            <Calendar events={eventData} />
+          )}
+        </div>
       </Box>
     </>
   );
