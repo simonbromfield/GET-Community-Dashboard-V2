@@ -74,15 +74,29 @@ const Calendar = ({ events }) => {
   
       return (
         <Grid item xs={12} sm={6} md={4} lg={2} key={day} sx={{ height: "200px" }}>
-          <Paper variant="outlined" square elevation={3} sx={{ height: "100%" }}>
-          <div className="day" onClick={dateEvents.length > 0 ? () => handleDayClick(day) : undefined}>
-              <Typography variant="h6">{format(day, "d")}</Typography>
-              {dateEvents.length > 0 && (
-                <Typography>{dateEvents.length} event(s)</Typography>
-              )}
-            </div>
-          </Paper>
-        </Grid>
+        <Paper
+          variant="outlined"
+          square
+          elevation={3}
+          sx={{
+            height: "100%",
+            padding: 2,
+            cursor: dateEvents.length > 0 ? "pointer" : "default",
+            ":hover": {
+              backgroundColor: dateEvents.length > 0 ? "rgba(0, 0, 0, 0.1)" : "inherit",
+            },
+          }}
+          onClick={dateEvents.length > 0 ? () => handleDayClick(day) : undefined}
+        >
+          <div className="day" >
+            <Chip label={format(day, "d")} />
+            {dateEvents.length > 0 && (
+              <Typography>{dateEvents.length} event(s)</Typography>
+            )}
+          </div>
+        </Paper>
+      </Grid>
+
       );
     });
   };
@@ -159,7 +173,7 @@ const Calendar = ({ events }) => {
         {format(currentMonth, "MMMM yyyy")}
       </Typography>
       <Button variant="contained" onClick={handleLastMonth} sx={{margin: 2}}>
-        Last Month
+        Previous
       </Button>
       <Button variant="contained" onClick={handleNextMonth} sx={{margin: 2}}>
         Next
