@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   startOfMonth,
   endOfMonth,
@@ -30,33 +30,52 @@ const Calendar = ({ events }) => {
   const [selectedDay, setSelectedDay] = useState(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false);
 
   useEffect(() => {
-    setEvents(events);
+    if (Array.isArray(events)) {
+      setEvents(events);
+    }
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2000);
   }, [currentMonth]);
+
+  const eventsByDate = useMemo(() => {
+    if (!Array.isArray(events)) {
+      return {};
+    }
+  
+    const groupedEvents = events.reduce((acc, event) => {
+      const date = format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd");
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(event);
+      return acc;
+    }, {});
+  
+    return groupedEvents;
+  }, []);
 
   const renderCalendarDays = () => {
     if (loading) {
       return <LoadingSVG />;
     }
-
+  
     const startDate = startOfMonth(currentMonth);
     const endDate = endOfMonth(currentMonth);
     const days = eachDayOfInterval({ start: startDate, end: endDate });
-
+  
     return days.map((day) => {
-      const dateEvents = eventsList.filter(
-        (event) => format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
-      );
-
+      const formattedDate = format(day, "yyyy-MM-dd");
+      const dateEvents = eventsByDate[formattedDate] || [];
+  
       return (
         <Grid item xs={12} sm={6} md={4} lg={2} key={day} sx={{ height: "200px" }}>
           <Paper variant="outlined" square elevation={3} sx={{ height: "100%" }}>
-            <div className="day" onClick={dateEvents.length > 0 ? () => handleOpen(day) : undefined}>
+          <div className="day" onClick={dateEvents.length > 0 ? () => handleDayClick(day) : undefined}>
               <Typography variant="h6">{format(day, "d")}</Typography>
               {dateEvents.length > 0 && (
                 <Typography>{dateEvents.length} event(s)</Typography>
@@ -78,9 +97,13 @@ const Calendar = ({ events }) => {
     setLoading(true);
   };
 
-  const handleOpen = (day) => {
+  const handleDayClick = (day) => {
     setSelectedDay(day);
-    setOpen(true);
+    setModalLoading(true);
+    setTimeout(() => {
+      setModalLoading(false);
+      setOpen(true);
+    }, 500); // Set the delay here, e.g., 500ms
   };
 
   const handleClose = () => {
@@ -88,12 +111,10 @@ const Calendar = ({ events }) => {
   };
 
   const renderModal = () => {
-  return (
-    <Backdrop
-      open={open}
-      onClick={handleClose}
-    >
-      <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
+    return (
+      <Backdrop open={open} onClick={handleClose}>
+        {modalLoading && <p>Loading...</p>}
+       <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
         <DialogTitle>
           <Typography variant="h6">
             {selectedDay ? format(selectedDay, "MMMM d, yy") : ""}
