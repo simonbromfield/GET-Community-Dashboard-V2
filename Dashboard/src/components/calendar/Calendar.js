@@ -20,9 +20,11 @@ import {
   Paper,
   Chip
 } from "@mui/material";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import OLMap from "./Map";
 import moment from "moment";
-import { padding } from "@mui/system";
 
 const Calendar = ({ events }) => {
   const [eventsList, setEvents] = useState(events);
@@ -81,37 +83,44 @@ const Calendar = ({ events }) => {
 
   const renderModal = () => {
   return (
-    <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
-      <DialogTitle>
-        <Chip label={selectedDay ? format(selectedDay, "MMMM d, yyyy") : ""} />
-      </DialogTitle>
-      <DialogContent>
-        <List>
-          {eventsList
-            .filter(
-              (event) =>
-                selectedDay &&
-                format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") ===
-                  format(selectedDay, "yyyy-MM-dd")
-            )
-            .map((event) => (
-              <ListItem key={event.id}>
-                <ListItemText
-                  primary={event.name}
-                  secondary={
-                    <>
-                      <Typography component="span" variant="body2">
-                        Organized by: {event.integrator.name}
-                      </Typography>
-                      {/* <OLMap lat={event.lat} lng={event.lng} /> */}
-                    </>
-                  }
-                />
-              </ListItem>
-            ))}
-        </List>
-      </DialogContent>
-    </Dialog>
+    <Backdrop
+      open={open}
+      onClick={handleClose}
+    >
+      <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
+        <DialogTitle>
+          <Typography variant="h6">
+            {selectedDay ? format(selectedDay, "MMMM d, yy") : ""}
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <List>
+            {eventsList
+              .filter(
+                (event) =>
+                  selectedDay &&
+                  format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") ===
+                    format(selectedDay, "yyyy-MM-dd")
+              )
+              .map((event) => (
+                <ListItem key={event.id}>
+                  <ListItemText
+                    primary={event.name}
+                    secondary={
+                      <>
+                        <Typography component="span" variant="body2">
+                          Organized by: {event.integrator.name}
+                        </Typography>
+                        {/* <OLMap lat={event.lat} lng={event.lng} /> */}
+                      </>
+                    }
+                  />
+                </ListItem>
+              ))}
+          </List>
+        </DialogContent>
+        </Dialog>
+    </Backdrop>
   );
 };
 
