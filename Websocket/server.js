@@ -81,7 +81,12 @@ const runWebSocket = async () => {
     ws.on('message', (message) => {
       const parsedMessage = JSON.parse(message);
       if (parsedMessage.action === 'requestAllEvents') {
-        ws.send(JSON.stringify(allEventsCache.slice(0,4000)));
+        ws.send(JSON.stringify(allEventsCache));
+        setInterval(() => {
+          wss.clients.forEach(async (client) => {
+            ws.send(JSON.stringify(allEventsCache));
+          });
+        }, 60 * 1000); // every minute
       }
       if (parsedMessage.action === 'dashboard') {
         ws.send(JSON.stringify(mergedObject));
