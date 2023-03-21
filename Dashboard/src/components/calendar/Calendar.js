@@ -164,7 +164,6 @@ const Calendar = ({ events }) => {
   const renderModal = () => {
     return (
       <Backdrop open={open} onClick={handleClose}>
-        {modalLoading && <p>Loading...</p>}
        <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
         <DialogTitle>
           <Typography variant="h6">
@@ -181,19 +180,28 @@ const Calendar = ({ events }) => {
                     format(selectedDay, "yyyy-MM-dd")
               )
               .map((event) => (
-                <ListItem key={event.id}>
+                <Paper variant="outlined" square sx={{ padding: 2 }}>
+                  <ListItem key={event.id}>
                   <ListItemText
                     primary={event.name}
                     secondary={
                       <>
                         <Typography component="span" variant="body2">
-                          Organized by: {event.integrator.name}
+                          Integrator: {event.integrator.name}
                         </Typography>
-                        {/* <OLMap lat={event.lat} lng={event.lng} /> */}
+                        <Chip
+                          icon={<LocalGasStationIcon />}
+                            label={parseFloat(event.reservedFuel).toFixed(2)}
+                        />
+                        <Chip
+                          icon={<ConfirmationNumberIcon />}
+                            label={parseInt(event.soldCount)}
+                        />
                       </>
                     }
                   />
-                </ListItem>
+                  </ListItem>
+                </Paper>
               ))}
           </List>
         </DialogContent>
