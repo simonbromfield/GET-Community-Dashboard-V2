@@ -12,20 +12,22 @@ const CalendarPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const client = new W3CWebSocket('ws://localhost:3001/');
+    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
     client.onopen = () => {
-      // Send a message to the server indicating the client wants the 'allEvents' data
       client.send(JSON.stringify({ action: 'requestAllEvents' }));
     };
     client.onmessage = (msg) => {
-      let pageData = JSON.parse(msg.data);
-      setEventData(pageData)
-      setLoading(false);
+      let receivedMessage = JSON.parse(msg.data);
+    
+      // Check if the message type is 'allEvents'
+      if (receivedMessage.type === 'allEvents') {
+        setEventData(receivedMessage.data);
+        setLoading(false);
+      }
     };
     client.onerror = function () {
       console.log('Connection Error');
     };
-    
   }, []);
 
   return (

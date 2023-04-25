@@ -19,7 +19,7 @@ const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   useEffect(() => {
-    const client = new W3CWebSocket('ws://localhost:3001/');
+    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
     client.onopen = () => {
       client.send(JSON.stringify({ action: 'dashboard' }));
     };

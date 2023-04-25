@@ -17,6 +17,7 @@ import {
   ListItem,
   ListItemText,
   List,
+  Link,
   Paper,
   Chip
 } from "@mui/material";
@@ -91,13 +92,16 @@ const Calendar = ({ events }) => {
           onClick={dateEvents.length > 0 ? () => handleDayClick(day) : undefined}
         >
           <div className="day">
-              <Chip
-                label={format(day, "d")}
+              <Typography
+                variant="p"
                 sx={{
                   marginBottom: 1,
-                  backgroundColor: '#6EB7E4',
                   cursor: "pointer",
-                }}/>
+                  display: "block",
+                  padding: 0
+                }}>
+                  {format(day, "d/M/yyyy")}
+                </Typography>
             {dateEvents.length > 0 && (
               <>
                 <Chip
@@ -180,12 +184,18 @@ const Calendar = ({ events }) => {
                     format(selectedDay, "yyyy-MM-dd")
               )
               .map((event) => (
-                <Paper variant="outlined" square sx={{ padding: 2 }}>
+                <Paper variant="outlined" square sx={{ padding: 2 }} key={event.id}>
                   <ListItem key={event.id}>
                   <ListItemText
                     primary={event.name}
                     secondary={
                       <>
+                        <Link href={`/event/${event.id}`}
+                          passHref
+                          target="_blank"
+                        >
+                          <Button variant="text"> {event.name} </Button>
+                        </Link>
                         <Typography component="span" variant="body2">
                           Integrator: {event.integrator.name}
                         </Typography>
@@ -217,6 +227,15 @@ const Calendar = ({ events }) => {
       <Typography variant="h4" component="h2" gutterBottom>
         {format(currentMonth, "MMMM yyyy")}
       </Typography>
+      <Typography
+        variant="p"
+        sx={{
+          marginBottom: 1,
+          display: "block",
+          padding: 0
+        }}>
+          The days below indicate how many tickets have been sold for events taking part on that day, and the amount of GET reserved as fuel for those tickets.
+        </Typography>
       <Button variant="contained" onClick={handleLastMonth} sx={{margin: 2}}>
         Previous
       </Button>

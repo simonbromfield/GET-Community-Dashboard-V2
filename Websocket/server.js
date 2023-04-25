@@ -11,21 +11,19 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 const INDEX = './index.html';
 const http = require('http');
-const subgraph = require('./inc/subgraph.js');
 
-setInterval(() => {
-  http.get('https://serene-reaches-92565.herokuapp.com');
-}, 15 * 60 * 1000); // every 15 minutes
+  setInterval(() => {
+    http.get("https://serene-reaches-92565.herokuapp.com/");
+  }, 15 * 60 * 1000); // every 15 minutes
 
 const runWebSocket = async () => {
   try {
     const subGraph = require('./inc/subgraph.js');
 
     var allEventsCache = [];
-
     async function updateAllEventsData() {
       try {
-        const allEvents = await subgraph.allEvents();
+        const allEvents = await subGraph.allEvents();
         allEventsCache = allEvents; // Update the cache with the latest data
         console.log('allEvents data updated');
       } catch (error) {
@@ -34,13 +32,12 @@ const runWebSocket = async () => {
     }
     // Update allEvents data initially
     updateAllEventsData();
-    // Schedule the updateAllEventsData() function to run every 5 minutes (300000 ms)
-    setInterval(updateAllEventsData, 300000);
-
+    // Schedule the updateAllEventsData() function to run every 15 minutes (900000 ms)
+    setInterval(updateAllEventsData, 900000);
 
     var pageData = await subGraph.subgraphData();
     var topEvents = await subGraph.allTimeTopEvents();
-    var topDays = await subGraph.topDays(); 
+    var topDays = await subGraph.topDays();
     var topEventsAllTime = {};
     topEventsAllTime.allTimeTop = topEvents;
     var topDaysObj = {};
@@ -71,25 +68,27 @@ const runWebSocket = async () => {
     mergedObject = Object.assign({}, pageData, topEventsAllTime, topDaysObj);
   }, 60 * 1000); // every minute
 
-  wss.on('connection', (ws) => {
+  wss.on('connection', async (ws) => {
     connectedClients++;
     console.log(connectedClients);
-  
+    // on connection send the big JSON
+    console.log(`client connected`);
+    ws.send(JSON.stringify(mergedObject));
+
     ws.on('message', (message) => {
-      const parsedMessage = JSON.parse(message);
-      if (parsedMessage.action === 'requestAllEvents') {
-        ws.send(JSON.stringify(allEventsCache));
-        setInterval(() => {
-          wss.clients.forEach(async (client) => {
-            ws.send(JSON.stringify(allEventsCache));
-          });
-        }, 60 * 1000); // every minute
-      }
-      if (parsedMessage.action === 'dashboard') {
-        ws.send(JSON.stringify(mergedObject));
+      console.log('Received message:', message); // Add this logging statement
+    
+      try {
+        const parsedMessage = JSON.parse(message);
+        if (parsedMessage.action === 'requestAllEvents') {
+          ws.send(JSON.stringify({ type: 'allEvents', data: allEventsCache }));
+        }
+      } catch (error) {
+        console.error('Error parsing message:', error);
       }
     });
-  
+
+    // on close
     ws.on('close', (ws) => {
       console.log(`client gone`);
       connectedClients--;
