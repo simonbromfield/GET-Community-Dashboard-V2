@@ -9,14 +9,21 @@ const CalendarDay = ({ day, dateEvents, handleDayClick }) => {
   const calendarDay = moment(day).startOf('day');
 
   const borderColor = () => {
-    if (calendarDay.isBefore(today)) {
-      return "#3f51b5";
-    } else if (calendarDay.isSame(today)) {
-      return "green";
-    } else {
+    const daysDiff = today.diff(calendarDay, "days");
+    if (calendarDay.isAfter(today)) {
       return "purple";
+    } else if (daysDiff < 7) {
+      return "#ff9800";
+    } else if (daysDiff < 30) {
+      return "#4caf50";
+    } else if (daysDiff <= 365) {
+      return "#3f51b5";
+    } else {
+      return "red";
     }
   };
+
+  const backgroundColor = calendarDay.isSame(today) ? "lightgray" : "transparent";
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={2} sx={{ height: "200px" }}>
@@ -31,6 +38,7 @@ const CalendarDay = ({ day, dateEvents, handleDayClick }) => {
           borderColor: borderColor(),
           borderWidth: "3px",
           borderRadius: "8px",
+          backgroundColor: backgroundColor,
           ":hover": {
             backgroundColor: dateEvents.length > 0 ? "rgba(0, 0, 0, 0.1)" : "inherit",
           },
