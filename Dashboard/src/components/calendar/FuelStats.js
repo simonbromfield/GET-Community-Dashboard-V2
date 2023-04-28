@@ -1,48 +1,59 @@
 import React from 'react';
 import moment from 'moment';
+import { Box, Typography } from '@mui/material';
 
 const FuelStats = ({ events }) => {
-  const calculateReservedFuel = (days) => {
-    const cutoffDate = moment().subtract(days, 'days');
+  const filteredEvents7Days = events.filter((event) => {
+    const startDate = moment.unix(event.startTime);
+    const now = moment();
+    return startDate.isBetween(now.clone().subtract(7, 'days'), now) && !startDate.isAfter(now);
+  });
 
-    const scaleFactor = BigInt(1e16);
+  const filteredEvents30Days = events.filter((event) => {
+    const startDate = moment.unix(event.startTime);
+    const now = moment();
+    return startDate.isBetween(now.clone().subtract(30, 'days'), now) && !startDate.isAfter(now);
+  });
 
-    const sum = events
-      .filter(event => moment.unix(event.startTime).isSameOrAfter(cutoffDate))
-      .reduce((total, event) => total + BigInt(Math.round(parseFloat(event.reservedFuel) * 1e16)), BigInt(0));
+  const filteredEvents365Days = events.filter((event) => {
+    const startDate = moment.unix(event.startTime);
+    const now = moment();
+    return startDate.isBetween(now.clone().subtract(365, 'days'), now) && !startDate.isAfter(now);
+  });
 
-    return Number(sum) / 1e16;
+  const calculateReservedFuel = (events) => {
+    return events.reduce((total, event) => {
+      return total + parseFloat(event.reservedFuel);
+    }, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
-  const formatFuel = (fuel) => fuel.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const reservedFuel7Days = calculateReservedFuel(filteredEvents7Days);
+  const reservedFuel30Days = calculateReservedFuel(filteredEvents30Days);
+  const reservedFuel365Days = calculateReservedFuel(filteredEvents365Days);
 
-  const reservedFuel7Days = formatFuel(calculateReservedFuel(7));
-  const reservedFuel30Days = formatFuel(calculateReservedFuel(30));
-  const reservedFuel365Days = formatFuel(calculateReservedFuel(365));
-
-  const getDateRange = (days) => {
-    const endDate = moment();
-    const startDate = moment().subtract(days, 'days');
-    return `(${startDate.format('MMM DD, YYYY')} - ${endDate.format('MMM DD, YYYY')})`;
-  };
+  const dateRange7Days = `${moment().subtract(7, 'days').format('MMM D, YYYY')} - ${moment().format('MMM D, YYYY')}`;
+  const dateRange30Days = `${moment().subtract(30, 'days').format('MMM D, YYYY')} - ${moment().format('MMM D, YYYY')}`;
+  const dateRange365Days = `${moment().subtract(365, 'days').format('MMM D, YYYY')} - ${moment().format('MMM D, YYYY')}`;
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', width: '100%' }}>
-      <div style={{ textAlign: 'center' }}>
-        <h4>7 Days Reserved Fuel</h4>
-        <p>{getDateRange(7)}</p>
-        <p>{reservedFuel7Days} GET</p>
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <h4>30 Days Reserved Fuel</h4>
-        <p>{getDateRange(30)}</p>
-        <p>{reservedFuel30Days} GET</p>
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <h4>365 Days Reserved Fuel</h4>
-        <p>{getDateRange(365)}</p>
-        <p>{reservedFuel365Days} GET</p>
-      </div>
+    <div>
+    <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', bgcolor: '#f3f3f3', p: 2 }}>
+      <Box sx={{ textAlign: 'center', bgcolor: '#ff9800', color: 'white', borderRadius: 1, p: 2, flex: 1 }}>
+        <Typography variant="h4">7 Days</Typography>
+        <Typography variant="body1" sx={{ mb: 1 }}>{dateRange7Days}</Typography>
+        <Typography variant="h5">{reservedFuel7Days} GET</Typography>
+      </Box>
+      <Box sx={{ textAlign: 'center', bgcolor: '#4caf50', color: 'white', borderRadius: 1, p: 2, flex: 1, ml: 2, mr: 2 }}>
+        <Typography variant="h4">30 Days</Typography>
+        <Typography variant="body1" sx={{ mb: 1 }}>{dateRange30Days}</Typography>
+        <Typography variant="h5">{reservedFuel30Days} GET</Typography>
+      </Box>
+      <Box sx={{ textAlign: 'center', bgcolor: '#3f51b5', color: 'white', borderRadius: 1, p: 2, flex: 1 }}>
+        <Typography variant="h4">365 Days</Typography>
+        <Typography variant="body1" sx={{ mb: 1 }}>{dateRange365Days}</Typography>
+        <Typography variant="h5">{reservedFuel365Days} GET</Typography>
+      </Box>
+      </Box>
     </div>
   );
 };
