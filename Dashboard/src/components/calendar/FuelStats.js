@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 const FuelStats = ({ events }) => {
   const filteredEvents7Days = events.filter((event) => {
@@ -36,25 +37,29 @@ const FuelStats = ({ events }) => {
   const dateRange365Days = `${moment().subtract(365, 'days').format('MMM D, YYYY')} - ${moment().format('MMM D, YYYY')}`;
 
   return (
-    <div>
-    <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', bgcolor: '#f3f3f3', p: 2 }}>
-      <Box sx={{ textAlign: 'center', bgcolor: '#ff9800', color: 'white', borderRadius: 1, p: 2, flex: 1 }}>
-        <Typography variant="h4">7 Days</Typography>
-        <Typography variant="body1" sx={{ mb: 1 }}>{dateRange7Days}</Typography>
-        <Typography variant="h5">{reservedFuel7Days} GET</Typography>
-      </Box>
-      <Box sx={{ textAlign: 'center', bgcolor: '#4caf50', color: 'white', borderRadius: 1, p: 2, flex: 1, ml: 2, mr: 2 }}>
-        <Typography variant="h4">30 Days</Typography>
-        <Typography variant="body1" sx={{ mb: 1 }}>{dateRange30Days}</Typography>
-        <Typography variant="h5">{reservedFuel30Days} GET</Typography>
-      </Box>
-      <Box sx={{ textAlign: 'center', bgcolor: '#3f51b5', color: 'white', borderRadius: 1, p: 2, flex: 1 }}>
-        <Typography variant="h4">365 Days</Typography>
-        <Typography variant="body1" sx={{ mb: 1 }}>{dateRange365Days}</Typography>
-        <Typography variant="h5">{reservedFuel365Days} GET</Typography>
-      </Box>
-      </Box>
-    </div>
+    <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+      <Grid item xs={12} md={4} lg={4} xl={4}>
+        <Box sx={{ textAlign: 'center', bgcolor: '#ff9800', color: 'white', borderRadius: 1, p: 2 }}>
+          <Typography variant="h4">7 Days</Typography>
+          <Typography variant="body1" sx={{ mb: 1 }}>{dateRange7Days}</Typography>
+          <Typography variant="h5">{reservedFuel7Days} GET</Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={4} lg={4} xl={4}>
+        <Box sx={{ textAlign: 'center', bgcolor: '#4caf50', color: 'white', borderRadius: 1, p: 2}}>
+          <Typography variant="h4">30 Days</Typography>
+          <Typography variant="body1" sx={{ mb: 1 }}>{dateRange30Days}</Typography>
+          <Typography variant="h5">{reservedFuel30Days} GET</Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={4} lg={4} xl={4}>
+        <Box sx={{ textAlign: 'center', bgcolor: '#3f51b5', color: 'white', borderRadius: 1, p: 2 }}>
+          <Typography variant="h4">365 Days</Typography>
+          <Typography variant="body1" sx={{ mb: 1 }}>{dateRange365Days}</Typography>
+          <Typography variant="h5">{reservedFuel365Days} GET</Typography>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 
