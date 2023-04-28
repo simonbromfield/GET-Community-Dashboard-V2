@@ -103,12 +103,6 @@ const Calendar = ({ events }) => {
 
     return (
       <div className="calendar">
-        <FuelStats events={eventsList} />
-        <CalendarHeader
-          currentMonth={format(currentMonth, "MMMM yyyy")}
-          handleLastMonth={handleLastMonth}
-          handleNextMonth={handleNextMonth}
-        />
         <Typography
           variant="p"
           sx={{
@@ -116,11 +110,14 @@ const Calendar = ({ events }) => {
             display: "block",
             padding: 0,
           }}
-        >
-          The days below indicate how many tickets have been sold for events taking
-          part on that day, and the amount of GET reserved as fuel for those
-          tickets.
+        >The following days show the number of tickets sold for events occurring on those specific dates, as well as the quantity of GET set aside as fuel for those tickets.
         </Typography>
+        <FuelStats events={eventsList} />
+        <CalendarHeader
+          currentMonth={format(currentMonth, "MMMM yyyy")}
+          handleLastMonth={handleLastMonth}
+          handleNextMonth={handleNextMonth}
+        />
         <Grid container spacing={2}>
           {renderCalendarDays()}
         </Grid>
