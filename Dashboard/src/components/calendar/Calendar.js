@@ -1,4 +1,12 @@
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import { Grid, Typography } from "@mui/material";
+import moment from "moment";
+import LoadingSVG from "../loading/loadingSVG";
+import FuelStats from "./FuelStats";
+import CalendarHeader from "./CalendarHeader";
+import CalendarDay from "./CalendarDay";
+import DayDetailsDialog from "./DayDetailsDialog";
+
 import {
   startOfMonth,
   endOfMonth,
@@ -7,25 +15,6 @@ import {
   addMonths,
   subMonths,
 } from "date-fns";
-import {
-  Grid,
-  Button,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  ListItem,
-  ListItemText,
-  List,
-  Link,
-  Paper,
-  Chip
-} from "@mui/material";
-import Backdrop from '@mui/material/Backdrop';
-import moment from "moment";
-import LoadingSVG from '../loading/loadingSVG';
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const Calendar = ({ events }) => {
   const [eventsList, setEvents] = useState(events);
@@ -43,13 +32,14 @@ const Calendar = ({ events }) => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+    console.log(eventsList);
   }, [currentMonth]);
 
   const eventsByDate = useMemo(() => {
     if (!Array.isArray(events)) {
       return {};
     }
-  
+
     const groupedEvents = events.reduce((acc, event) => {
       const date = format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd");
       if (!acc[date]) {
@@ -58,7 +48,7 @@ const Calendar = ({ events }) => {
       acc[date].push(event);
       return acc;
     }, {});
-  
+
     return groupedEvents;
   }, []);
 
@@ -66,78 +56,22 @@ const Calendar = ({ events }) => {
     if (loading) {
       return <LoadingSVG />;
     }
-  
+
     const startDate = startOfMonth(currentMonth);
     const endDate = endOfMonth(currentMonth);
     const days = eachDayOfInterval({ start: startDate, end: endDate });
-  
-    return days.map((day) => {
-      const formattedDate = format(day, "yyyy-MM-dd");
-      const dateEvents = eventsByDate[formattedDate] || [];
-  
-      return (
-        <Grid item xs={12} sm={6} md={4} lg={2} key={day} sx={{ height: "200px" }}>
-        <Paper
-          variant="outlined"
-          square
-          elevation={3}
-          sx={{
-            height: "100%",
-            padding: 2,
-            cursor: dateEvents.length > 0 ? "pointer" : "default",
-            ":hover": {
-              backgroundColor: dateEvents.length > 0 ? "rgba(0, 0, 0, 0.1)" : "inherit",
-            },
-          }}
-          onClick={dateEvents.length > 0 ? () => handleDayClick(day) : undefined}
-        >
-          <div className="day">
-              <Typography
-                variant="p"
-                sx={{
-                  marginBottom: 1,
-                  cursor: "pointer",
-                  display: "block",
-                  padding: 0
-                }}>
-                  {format(day, "d/M/yyyy")}
-                </Typography>
-            {dateEvents.length > 0 && (
-              <>
-                <Chip
-                    label={dateEvents.length + " events(s)"}
-                    sx={{
-                      marginBottom: 1,
-                      backgroundColor: '#59C399',
-                      width: 1,
-                      cursor: "pointer",
-                    }}
-                />
-                <Chip
-                  icon={<LocalGasStationIcon />}
-                    label={dateEvents.reduce((total, event) => total + parseFloat(event.reservedFuel), 0).toFixed(2)}
-                    sx={{
-                      marginBottom: 1,
-                      width: 1,
-                      cursor: "pointer",
-                    }}
-                />
-                <Chip
-                  icon={<ConfirmationNumberIcon />}
-                    label={dateEvents.reduce((total, event) => total + parseInt(event.soldCount), 0)}
-                    sx={{
-                      marginBottom: 1,
-                      width: 1,
-                      cursor: "pointer",
-                    }}
-                />
-                  
-              </>
-            )}
-          </div>
-        </Paper>
-      </Grid>
 
+    return days.map((day) => {
+      const formattedDate = moment(day).format("YYYY-MM-DD");
+      const dateEvents = eventsByDate[formattedDate] || [];
+
+      return (
+        <CalendarDay
+          key={day}
+          day={formattedDate}
+          dateEvents={dateEvents}
+          handleDayClick={handleDayClick}
+        />
       );
     });
   };
@@ -165,89 +99,40 @@ const Calendar = ({ events }) => {
     setOpen(false);
   };
 
-  const renderModal = () => {
+  const formattedSelectedDay = selectedDay ? moment(selectedDay).format("MMMM D, YYYY") : null;
+
     return (
-      <Backdrop open={open} onClick={handleClose}>
-       <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
-        <DialogTitle>
-          <Typography variant="h6">
-            {selectedDay ? format(selectedDay, "MMMM d, yy") : ""}
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <List>
-            {eventsList
-              .filter(
-                (event) =>
-                  selectedDay &&
-                  format(new Date(moment.unix(event.startTime)), "yyyy-MM-dd") ===
-                    format(selectedDay, "yyyy-MM-dd")
-              )
-              .map((event) => (
-                <Paper variant="outlined" square sx={{ padding: 2 }} key={event.id}>
-                  <ListItem key={event.id}>
-                  <ListItemText
-                    primary={event.name}
-                    secondary={
-                      <>
-                        <Link href={`/event/${event.id}`}
-                          passHref
-                          target="_blank"
-                        >
-                          <Button variant="text"> {event.name} </Button>
-                        </Link>
-                        <Typography component="span" variant="body2">
-                          Integrator: {event.integrator.name}
-                        </Typography>
-                        <Chip
-                          icon={<LocalGasStationIcon />}
-                            label={parseFloat(event.reservedFuel).toFixed(2)}
-                        />
-                        <Chip
-                          icon={<ConfirmationNumberIcon />}
-                            label={parseInt(event.soldCount)}
-                        />
-                      </>
-                    }
-                  />
-                  </ListItem>
-                </Paper>
-              ))}
-          </List>
-        </DialogContent>
-        </Dialog>
-    </Backdrop>
-  );
-};
-
-  
-
-  return (
-    <div className="calendar">
-      <Typography variant="h4" component="h2" gutterBottom>
-        {format(currentMonth, "MMMM yyyy")}
-      </Typography>
-      <Typography
-        variant="p"
-        sx={{
-          marginBottom: 1,
-          display: "block",
-          padding: 0
-        }}>
-          The days below indicate how many tickets have been sold for events taking part on that day, and the amount of GET reserved as fuel for those tickets.
+      <div className="calendar">
+        <FuelStats events={eventsList} />
+        <CalendarHeader
+          currentMonth={format(currentMonth, "MMMM yyyy")}
+          handleLastMonth={handleLastMonth}
+          handleNextMonth={handleNextMonth}
+        />
+        <Typography
+          variant="p"
+          sx={{
+            marginBottom: 1,
+            display: "block",
+            padding: 0,
+          }}
+        >
+          The days below indicate how many tickets have been sold for events taking
+          part on that day, and the amount of GET reserved as fuel for those
+          tickets.
         </Typography>
-      <Button variant="contained" onClick={handleLastMonth} sx={{margin: 2}}>
-        Previous
-      </Button>
-      <Button variant="contained" onClick={handleNextMonth} sx={{margin: 2}}>
-        Next
-      </Button>
-      <Grid container spacing={2}>
-        {renderCalendarDays()}
-      </Grid>
-      {renderModal()}
-    </div>
-  );
-};
+        <Grid container spacing={2}>
+          {renderCalendarDays()}
+        </Grid>
+        <DayDetailsDialog
+          open={open}
+          handleClose={handleClose}
+          selectedDay={selectedDay}
+          eventsList={eventsList}
+          formattedSelectedDay={formattedSelectedDay}
+        />
+      </div>
+    );
+  };
 
-export default Calendar;
+  export default Calendar;
