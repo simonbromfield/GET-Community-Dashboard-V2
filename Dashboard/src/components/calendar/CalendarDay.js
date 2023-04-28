@@ -10,7 +10,7 @@ const CalendarDay = ({ day, dateEvents, handleDayClick }) => {
 
   const borderColor = () => {
     if (calendarDay.isBefore(today)) {
-      return "red";
+      return "#3f51b5";
     } else if (calendarDay.isSame(today)) {
       return "green";
     } else {
