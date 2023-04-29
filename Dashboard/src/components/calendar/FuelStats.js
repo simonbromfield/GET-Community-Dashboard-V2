@@ -4,22 +4,22 @@ import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
 const FuelStats = ({ events }) => {
+  const now = moment();
+  const todayMidnight = now.clone().endOf('day');
+
   const filteredEvents7Days = events.filter((event) => {
     const startDate = moment.unix(event.startTime);
-    const now = moment();
-    return startDate.isBetween(now.clone().subtract(7, 'days'), now) && !startDate.isAfter(now);
+    return startDate.isBetween(now.clone().subtract(7, 'days'), todayMidnight, undefined, '[]');
   });
 
   const filteredEvents30Days = events.filter((event) => {
     const startDate = moment.unix(event.startTime);
-    const now = moment();
-    return startDate.isBetween(now.clone().subtract(30, 'days'), now) && !startDate.isAfter(now);
+    return startDate.isBetween(now.clone().subtract(30, 'days'), todayMidnight, undefined, '[]');
   });
 
   const filteredEvents365Days = events.filter((event) => {
     const startDate = moment.unix(event.startTime);
-    const now = moment();
-    return startDate.isBetween(now.clone().subtract(365, 'days'), now) && !startDate.isAfter(now);
+    return startDate.isBetween(now.clone().subtract(365, 'days'), todayMidnight, undefined, '[]');
   });
 
   const calculateReservedFuel = (events) => {
