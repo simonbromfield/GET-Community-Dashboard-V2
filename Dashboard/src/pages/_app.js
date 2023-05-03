@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import AdapterDateFns from '@mui/x-date-pickers/AdapterDateFns';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
@@ -9,6 +9,7 @@ import { theme } from '../theme';
 import '../../public/static/CSS/loadingSVG.css';
 let W3CWebSocket = require('websocket').w3cwebsocket;
 import LoadingSVG from '../components/loading/loadingSVG';
+import 'font-awesome/css/font-awesome.min.css';
 
 const clientSideEmotionCache = createEmotionCache();
 

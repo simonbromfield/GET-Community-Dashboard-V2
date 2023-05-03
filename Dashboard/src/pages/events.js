@@ -1,104 +1,122 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout } from '../components/dashboard-layout';
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import Head from 'next/head';
-import EventCards from '../components/event/eventCards';
-import LoadingSVG from '../components/loading/loadingSVG';
+let W3CWebSocket = require('websocket').w3cwebsocket;
+import SearchBar from '../components/eventPage/SearchBar';
+import ControlsHeader from '../components/eventPage/ControlsHeader';
+import EventList from '../components/eventPage/EventList';
+import PaginationFooter from '../components/eventPage/PaginationFooter';
 
-const Events = ({ wsdata }) => {
-  let noDemoList = wsdata.events.filter((e) => e.integrator.id !== '0');
-  const [eventList, setEventList] = useState(noDemoList.slice(0, 100));
-  const [loading, setLoading] = useState(false);
-  const [showYTP, setShowYTP] = useState(false);
+const EventsPage = () => {
+  const [eventData, setEventData] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isSearching, setIsSearching] = useState(false); // Add this line
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const [filteredIntegrators, setFilteredIntegrators] = useState([1, 3]);
 
-  useEffect(() => {
-    setEventList(noDemoList.slice(0, 100));
+  const handleSearch = (query) => {
     setLoading(true);
-  }, []);
+    setIsSearching(true);
+  
+    if (eventData) {
+      const filtered = eventData.filter((event) => {
+        // Remove events with specific integrator names
+        if (event.integrator.name === 'GET Shared Partners v1' || event.integrator.name === 'Demo v1') {
+          return false;
+        }
+  
+        // Filter events based on the search query
+        if (query) {
+          const eventNameMatch = event.name.toLowerCase().includes(query.toLowerCase());
+          const integratorNameMatch = event.integrator.name.toLowerCase().includes(query.toLowerCase());
+          return eventNameMatch || integratorNameMatch;
+        }
+  
+        return true;
+      });
+  
+      setFilteredEvents(filtered);
+    }
+  
+    setLoading(false);
+    setIsSearching(false);
+  };
+  
+  const filterEvents = (events) => {
+    return events.filter((event) => !filteredIntegrators.includes(event.integrator.id));
+  };  
 
-  const handleChange = (event, showYTP) => {
-    if (showYTP === true) {
-      let newList = noDemoList.filter((e) => e.integrator.id !== '3');
-      setEventList(newList.slice(0, 100));
-      setShowYTP(true);
-    } else {
-      setEventList(noDemoList.slice(0, 100));
-      setShowYTP(false);
+  const handleSort = (sortFunction) => {
+    const sortedEvents = [...filteredEvents].sort(sortFunction);
+    setFilteredEvents(sortedEvents);
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
     }
   };
 
-  const displayEvents = () => {
-    return (
-      <>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 4,
-          }}
-        >
-          <ToggleButtonGroup
-            color="primary"
-            value={showYTP}
-            exclusive
-            onChange={handleChange}
-            aria-label="Platform"
-            sx={{ padding: 2 }}
-          >
-            <ToggleButton value={true}>Hide DT</ToggleButton>
-            <ToggleButton value={false}>Show DT</ToggleButton>
-          </ToggleButtonGroup>
+  const totalPages = Math.ceil(filteredEvents?.length / itemsPerPage);
 
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            marginLeft="14px"
-          >
-            Recently Created Events
-          </Typography>
-          <Container maxWidth={false}>
-            <Grid container
-spacing={3}>
-              {eventList
-                ? eventList.map((event) => (
-                    <EventCards
-                      key={event.id}
-                      eventName={event.name}
-                      integrator={event.integrator.name}
-                      imageUrl={event.imageUrl}
-                      startTime={event.startTime}
-                      eventID={event.id}
-                      integratorID={event.integrator.id}
-                      createTx={event.createTx}
-                      shopUrl={event.shopUrl}
-                    />
-                  ))
-                : null}
-            </Grid>
-          </Container>
-        </Box>
-      </>
-    );
-  };
+  useEffect(() => {
+    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
+    client.onopen = () => {
+      client.send(JSON.stringify({ action: 'requestAllEvents' }));
+    };
+    client.onmessage = (msg) => {
+      let receivedMessage = JSON.parse(msg.data);
+      if (receivedMessage.type === 'allEvents') {
+        const initialEvents = receivedMessage.data.filter((event) => {
+          return event.integrator.name !== 'GET Shared Partners v1' && event.integrator.name !== 'Demo v1';
+        });
+  
+        setEventData(receivedMessage.data);
+        setFilteredEvents(initialEvents);
+        setLoading(false);
+      }
+    };
+    client.onerror = function () {
+      console.log('Connection Error');
+    };
+  }, []);
 
   return (
     <>
-      {/* <EventsNavigation
-        integrators={ integrators } /> */}
-      {loading ? displayEvents() : <LoadingSVG />}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          width: '100%',
+          padding: 3
+        }}
+      >
+        <div>
+          <SearchBar onSearch={handleSearch} />
+          <ControlsHeader onSort={handleSort} />
+          <EventList
+            events={filteredEvents.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+            )}
+            loading={loading}
+            isSearching={isSearching}
+          />
+          <PaginationFooter
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </Box>
     </>
   );
 };
 
-Events.getLayout = (page) => (
+EventsPage.getLayout = (page) => (
   <>
     <Head>
       <title>Events | GET Protocol Community</title>
@@ -107,4 +125,4 @@ Events.getLayout = (page) => (
   </>
 );
 
-export default Events;
+export default EventsPage;
