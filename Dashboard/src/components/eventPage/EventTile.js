@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
+import { Link } from '@material-ui/core';
 
 const EventTile = ({ event }) => {
   const formattedStartTime = moment(event.startTime).format('MMMM Do YYYY, h:mm a');
@@ -27,8 +28,12 @@ const EventTile = ({ event }) => {
           <p>End Time: {formattedEndTime}</p>
         </CardContent>
         <CardActions>
-          <Button size="small">{event.integrator.name}</Button>
-          <button onClick={() => window.location.href = event.shopUrl}>View Shop</button>
+          <Link href={`/integrator/${event.integrator.id}`} component={Button} size="small">
+            {event.integrator.name}
+          </Link>
+          <Button size="small" onClick={() => window.open(event.shopUrl, '_blank')}>
+            View Ticket Store
+          </Button>
         </CardActions>
       </Card>
     </div>
