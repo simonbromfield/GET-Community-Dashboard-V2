@@ -1,22 +1,27 @@
 import React from 'react';
 import axios from 'axios';
-import { format } from 'date-fns';
 import {
   Box,
   Link,
   Typography,
   Chip
 } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { numberWithCommas } from '../../utils/helpers';
 import SoldChip from '../topEvents/soldChip';
 import ReSoldChip from '../topEvents/ReSoldChip';
 import ScannedChip from '../topEvents/scannedChip';
 import CheckedInChip from '../topEvents/checkedInChip';
-
+import Stack from '@mui/material/Stack';
 import { EventHeroImage } from './EventHeroImage';
 import { EventDateIcon } from './EventDateIcon';
 import moment from 'moment';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+
+const Item = styled(Paper)(({ theme }) => ({
+}));
 
 const truncateString = (str, num) => {
   if (str.length <= num) {
@@ -93,7 +98,9 @@ const EventDetails = ({ eventId }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <EventHeroImage imageUrl={event.imageUrl} name={event.name} />
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 4 }}>
+      <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} lg={8}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
           {truncateString(event.name, 20)}
@@ -107,28 +114,36 @@ const EventDetails = ({ eventId }) => {
           <Typography variant="body1" component="p">
             Start Time: {moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a')}
           </Typography>
-      
     </Box>
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-      <Chip
-          icon={<LocalGasStationIcon />}
-          label={`${numberWithCommas(
-            Number(event.reservedFuel).toFixed(2)
-          )} reserved fuel`}
-        />
-        <SoldChip soldCount={`SOLD: ${numberWithCommas(event.soldCount)}`} />
-        <ReSoldChip
-          reSoldCount={`RESOLD: ${numberWithCommas(event.resoldCount)}`}
-        />
-        <ScannedChip
-          scannedCount={`SCANNED: ${numberWithCommas(event.scannedCount)}`}
-        />
-        <CheckedInChip
-          checkedInCount={`CHECKED IN: ${numberWithCommas(
-            event.checkedInCount
-          )}`}
-      />
-    </Box>
+        </Grid>
+        <Grid item xs={12} lg={4}>
+            <Box>
+            <Stack spacing={0}>
+                  <Chip
+                    icon={<LocalGasStationIcon />}
+                    label={`${numberWithCommas(
+                      Number(event.reservedFuel).toFixed(2)
+                    )} reserved fuel`}
+                  />
+                  <SoldChip
+                    soldCount={`SOLD: ${numberWithCommas(event.soldCount)}`}
+                  />
+                <ReSoldChip
+                  reSoldCount={`RESOLD: ${numberWithCommas(event.resoldCount)}`}
+                />
+                <ScannedChip
+                  scannedCount={`SCANNED: ${numberWithCommas(event.scannedCount)}`}
+                />
+                <CheckedInChip
+                  checkedInCount={`CHECKED IN: ${numberWithCommas(
+                    event.checkedInCount
+                  )}`}/>
+            </Stack>
+        </Box>
+        </Grid>
+      </Grid>
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 4 }}>
   </Box>
   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
     <Link href={`https://sleepy-shore-42215.herokuapp.com/event-profile/${event.id}`} target="_blank" sx={{ textDecoration: 'none' }}>
