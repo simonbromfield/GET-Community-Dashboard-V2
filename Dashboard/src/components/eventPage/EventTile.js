@@ -9,9 +9,9 @@ import moment from 'moment';
 import { Link } from '@material-ui/core';
 
 const EventTile = ({ event }) => {
-  const formattedStartTime = moment(event.startTime).format('MMMM Do YYYY, h:mm a');
-  const formattedEndTime = moment(event.endTime).format('MMMM Do YYYY, h:mm a');
-
+  const formattedStartTime = moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a');
+  const formattedEndTime = moment.unix(event.endTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a');
+  
   return (
     <div>
       <Card sx={{ maxWidth: 345 }}>
