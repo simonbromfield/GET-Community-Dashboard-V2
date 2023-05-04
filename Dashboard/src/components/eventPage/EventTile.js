@@ -23,7 +23,7 @@ const EventTile = ({ event }) => {
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           sx={{ height: 140 }}
-          image={event.imageUrl}
+          image={event.imageUrl ? event.imageUrl : '/placeholder.png'}
           title={event.name}
         />
         <CardContent>

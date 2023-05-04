@@ -96,7 +96,7 @@ const EventDetails = ({ eventId }) => {
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 4 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
-            {event.name}
+          {truncateString(event.name, 20)}
           </Typography>
           <Typography variant="body1" component="p">
             Integrator: {event.integrator.name}

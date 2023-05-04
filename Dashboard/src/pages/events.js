@@ -72,7 +72,7 @@ const EventsPage = () => {
       if (receivedMessage.type === 'allEvents') {
         const initialEvents = receivedMessage.data.filter((event) => {
           return event.integrator.name !== 'GET Shared Partners v1' && event.integrator.name !== 'Demo v1';
-        });
+        }).sort(() => Math.random() - 0.5); // randomize the initial events array
   
         setEventData(receivedMessage.data);
         setFilteredEvents(initialEvents);
@@ -96,33 +96,33 @@ const EventsPage = () => {
       >
         <div>
           <SearchBar onSearch={handleSearch} />
-          <ControlsHeader onSort={handleSort} />
-          <EventList
-            events={filteredEvents.slice(
-              (currentPage - 1) * itemsPerPage,
-              currentPage * itemsPerPage
-            )}
-            loading={loading}
-            isSearching={isSearching}
-          />
-          <PaginationFooter
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      </Box>
-    </>
-  );
+<ControlsHeader onSort={handleSort} />
+<EventList
+events={filteredEvents.slice(
+(currentPage - 1) * itemsPerPage,
+currentPage * itemsPerPage
+)}
+loading={loading}
+isSearching={isSearching}
+/>
+<PaginationFooter
+         currentPage={currentPage}
+         totalPages={totalPages}
+         onPageChange={handlePageChange}
+       />
+</div>
+</Box>
+</>
+);
 };
 
 EventsPage.getLayout = (page) => (
-  <>
-    <Head>
-      <title>Events | GET Protocol Community</title>
-    </Head>
-    <DashboardLayout>{page}</DashboardLayout>
-  </>
+<>
+<Head>
+<title>Events | GET Protocol Community</title>
+</Head>
+<DashboardLayout>{page}</DashboardLayout>
+</>
 );
 
 export default EventsPage;
