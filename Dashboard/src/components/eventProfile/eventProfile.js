@@ -88,41 +88,14 @@ const EventDetails = ({ eventId }) => {
     return null;
   }
 
-  const eventDate = new Date(event.createTx.timestamp * 1000);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <EventHeroImage imageUrl={event.imageUrl} name={event.name} />
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 4 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Typography
-          variant="h3"
-          component="h1"
-          sx={{
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {truncateString(event.name, 25)}
-        </Typography>
-          <Typography variant="body1" component="p">
-            Integrator: {event.integrator.name}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Address: {event.id}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Start Time: {moment(event.createTx.timestamp * 1000).format('LLL')}
-            </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-        <EventDate date={event.createTx.timestamp} />
-        <Typography variant="body1" component="p">
-          Starts on {moment(event.createTx.timestamp * 1000).format('LL')}
-        </Typography>
-      </Box>
+        
+      
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
       <Chip
@@ -146,9 +119,9 @@ const EventDetails = ({ eventId }) => {
     </Box>
   </Box>
   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-    <Link href={event.shopUrl} target="_blank" sx={{ textDecoration: 'none' }}>
+    <Link href={`https://sleepy-shore-42215.herokuapp.com/event-profile/${event.id}`} target="_blank" sx={{ textDecoration: 'none' }}>
       <Typography variant="body1" component="p" sx={{ fontWeight: 'bold' }}>
-        Visit Shop
+        GO TO V1 EVENT PROFILE
       </Typography>
     </Link>
   </Box>

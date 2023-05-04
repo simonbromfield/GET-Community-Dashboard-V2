@@ -59,7 +59,7 @@ const Event = ({ event }) => {
         <Grid item xs={12} md={6}>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-              <Link href={`/event/${event.id}`} passHref target="_blank">
+              <Link href={`/event/${event.id}`}>
                 <Button variant="outlined" fullWidth>
                   {truncateString(event.name, 20)}
                 </Button>
