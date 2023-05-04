@@ -1,10 +1,11 @@
 import React from 'react';
 import EventTile from './EventTile';
 import { Grid } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const EventList = ({ events, loading, isSearching }) => {
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularProgress />;
   }
 
   return (

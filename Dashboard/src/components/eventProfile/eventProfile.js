@@ -49,6 +49,7 @@ const EVENT_QUERY = `
       scannedCount
       shopUrl
       soldCount
+      startTime
     }
   }
 `;
@@ -94,7 +95,18 @@ const EventDetails = ({ eventId }) => {
       <EventHeroImage imageUrl={event.imageUrl} name={event.name} />
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 4 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        
+        <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
+            {event.name}
+          </Typography>
+          <Typography variant="body1" component="p">
+            Integrator: {event.integrator.name}
+          </Typography>
+          <Typography variant="body1" component="p">
+            Address: {event.id}
+          </Typography>
+          <Typography variant="body1" component="p">
+            Start Time: {moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a')}
+          </Typography>
       
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
@@ -102,7 +114,7 @@ const EventDetails = ({ eventId }) => {
           icon={<LocalGasStationIcon />}
           label={`${numberWithCommas(
             Number(event.reservedFuel).toFixed(2)
-          )} available fuel`}
+          )} reserved fuel`}
         />
         <SoldChip soldCount={`SOLD: ${numberWithCommas(event.soldCount)}`} />
         <ReSoldChip

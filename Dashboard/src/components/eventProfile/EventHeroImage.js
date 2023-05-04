@@ -14,7 +14,7 @@ export const EventHeroImage = ({ imageUrl, name }) => {
           height: '100%',
           objectFit: 'cover',
           objectPosition: 'center',
-          borderRadius: '8px'
+          borderRadius: '13px'
         }}
       />
     </Box>

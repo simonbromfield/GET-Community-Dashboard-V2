@@ -24,9 +24,6 @@ const PaginationFooter = ({ currentPage, totalPages, onPageChange }) => {
           >
             Previous
           </Button>
-          <Typography gutterBottom variant="h6" component="div">
-            Page {currentPage} of {totalPages}
-          </Typography>
           <Button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
@@ -34,6 +31,20 @@ const PaginationFooter = ({ currentPage, totalPages, onPageChange }) => {
             Next
           </Button>
         </ButtonGroup>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          '& > *': {
+            m: 1,
+          },
+        }}
+      >
+      <Typography gutterBottom variant="h6" component="div">
+            Page {currentPage} of {totalPages}
+      </Typography>
       </Box>
     </div>
   );
