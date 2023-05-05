@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,23 +15,44 @@ const truncateString = (str, num) => {
 };
 
 const EventTile = ({ event }) => {
-  const formattedStartTime = moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a');
-  const formattedEndTime = moment.unix(event.endTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a');
-  
+  const formattedStartTime = moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/MM/YY, h:mm a');
+  const formattedEndTime = moment.unix(event.endTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/MM/YY, h:mm a');
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovered(false);
+  };
+
+  const cardStyles = {
+    height: '400px', // set a fixed height for the card
+    border: isHovered ? '3px solid #64b292' : 'none',
+    display: 'flex', // set display to flex
+    flexDirection: 'column', // set flex direction to column
+  };
+
+  const contentStyles = {
+    flexGrow: 1, // allow content to take up remaining space
+  };
+
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={cardStyles} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
         <CardMedia
-          sx={{ height: 140 }}
+          sx={{ height: '50%' }} // set a fixed height for the media element
           image={event.imageUrl ? event.imageUrl : '/placeholder.png'}
           title={event.name}
         />
-        <CardContent>
+        <CardContent sx={contentStyles}>
           <Link href={`/event/${event.id}`}>
-              {truncateString(event.name, 20)}
-            </Link>
-          <p>Start: {formattedStartTime}</p>
-          <p>End: {formattedEndTime}</p>
+            {truncateString(event.name, 20)}
+          </Link>
+          <p><strong>Start:</strong> {formattedStartTime}</p>
+          <p><strong>End:</strong> {formattedEndTime}</p>
         </CardContent>
         <CardActions>
           <Link href={`/integrator/${event.integrator.id}`} component={Button} size="small">

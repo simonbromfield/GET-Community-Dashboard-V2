@@ -112,7 +112,7 @@ const EventDetails = ({ eventId }) => {
             Address: {event.id}
           </Typography>
           <Typography variant="body1" component="p">
-            Start Time: {moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/mm/YY, h:mm a')}
+            Start Time: {moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/MM/YY, h:mm a')}
           </Typography>
     </Box>
         </Grid>
