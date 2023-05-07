@@ -14,8 +14,6 @@ import ReSoldChip from '../topEvents/ReSoldChip';
 import ScannedChip from '../topEvents/scannedChip';
 import CheckedInChip from '../topEvents/checkedInChip';
 import Stack from '@mui/material/Stack';
-import { EventHeroImage } from './EventHeroImage';
-import { EventDateIcon } from './EventDateIcon';
 import moment from 'moment';
 
 const truncateString = (str, num) => {
