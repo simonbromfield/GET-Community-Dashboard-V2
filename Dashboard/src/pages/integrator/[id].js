@@ -1,26 +1,28 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Profile from '../../components/integrator/profile';
+import { Box, Container } from '@mui/material';
 import { DashboardLayout } from '../../components/dashboard-layout';
+import IntegratorDetails from '../../components/integratorProfile/Profile';
 
-const IntegratorPofile = ({ wsdata }) => {
+const IntegratorProfile = () => {
   const router = useRouter();
   const { id } = router.query;
 
   return (
-    <>
-      <DashboardLayout>
-        <>
-          <Head>
-            <title>Integrator Profile | GET Protocol Community</title>
-          </Head>
-          {id ? <Profile id={id}
-wsdata={wsdata} /> : <h2>Error</h2>}
-        </>
-      </DashboardLayout>
-    </>
+    <DashboardLayout>
+      <>
+        <Head>
+          <title>Integrator Profile | GET Protocol Community</title>
+        </Head>
+        <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
+          <Container maxWidth={false}>
+            <IntegratorDetails integratorId={id} />
+          </Container>
+        </Box>
+      </>
+    </DashboardLayout>
   );
 };
 
-export default IntegratorPofile;
+export default IntegratorProfile;
