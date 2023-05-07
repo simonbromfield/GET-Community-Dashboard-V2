@@ -56,7 +56,7 @@ passHref>
           </Link>
         </TableCell>
         <TableCell>
-          <DisplayPrice price={price} />
+          <DisplayPrice price={Number(price).toFixed(2)} />
         </TableCell>
         <TableCell>{Number(getUsed).toFixed(5)}</TableCell>
         <TableCell>
