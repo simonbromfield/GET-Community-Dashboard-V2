@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import FilteredEventsMessage from "./FilteredEventsMessage";
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2ltb25icm9tZmllbGQiLCJhIjoiY2t4ZjhpbDlvMGQ1azJ2bnh2dTJzMmVkZiJ9.CtqoMAneppRmRhnj8YDR1A';
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const Map = ({ events }) => {
   const [map, setMap] = useState(null);

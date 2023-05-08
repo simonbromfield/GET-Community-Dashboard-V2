@@ -14,7 +14,7 @@ const DailyData = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const client = new W3CWebSocket('wss://serene-reaches-92565.herokuapp.com/');
+    const client = new W3CWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL);
     client.onopen = () => {
       client.send(JSON.stringify({ action: 'dashboard' }));
     };
