@@ -15,8 +15,9 @@ const truncateString = (str, num) => {
 };
 
 const EventTile = ({ event }) => {
-  const formattedStartTime = moment.unix(event.startTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/MM/YY, h:mm a');
-  const formattedEndTime = moment.unix(event.endTime, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('DD/MM/YY, h:mm a');
+  const formattedStartTime = moment.unix(event.startTime).format('DD/MM/YY, h:mm a');
+  const formattedEndTime = moment.unix(event.endTime).format('DD/MM/YY, h:mm a');
+  const formattedBlockTimestamp = moment.unix(event.blockTimestamp).format('DD/MM/YY, h:mm a'); // format the BlockTimestamp
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -53,10 +54,11 @@ const EventTile = ({ event }) => {
           </Link>
           <p><strong>Start:</strong> {formattedStartTime}</p>
           <p><strong>End:</strong> {formattedEndTime}</p>
+          <p><strong>Created:</strong> {formattedBlockTimestamp}</p> {/* display the BlockTimestamp */}
         </CardContent>
         <CardActions>
           <Link href={`/integrator/${event.integrator.id}`} component={Button} size="small">
-            {event.integrator.name}
+          {event.integrator.name}
           </Link>
           <Button size="small" onClick={() => window.open(event.shopUrl, '_blank')}>
             View Ticket Store
