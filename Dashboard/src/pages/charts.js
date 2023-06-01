@@ -28,7 +28,7 @@ const Charts = ({ wsdata }) => {
     });
 
     // Convert jsonData to CSV format
-    const csvData = jsonToCsv(updatedData);
+    const csvData = jsonToCsv(updatedData, ';');
 
     // Create a Blob object containing the CSV data
     const blob = new Blob([csvData], { type: 'text/csv' });
