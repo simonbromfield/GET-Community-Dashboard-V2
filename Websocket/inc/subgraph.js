@@ -1,6 +1,6 @@
 const axios = require('axios');
 const thegraphAPI =
-  'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph';
+  'https://gateway.thegraph.com/api/5cb3bc7942a919148db4e6a356a02b43/subgraphs/id/5S9b6URgphe9h19c5rQwAWd9aed1i1m1mHiqPKM1Fvvq';
 
 module.exports = {
   subgraphData: async () => {
@@ -161,12 +161,12 @@ module.exports = {
     try {
       let allEventData = [];
       let batchSize = 1000;
+      let uniqueIds = new Set();
   
       let lastTimestamp = null;
       let hasMoreData = true;
   
       while (hasMoreData) {
-        // Make request to API with offset and batch size
         let subGraphData = await axios.post(thegraphAPI, {
           query: `
           {
@@ -177,6 +177,8 @@ module.exports = {
               shopUrl
               startTime
               endTime
+              longitude
+              latitude
               createTx
               scannedCount
               soldCount
@@ -194,42 +196,41 @@ module.exports = {
         });
   
         let eventData = subGraphData.data.data.events;
-  
+        
         if (!eventData || eventData.length === 0) {
-          // No more data available, exit loop
           hasMoreData = false;
         } else {
-          let lastEventInAllData = allEventData[allEventData.length - 1];
-          let lastEventInFetchedData = eventData[eventData.length - 1];
+          let uniqueFetchedData = eventData.filter(event => {
+            if (!uniqueIds.has(event.id)) {
+              uniqueIds.add(event.id);
+              return true;
+            }
+            return false;
+          });
   
-          // Check if the last event in the fetched data is the same as the last event in allEventData
-          if (lastEventInAllData && lastEventInFetchedData.id === lastEventInAllData.id) {
-            // No new data, exit loop
-            hasMoreData = false;
-          } else {
-            // Add retrieved data to array
-            allEventData = allEventData.concat(eventData);
-  
-            // Update the lastTimestamp to the blockTimestamp of the last event in the fetched data
-            lastTimestamp = lastEventInFetchedData.blockTimestamp;
+          if(uniqueFetchedData.length > 0) {
+            allEventData = allEventData.concat(uniqueFetchedData);
+            lastTimestamp = uniqueFetchedData[uniqueFetchedData.length - 1].blockTimestamp;
   
             console.log(`batched - new length = ${allEventData.length}`);
+          } else {
+            hasMoreData = false;
           }
         }
       }
-
+  
       function getObjectSizeInKB(obj) {
         const jsonString = JSON.stringify(obj);
         const bytes = new TextEncoder().encode(jsonString).length;
         return bytes / 1024;
       }
-      
-      // After the while loop in your allEvents function
+  
       console.log(`Object size: ${getObjectSizeInKB(allEventData)} KB`);
   
       return allEventData;
     } catch (e) {
       throw e;
     }
-  }      
+  }
+     
 };

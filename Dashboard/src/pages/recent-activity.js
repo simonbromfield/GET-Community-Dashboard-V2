@@ -23,7 +23,7 @@ import Pagination from '@mui/material/Pagination';
 
 const itemsPerPage = 10;
 
-const digitalTwinIds = ['3', '6'];
+const digitalTwinIds = ['3', '6', '22'];
 
 const RecentMints = ({ wsdata }) => {
   const [recentUsage, setRecentUsageList] = useState(wsdata.usageEvents);
@@ -90,7 +90,7 @@ const RecentMints = ({ wsdata }) => {
           <ToggleButton value={'INVALIDATED'}>Invalidated</ToggleButton>
           <ToggleButton value={'CHECKED IN'}>Checked In</ToggleButton>
         </ToggleButtonGroup>
-        
+
         {filteredUsage.length > 0 ? (
           <Container maxWidth={false}>
             <Box>

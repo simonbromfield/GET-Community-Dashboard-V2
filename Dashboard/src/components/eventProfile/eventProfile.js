@@ -81,7 +81,7 @@ const EventDetails = ({ eventId }) => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.post('https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph', {
+      const result = await axios.post('https://gateway.thegraph.com/api/5cb3bc7942a919148db4e6a356a02b43/subgraphs/id/5S9b6URgphe9h19c5rQwAWd9aed1i1m1mHiqPKM1Fvvq', {
         query: EVENT_QUERY,
         variables: { eventId },
       });

@@ -14,10 +14,11 @@ import SoldChip from '../topEvents/soldChip';
 import ReSoldChip from '../topEvents/ReSoldChip';
 import ScannedChip from '../topEvents/scannedChip';
 import CheckedInChip from '../topEvents/checkedInChip';
+import UsedChip from '../topEvents/usedChip';
 
 import Stack from '@mui/material/Stack';
 
-import { numberWithCommas } from '../../utils/helpers';
+import { numberWithCommas, twoDecRound } from '../../utils/helpers';
 
 const IntegratorCard = (props) => {
   const { data } = props;
@@ -54,6 +55,11 @@ spacing={0.3}>
             <CheckedInChip
               checkedInCount={`CHECKED IN: ${numberWithCommas(
                 data.checkedInCount
+              )}`}
+            />
+            <UsedChip
+              usedCount={`GET SPENT: ${numberWithCommas(
+                twoDecRound(data.spentFuel)
               )}`}
             />
             <Button

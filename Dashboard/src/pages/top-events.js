@@ -8,7 +8,7 @@ import TopEventCards from '../components/event/topEventCards';
 import LoadingSVG from '../components/loading/loadingSVG';
 
 const getSubGraphURL =
-  'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph';
+  'https://gateway.thegraph.com/api/5cb3bc7942a919148db4e6a356a02b43/subgraphs/id/5S9b6URgphe9h19c5rQwAWd9aed1i1m1mHiqPKM1Fvvq';
 
 const Events = (props) => {
   const [topEvents, setTopEvents] = useState(false);
@@ -37,7 +37,7 @@ const Events = (props) => {
                     startTime
                     createTx
                   }
-                } 
+                }
                 `,
         })
         .then((res) => {

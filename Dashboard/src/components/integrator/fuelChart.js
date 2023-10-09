@@ -12,7 +12,7 @@ const FuelChart = (props) => {
       {
         label: 'Fuel',
         data: [
-          Number(data.reservedFuel).toFixed(2),
+          Number(data.currentReservedFuel).toFixed(2),
           Number(data.spentFuel).toFixed(2),
           Number(data.availableFuel).toFixed(2),
         ],

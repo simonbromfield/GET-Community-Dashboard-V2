@@ -7,20 +7,20 @@ const unixToday = Math.floor(unixTimestamp / 86400);
 const unix30day = unixToday - 30;
 
 const API_URL =
-  'https://api.thegraph.com/subgraphs/name/getprotocol/get-protocol-subgraph';
+  'https://gateway.thegraph.com/api/5cb3bc7942a919148db4e6a356a02b43/subgraphs/id/5S9b6URgphe9h19c5rQwAWd9aed1i1m1mHiqPKM1Fvvq';
 
 function ExampleComponent() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const query = `{
-      integratorDays(orderBy: day, orderDirection: desc, where: { day_lt: ${unixToday}, day_gt: ${unix30day}, integrator_not_in: ["0", "1", "2", "3", "16", "17"] }, first: 1000) { 
-          integrator { 
-            id 
-            name 
-          } 
-          day 
-          soldCount 
+      integratorDays(orderBy: day, orderDirection: desc, where: { day_lt: ${unixToday}, day_gt: ${unix30day}, integrator_not_in: ["0", "1", "2", "3", "16", "17"] }, first: 1000) {
+          integrator {
+            id
+            name
+          }
+          day
+          soldCount
         }
       }`;
 
