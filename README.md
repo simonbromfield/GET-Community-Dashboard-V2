@@ -16,7 +16,7 @@ To make changes to the code, you should first fork the repository by clicking th
 
 Once you've forked the repository, you can clone your copy of the repository by opening a terminal window and running the following command:
 
-`git clone https://github.com/[username]/[forked-repo-name].git`
+`git clone https://github.com/bromdigital/GET-Community-Dashboard-V2.git`
 
 This will create a local copy of your forked repository on your machine.
 
